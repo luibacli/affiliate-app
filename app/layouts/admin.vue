@@ -7,6 +7,7 @@ const NAV = [
   { label: 'Dashboard', to: '/admin/dashboard', icon: '📊' },
   { label: 'Products', to: '/admin/products', icon: '📦' },
   { label: '+ Add Product', to: '/admin/products/create', icon: '➕' },
+  { label: 'Categories', to: '/admin/categories', icon: '🏷️' },
   { label: 'Amazon Import', to: '/admin/amazon', icon: '🛒' },
   { label: '← Storefront', to: '/', icon: '🏠' },
 ]

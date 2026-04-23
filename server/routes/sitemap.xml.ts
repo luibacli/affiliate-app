@@ -21,6 +21,11 @@ export default defineEventHandler(async (event) => {
       priority: '0.7',
       changefreq: 'daily',
     })),
+    ...categories.map((cat) => ({
+      loc: `${siteUrl}/best/${cat}`,
+      priority: '0.8',
+      changefreq: 'daily',
+    })),
   ]
 
   const productUrls = products.map((p) => ({

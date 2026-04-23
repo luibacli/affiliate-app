@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import { formatPrice } from '~/composables/usePrice'
+
 const props = defineProps<{
   product: {
     _id: string
     title: string
     price: number
     originalPrice?: number
+    currency?: string
     slug?: string
     imageUrl?: string
     source?: string
@@ -12,10 +15,17 @@ const props = defineProps<{
     discountPct?: number
     category?: string
     lastPriceDrop?: string | Date | null
+    lowestPrice30d?: number | null
   }
   trafficSource?: string
   label?: string
 }>()
+
+const currency = computed(() => props.product.currency ?? 'USD')
+const isLowestPrice = computed(() =>
+  props.product.lowestPrice30d != null &&
+  props.product.price <= props.product.lowestPrice30d
+)
 
 const isPriceDrop = computed(() => {
   if (!props.product.lastPriceDrop) return false
@@ -40,12 +50,18 @@ const LABEL_STYLES: Record<string, string> = {
   'Best Value': 'bg-accent-500 text-white',
   'Top Rated': 'bg-yellow-400 text-yellow-900',
   'Budget Pick': 'bg-green-500 text-white',
+  'Trending': 'bg-pink-500 text-white',
+  'Featured': 'bg-primary-600 text-white',
+  'Best Deal': 'bg-red-500 text-white',
 }
 
 const LABEL_ICON: Record<string, string> = {
   'Best Value': '🔥',
   'Top Rated': '⭐',
   'Budget Pick': '💸',
+  'Trending': '📈',
+  'Featured': '✨',
+  'Best Deal': '🏷️',
 }
 
 const SOURCE_COLORS: Record<string, string> = {
@@ -141,14 +157,18 @@ const SOURCE_COLORS: Record<string, string> = {
       <div class="flex-1" />
 
       <!-- Pricing -->
-      <div class="flex items-baseline gap-2">
-        <span class="text-lg font-bold text-primary-600">${{ product.price.toFixed(2) }}</span>
+      <div class="flex items-baseline gap-2 flex-wrap">
+        <span class="text-lg font-bold text-primary-600">{{ formatPrice(product.price, currency) }}</span>
         <span
           v-if="product.originalPrice && product.originalPrice > product.price"
           class="text-sm text-gray-400 line-through"
         >
-          ${{ product.originalPrice.toFixed(2) }}
+          {{ formatPrice(product.originalPrice, currency) }}
         </span>
+      </div>
+      <!-- Lowest price badge -->
+      <div v-if="isLowestPrice" class="text-xs font-bold text-emerald-600 flex items-center gap-1">
+        <span>🏷️</span> Lowest in 30 days
       </div>
 
       <!-- CTA -->

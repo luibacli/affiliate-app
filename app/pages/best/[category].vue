@@ -21,6 +21,9 @@ useSeoMeta({
 
 const catLabel = category.charAt(0).toUpperCase() + category.slice(1)
 
+const ALL_CATEGORIES = ['phones', 'laptops', 'accessories', 'gaming', 'fashion', 'home', 'beauty', 'sports']
+const relatedCategories = ALL_CATEGORIES.filter((c) => c !== category).slice(0, 5)
+
 useHead({
   link: [{ rel: 'canonical', href: `${siteUrl}/best/${category}` }],
   script: [{
@@ -82,6 +85,26 @@ useHead({
         >
           All {{ category }} →
         </NuxtLink>
+      </div>
+
+      <!-- SEO Intro -->
+      <div class="bg-white rounded-2xl border border-gray-100 p-5 mb-6">
+        <p class="text-sm text-gray-600 leading-relaxed">
+          Looking for the best <strong class="text-gray-800 capitalize">{{ category }}</strong> deals?
+          DealHunt compares prices across <strong class="text-gray-800">Shopee, Lazada, and Amazon</strong> in real time
+          so you never overpay. Every product below is ranked by its current discount percentage — the biggest savings first.
+          Prices are refreshed every 6 hours so you always see accurate, up-to-date deals.
+        </p>
+        <div class="flex flex-wrap gap-3 mt-3">
+          <NuxtLink
+            v-for="related in relatedCategories"
+            :key="related"
+            :to="`/best/${related}`"
+            class="text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-600 hover:bg-primary-50 hover:text-primary-700 capitalize transition-colors"
+          >
+            Best {{ related }} deals
+          </NuxtLink>
+        </div>
       </div>
 
       <!-- Grid -->

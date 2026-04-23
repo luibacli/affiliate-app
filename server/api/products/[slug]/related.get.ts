@@ -1,6 +1,7 @@
 import { connectDB } from '../../../utils/db'
 import { cacheGet, cacheSet } from '../../../utils/redis'
 import { Product } from '../../../models/product'
+import { ACTIVE } from '../../../utils/filters'
 
 export default defineEventHandler(async (event) => {
   const slug = getRouterParam(event, 'slug')!
@@ -17,6 +18,7 @@ export default defineEventHandler(async (event) => {
     category: current.category,
     _id: { $ne: current._id },
     slug: { $exists: true, $ne: null },
+    ...ACTIVE,
   })
     .select('title price originalPrice slug imageUrl source')
     .sort({ createdAt: -1 })

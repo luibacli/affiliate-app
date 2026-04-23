@@ -1,6 +1,7 @@
 import { connectDB } from '../../utils/db'
 import { cacheGet, cacheSet } from '../../utils/redis'
 import { Product } from '../../models/product'
+import { ACTIVE } from '../../utils/filters'
 
 export default defineEventHandler(async (event) => {
   const category = getRouterParam(event, 'category')!
@@ -17,7 +18,7 @@ export default defineEventHandler(async (event) => {
 
   const [products, total] = await Promise.all([
     Product.aggregate([
-      { $match: { category, slug: { $exists: true, $ne: null } } },
+      { $match: { category, slug: { $exists: true, $ne: null }, ...ACTIVE } },
       {
         $addFields: {
           discountPct: {
@@ -34,7 +35,7 @@ export default defineEventHandler(async (event) => {
       { $limit: limit },
       { $project: { title: 1, price: 1, originalPrice: 1, discountPct: 1, slug: 1, imageUrl: 1, source: 1 } },
     ]),
-    Product.countDocuments({ category }),
+    Product.countDocuments({ category, ...ACTIVE }),
   ])
 
   const result = { products, total, page, limit, totalPages: Math.ceil(total / limit), category }

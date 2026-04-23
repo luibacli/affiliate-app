@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { formatPrice } from '~/composables/usePrice'
+
 const route = useRoute()
 const slug = route.params.slug as string
 
@@ -30,6 +32,15 @@ const discountPct = computed(() => {
 const isPriceDrop = computed(() => {
   if (!product.value?.lastPriceDrop) return false
   return new Date(product.value.lastPriceDrop) >= new Date(Date.now() - 7 * 86400000)
+})
+
+const isLowestPrice30d = computed(() => {
+  if (!priceHistory.value?.length || !product.value) return false
+  const since30d = Date.now() - 30 * 86400000
+  const recent = priceHistory.value.filter((h: any) => new Date(h.createdAt).getTime() >= since30d)
+  if (recent.length < 2) return false
+  const min = Math.min(...recent.map((h: any) => h.price))
+  return product.value.price <= min
 })
 
 const SOURCE_COLORS: Record<string, string> = {
@@ -187,15 +198,19 @@ useHead({
 
           <!-- Pricing -->
           <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100">
-            <div class="flex items-baseline gap-3 mb-1">
-              <span class="text-4xl font-black text-primary-600">${{ product.price.toFixed(2) }}</span>
+            <div class="flex items-baseline gap-3 mb-1 flex-wrap">
+              <span class="text-4xl font-black text-primary-600">{{ formatPrice(product.price, product.currency) }}</span>
               <span v-if="product.originalPrice && product.originalPrice > product.price" class="text-lg text-gray-400 line-through">
-                ${{ product.originalPrice.toFixed(2) }}
+                {{ formatPrice(product.originalPrice, product.currency) }}
               </span>
             </div>
             <p v-if="savings" class="text-sm font-semibold text-green-600">
-              You save ${{ savings }} ({{ discountPct }}% off)
+              You save {{ formatPrice(Number(savings), product.currency) }} ({{ discountPct }}% off)
             </p>
+            <!-- Lowest price badge -->
+            <div v-if="isLowestPrice30d" class="inline-flex items-center gap-1.5 mt-2 text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-full">
+              🏷️ Lowest price in 30 days!
+            </div>
           </div>
 
           <!-- Main CTA -->

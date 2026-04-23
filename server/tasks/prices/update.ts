@@ -4,6 +4,12 @@ import { Product } from '../../models/product'
 import { PriceHistory } from '../../models/priceHistory'
 import { getItems, getAmazonConfig } from '../../services/amazon'
 
+async function lowest30d(productId: unknown): Promise<number | null> {
+  const since = new Date(Date.now() - 30 * 86400000)
+  const rows = await PriceHistory.find({ productId, createdAt: { $gte: since } }).select('price').lean()
+  return rows.length ? Math.min(...rows.map((r: any) => r.price)) : null
+}
+
 export default defineTask({
   meta: { name: 'prices:update', description: 'Refresh Amazon product prices every 6 hours' },
   async run() {
@@ -38,8 +44,9 @@ export default defineTask({
         const update: any = { price: newPrice }
         if (newPrice < oldPrice) update.lastPriceDrop = new Date()
 
-        await Product.updateOne({ _id: product._id }, { $set: update })
         await PriceHistory.create({ productId: product._id, price: newPrice, source: 'amazon-cron' })
+        update.lowestPrice30d = await lowest30d(product._id)
+        await Product.updateOne({ _id: product._id }, { $set: update })
 
         if (product.slug) await cacheDel(`product:${product.slug}`, `compare:${product.slug}`, `related:${product.slug}`)
         updated++

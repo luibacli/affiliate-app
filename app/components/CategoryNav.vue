@@ -16,8 +16,8 @@ const categories = computed(() => [
   ...(apiCategories.value ?? [])
     .filter((c) => c._id)
     .map((c) => ({
-      name: c._id.charAt(0).toUpperCase() + c._id.slice(1),
-      icon: ICONS[c._id] ?? '🏷️',
+      name: c.label ?? (c._id.charAt(0).toUpperCase() + c._id.slice(1)),
+      icon: c.icon ?? ICONS[c._id] ?? '🏷️',
       slug: c._id,
       count: c.count,
     })),

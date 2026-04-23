@@ -52,6 +52,7 @@ export default defineNuxtConfig({
     '/api/best/**': { headers: { 'cache-control': 's-maxage=300, stale-while-revalidate=3600' } },
     '/api/click': { headers: { 'cache-control': 'no-store' } },
     '/api/recommendations': { headers: { 'cache-control': 's-maxage=300, stale-while-revalidate=3600' } },
+    '/api/trending': { headers: { 'cache-control': 's-maxage=300, stale-while-revalidate=600' } },
     '/api/admin/**': { headers: { 'cache-control': 'no-store' } },
     '/admin/**': { ssr: false, headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
     '/search': { headers: { 'cache-control': 'no-store', 'X-Robots-Tag': 'noindex' } },

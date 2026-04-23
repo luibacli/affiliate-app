@@ -4,7 +4,8 @@ const clickSchema = new mongoose.Schema(
   {
     productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
     slug: { type: String, required: true },
-    source: { type: String, default: 'unknown' }, // traffic source: homepage, search, category, best
+    source: { type: String, default: 'unknown' },
+    category: { type: String, default: null },
     referrer: String,
     userAgent: String,
   },
@@ -14,6 +15,8 @@ const clickSchema = new mongoose.Schema(
 clickSchema.index({ slug: 1, createdAt: -1 })
 clickSchema.index({ productId: 1, createdAt: -1 })
 clickSchema.index({ source: 1 })
+clickSchema.index({ category: 1, createdAt: -1 })
+clickSchema.index({ createdAt: -1 })
 
 export const Click =
   (mongoose.models.Click as mongoose.Model<any>) ||

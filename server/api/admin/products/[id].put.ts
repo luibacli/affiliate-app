@@ -4,6 +4,13 @@ import { cacheDel } from '../../../utils/redis'
 import { Product } from '../../../models/product'
 import { PriceHistory } from '../../../models/priceHistory'
 
+async function computeLowest30d(productId: unknown): Promise<number | null> {
+  const since = new Date(Date.now() - 30 * 86400000)
+  const rows = await PriceHistory.find({ productId, createdAt: { $gte: since } }).select('price').lean()
+  if (!rows.length) return null
+  return Math.min(...rows.map((r: any) => r.price))
+}
+
 export default defineEventHandler(async (event) => {
   requireAdmin(event)
   const id = getRouterParam(event, 'id')!
@@ -34,6 +41,8 @@ export default defineEventHandler(async (event) => {
 
   if (newPrice !== oldPrice) {
     await PriceHistory.create({ productId: product._id, price: newPrice, source: 'manual' })
+    product.lowestPrice30d = await computeLowest30d(product._id)
+    await product.save()
   }
 
   await cacheDel(

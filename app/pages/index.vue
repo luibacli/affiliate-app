@@ -4,7 +4,7 @@ const page = computed(() => Number(route.query.page) || 1)
 const category = computed(() => (route.query.category as string) || undefined)
 const sort = computed(() => (route.query.sort as string) || 'newest')
 
-const [{ data }, { data: recs }] = await Promise.all([
+const [{ data }, { data: recs }, { data: trending }] = await Promise.all([
   useAsyncData(
     () => `home-p${page.value}-c${category.value ?? ''}-s${sort.value}`,
     () => $fetch<any>('/api/products', {
@@ -12,6 +12,7 @@ const [{ data }, { data: recs }] = await Promise.all([
     })
   ),
   useAsyncData('recommendations', () => $fetch<any>('/api/recommendations')),
+  useAsyncData('trending', () => $fetch<any[]>('/api/trending').catch(() => [])),
 ])
 
 const SORT_OPTIONS = [
@@ -59,6 +60,16 @@ useHead({
     <CategoryNav />
 
     <div class="max-w-7xl mx-auto px-4">
+
+      <!-- Trending Now (click-data driven) -->
+      <FeaturedRow
+        v-if="trending?.length"
+        title="📈 Trending Now"
+        :products="trending"
+        label="Trending"
+        traffic-source="homepage-trending"
+        view-all-link="/search?sort=newest"
+      />
 
       <!-- Featured sections -->
       <div v-if="recs" class="divide-y divide-gray-100">

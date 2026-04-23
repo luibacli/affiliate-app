@@ -26,6 +26,17 @@ useHead({
     rel: 'canonical',
     href: page.value === 1 ? `${siteUrl}/category/${slug}` : `${siteUrl}/category/${slug}?page=${page.value}`,
   }]),
+  script: [{
+    type: 'application/ld+json',
+    innerHTML: JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl },
+        { '@type': 'ListItem', position: 2, name: slug.charAt(0).toUpperCase() + slug.slice(1), item: `${siteUrl}/category/${slug}` },
+      ],
+    }),
+  }],
 })
 </script>
 
@@ -53,6 +64,30 @@ useHead({
         >
           🔥 Best {{ slug }} deals →
         </NuxtLink>
+      </div>
+
+      <!-- SEO Intro -->
+      <div class="bg-white rounded-2xl border border-gray-100 p-5 mb-6">
+        <p class="text-sm text-gray-600 leading-relaxed">
+          Browse all <strong class="text-gray-800 capitalize">{{ slug }}</strong> products available across
+          <strong class="text-gray-800">Shopee, Lazada, and Amazon</strong>.
+          DealHunt aggregates the latest listings so you can compare prices and find the best deal in one place —
+          no tab-switching required. All prices are updated every 6 hours.
+        </p>
+        <div class="flex gap-3 mt-3 flex-wrap">
+          <NuxtLink
+            :to="`/best/${slug}`"
+            class="text-xs px-3 py-1.5 rounded-full bg-accent-50 text-accent-600 hover:bg-accent-100 font-semibold transition-colors capitalize"
+          >
+            🔥 Best {{ slug }} deals (by discount)
+          </NuxtLink>
+          <NuxtLink
+            :to="`/search?q=${encodeURIComponent(slug)}&sort=price_asc`"
+            class="text-xs px-3 py-1.5 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 font-medium transition-colors capitalize"
+          >
+            Cheapest {{ slug }} first
+          </NuxtLink>
+        </div>
       </div>
 
       <!-- Grid -->
