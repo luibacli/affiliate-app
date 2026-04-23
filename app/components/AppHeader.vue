@@ -7,9 +7,9 @@ const isHome = computed(() => route.path === '/')
   <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 h-14 flex items-center gap-3">
       <!-- Logo -->
-      <NuxtLink to="/" class="flex items-center gap-0.5 flex-shrink-0 mr-2">
-        <span class="text-xl font-black text-primary-600 tracking-tight">Deal</span>
-        <span class="text-xl font-black text-accent-500 tracking-tight">Hunt</span>
+      <NuxtLink to="/" class="flex items-center gap-4 flex-shrink-0 mr-2">
+        <span class="text-xl font-black text-primary-600 tracking-tight">SMART HUB</span>
+        <span class="text-xl font-black text-accent-500 tracking-tight">MARKETPLACE</span>
       </NuxtLink>
 
       <!-- Search bar (hidden on homepage — hero has it) -->

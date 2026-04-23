@@ -46,7 +46,7 @@ const totalDisplay = computed(() => {
       <!-- Headline -->
       <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.15] tracking-tight mb-4">
         Find the Best Deals Across<br class="hidden sm:block" />
-        <span class="text-accent-400">Shopee, Lazada &amp; Amazon</span>
+        <span class="text-accent-400">Top Online Shopping Platforms</span>
       </h1>
 
       <p class="text-base sm:text-xl text-blue-100/90 mb-8 max-w-2xl mx-auto leading-relaxed">

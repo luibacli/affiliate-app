@@ -5,7 +5,7 @@
         <!-- Brand -->
         <div>
           <p class="font-black text-white text-xl tracking-tight">
-            <span class="text-primary-400">Deal</span><span class="text-accent-400">Hunt</span>
+            <span class="text-primary-400 mr-3">SMARTBUY</span><span class="text-accent-400">MARKETPLACE</span>
           </p>
           <p class="text-xs mt-1 text-gray-500">Compare prices across Shopee, Lazada & Amazon</p>
         </div>
