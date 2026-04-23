@@ -80,7 +80,7 @@ export default defineEventHandler(async (event) => {
   if (process.env.NODE_ENV === 'production') {
     throw createError({ statusCode: 404, message: 'Not found' })
   }
-  requireAdmin(event)
+  await requireAdmin(event)
   const { drop } = getQuery(event)
 
   await connectDB()

@@ -3,7 +3,7 @@ import { connectDB } from '../../../utils/db'
 import { Product } from '../../../models/product'
 
 export default defineEventHandler(async (event) => {
-  requireAdmin(event)
+  await requireAdmin(event)
   await connectDB()
 
   const q = getQuery(event)

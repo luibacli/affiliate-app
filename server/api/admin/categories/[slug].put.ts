@@ -4,7 +4,7 @@ import { cacheDel } from '../../../utils/redis'
 import { Category } from '../../../models/category'
 
 export default defineEventHandler(async (event) => {
-  requireAdmin(event)
+  await requireAdmin(event)
   const slug = getRouterParam(event, 'slug')!
   const body = await readBody(event)
 

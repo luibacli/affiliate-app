@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { toast } from 'vue-sonner'
 definePageMeta({ layout: 'admin', ssr: false })
 
 const { apiFetch } = useAdminAuth()
@@ -18,15 +19,30 @@ const form = reactive({
 
 const saving = ref(false)
 const error = ref('')
+const imagePreviewError = ref(false)
+
+watch(() => form.imageUrl, () => { imagePreviewError.value = false })
+
+function slugify(text: string) {
+  return text.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
+}
+const slugPreview = computed(() => form.title ? slugify(form.title) : '')
 
 async function submit() {
   saving.value = true
   error.value = ''
   try {
-    await apiFetch('/api/admin/products', { method: 'POST', body: form })
+    const product = await apiFetch<any>('/api/admin/products', { method: 'POST', body: form })
+    toast.success('Product created', {
+      description: product?.title ?? form.title,
+    })
+    await new Promise(r => setTimeout(r, 600))
     router.push('/admin/products')
   } catch (e: any) {
     error.value = e.data?.message ?? 'Failed to create product'
+    toast.error('Failed to create product', {
+      description: error.value,
+    })
   } finally {
     saving.value = false
   }
@@ -47,6 +63,9 @@ async function submit() {
         <div class="sm:col-span-2">
           <label class="block text-xs font-semibold text-gray-600 mb-1">Title *</label>
           <input v-model="form.title" required class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-400" />
+          <p v-if="slugPreview" class="text-xs text-gray-400 mt-1">
+            Slug: <span class="font-mono text-gray-500">{{ slugPreview }}</span>
+          </p>
         </div>
         <div class="sm:col-span-2">
           <label class="block text-xs font-semibold text-gray-600 mb-1">Description</label>
@@ -93,6 +112,15 @@ async function submit() {
         <div class="sm:col-span-2">
           <label class="block text-xs font-semibold text-gray-600 mb-1">Image URL</label>
           <input v-model="form.imageUrl" type="url" class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-400" />
+          <div v-if="form.imageUrl && !imagePreviewError" class="mt-2 flex items-center gap-3">
+            <img
+              :src="form.imageUrl"
+              class="w-16 h-16 object-contain rounded-xl border border-gray-200 bg-gray-50"
+              @error="imagePreviewError = true"
+            />
+            <span class="text-xs text-gray-400">Preview</span>
+          </div>
+          <p v-if="imagePreviewError" class="text-xs text-red-500 mt-1">⚠ Image failed to load — check the URL</p>
         </div>
         <div class="sm:col-span-2">
           <label class="block text-xs font-semibold text-gray-600 mb-1">Tags (comma-separated)</label>

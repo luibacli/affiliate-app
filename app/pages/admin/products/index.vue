@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import { toast } from 'vue-sonner'
 definePageMeta({ layout: 'admin', ssr: false })
 
-const { key, apiFetch } = useAdminAuth()
+const { key, apiFetch, authError } = useAdminAuth()
 const router = useRouter()
 
 const page = ref(1)
@@ -18,15 +19,16 @@ const importResult = ref<any>(null)
 
 async function bulkImport() {
   let items: any[]
-  try { items = JSON.parse(importJson.value) } catch { alert('Invalid JSON'); return }
-  if (!Array.isArray(items)) { alert('JSON must be an array of products'); return }
+  try { items = JSON.parse(importJson.value) } catch { toast.error('Invalid JSON'); return }
+  if (!Array.isArray(items)) { toast.error('JSON must be an array of products'); return }
   importLoading.value = true
   importResult.value = null
   try {
     importResult.value = await apiFetch<any>('/api/admin/products/import', { method: 'POST', body: { products: items } })
+    toast.success(`Imported ${importResult.value.created} products`)
     await load()
   } catch (e: any) {
-    alert(e.data?.message ?? 'Import failed')
+    toast.error(e.data?.message ?? 'Import failed')
   } finally {
     importLoading.value = false
   }
@@ -45,19 +47,32 @@ async function load() {
 
 async function seed(drop = false) {
   if (!confirm(drop ? 'Drop all products and reseed?' : 'Seed sample products?')) return
-  const res = await apiFetch<any>(`/api/admin/seed?drop=${drop}`, { method: 'POST' })
-  alert(res.message)
-  await load()
+  try {
+    const res = await apiFetch<any>(`/api/admin/seed?drop=${drop}`, { method: 'POST' })
+    toast.success(res.message ?? 'Done')
+    await load()
+  } catch (e: any) {
+    toast.error(e.data?.message ?? 'Seed failed')
+  }
 }
 
 async function confirmDelete(id: string) {
   if (!confirm('Delete this product?')) return
-  await apiFetch(`/api/admin/products/${id}`, { method: 'DELETE' })
-  await load()
+  try {
+    await apiFetch(`/api/admin/products/${id}`, { method: 'DELETE' })
+    toast.success('Product deleted')
+    await load()
+  } catch {
+    toast.error('Failed to delete product')
+  }
 }
 
+let debounceTimer: ReturnType<typeof setTimeout> | null = null
 watch([key, page, category], load)
-watch(search, useDebounceFn(load, 400))
+watch(search, () => {
+  if (debounceTimer) clearTimeout(debounceTimer)
+  debounceTimer = setTimeout(load, 400)
+})
 onMounted(load)
 </script>
 
@@ -76,21 +91,32 @@ onMounted(load)
       </div>
     </div>
 
-    <!-- Auth -->
-    <div v-if="!key" class="bg-yellow-50 border border-yellow-200 rounded-xl p-4 mb-4 flex gap-3 items-center">
+    <!-- Auth error -->
+    <div v-if="authError" class="bg-red-50 border border-red-200 rounded-xl p-3 mb-4 flex items-center gap-2 text-sm text-red-700">
+      <span>🔒</span> {{ authError }}
+    </div>
+
+    <!-- Auth key prompt -->
+    <div v-if="!key && !authError" class="bg-yellow-50 border border-yellow-200 rounded-xl p-4 mb-4 flex gap-3 items-center">
       <input v-model="key" type="password" placeholder="Enter admin key" class="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm" />
     </div>
 
     <!-- Filters -->
-    <div class="flex gap-3 mb-4 flex-wrap">
-      <input v-model="search" type="search" placeholder="Search products..." class="border border-gray-200 rounded-lg px-3 py-2 text-sm w-56 focus:outline-none focus:ring-2 focus:ring-primary-400" />
+    <div class="flex gap-3 mb-4 flex-wrap items-center">
+      <div class="relative">
+        <input v-model="search" type="search" placeholder="Search products..." class="border border-gray-200 rounded-lg pl-3 pr-8 py-2 text-sm w-56 focus:outline-none focus:ring-2 focus:ring-primary-400" />
+        <span v-if="loading && search" class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 text-xs animate-spin">⟳</span>
+      </div>
       <select v-model="category" class="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-400">
         <option value="">All categories</option>
         <option v-for="c in CATEGORIES" :key="c" :value="c">{{ c }}</option>
       </select>
     </div>
 
-    <div v-if="loading" class="text-center py-16 text-gray-400">Loading...</div>
+    <div v-if="loading" class="text-center py-16 text-gray-400">
+      <div class="inline-block w-6 h-6 border-2 border-primary-200 border-t-primary-600 rounded-full animate-spin mb-2" />
+      <p class="text-sm">Loading products...</p>
+    </div>
 
     <div v-else-if="data?.products?.length" class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
       <table class="w-full text-sm">

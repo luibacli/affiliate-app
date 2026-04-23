@@ -1,11 +1,10 @@
+import { requireAdmin } from '../../utils/adminAuth'
 import { connectDB } from '../../utils/db'
 import { cacheGet, cacheSet } from '../../utils/redis'
 import { Click } from '../../models/click'
 
 export default defineEventHandler(async (event) => {
-  const { adminKey } = useRuntimeConfig()
-  const key = getHeader(event, 'x-admin-key') || (getQuery(event).key as string)
-  if (adminKey && key !== adminKey) throw createError({ statusCode: 401, message: 'Unauthorized' })
+  await requireAdmin(event)
 
   const cacheKey = 'admin:analytics:v2'
   const cached = await cacheGet(cacheKey)

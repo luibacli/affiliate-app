@@ -5,7 +5,7 @@ import { Product } from '../../../models/product'
 import { slugify } from '../../../utils/slugify'
 
 export default defineEventHandler(async (event) => {
-  requireAdmin(event)
+  await requireAdmin(event)
   const body = await readBody(event)
   const items: any[] = Array.isArray(body) ? body : body.products
 

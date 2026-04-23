@@ -2,7 +2,7 @@ import { requireAdmin } from '../../../utils/adminAuth'
 import { searchItems, getAmazonConfig } from '../../../services/amazon'
 
 export default defineEventHandler(async (event) => {
-  requireAdmin(event)
+  await requireAdmin(event)
   const { q } = getQuery(event) as { q?: string }
   if (!q?.trim()) throw createError({ statusCode: 400, message: 'q is required' })
 

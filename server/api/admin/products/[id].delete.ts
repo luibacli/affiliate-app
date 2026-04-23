@@ -4,7 +4,7 @@ import { cacheDel } from '../../../utils/redis'
 import { Product } from '../../../models/product'
 
 export default defineEventHandler(async (event) => {
-  requireAdmin(event)
+  await requireAdmin(event)
   const id = getRouterParam(event, 'id')!
 
   await connectDB()
