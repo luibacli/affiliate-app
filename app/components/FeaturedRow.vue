@@ -9,11 +9,11 @@ defineProps<{
 </script>
 
 <template>
-  <section v-if="products?.length" class="py-8">
+  <section v-if="products?.length" class="py-8 first:pt-4">
     <div class="max-w-7xl mx-auto px-4">
       <!-- Header -->
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-xl font-bold text-gray-900">{{ title }}</h2>
+      <div class="flex items-center justify-between mb-5">
+        <h2 class="text-xl font-bold text-gray-900 flex items-center gap-2">{{ title }}</h2>
         <NuxtLink
           v-if="viewAllLink"
           :to="viewAllLink"

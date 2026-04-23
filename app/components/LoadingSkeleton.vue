@@ -9,7 +9,7 @@ defineProps<{ count?: number }>()
       :key="i"
       class="bg-white rounded-2xl border border-gray-100 overflow-hidden animate-pulse"
     >
-      <div class="w-full h-44 bg-gray-200" />
+      <div class="aspect-[4/3] w-full bg-gray-200" />
       <div class="p-3 space-y-2">
         <div class="h-3 bg-gray-200 rounded w-1/3" />
         <div class="h-3 bg-gray-200 rounded w-full" />

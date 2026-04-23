@@ -19,6 +19,7 @@ const categories = computed(() => [
       name: c._id.charAt(0).toUpperCase() + c._id.slice(1),
       icon: ICONS[c._id] ?? '🏷️',
       slug: c._id,
+      count: c.count,
     })),
 ])
 </script>
@@ -31,6 +32,7 @@ const categories = computed(() => [
           v-for="cat in categories"
           :key="cat.slug"
           :to="cat.slug ? { path: '/', query: { category: cat.slug } } : '/'"
+          :aria-current="active === cat.slug ? 'page' : undefined"
           :class="active === cat.slug
             ? 'bg-primary-600 text-white shadow-md'
             : 'bg-gray-100 text-gray-600 hover:bg-primary-50 hover:text-primary-600'"
@@ -38,6 +40,7 @@ const categories = computed(() => [
         >
           <span>{{ cat.icon }}</span>
           <span>{{ cat.name }}</span>
+          <span v-if="cat.count" class="text-xs opacity-60">({{ cat.count }})</span>
         </NuxtLink>
       </div>
     </div>

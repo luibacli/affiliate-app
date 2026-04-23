@@ -19,8 +19,35 @@ useSeoMeta({
   ogType: 'website',
 })
 
+const catLabel = category.charAt(0).toUpperCase() + category.slice(1)
+
 useHead({
   link: [{ rel: 'canonical', href: `${siteUrl}/best/${category}` }],
+  script: [{
+    type: 'application/ld+json',
+    innerHTML: JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: `What are the best ${catLabel} deals right now?`,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: `DealHunt tracks ${catLabel} products across Shopee, Lazada, and Amazon and sorts them by biggest discount so you always see the best deal first.`,
+          },
+        },
+        {
+          '@type': 'Question',
+          name: `How often are ${catLabel} prices updated?`,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: `Prices are updated every 6 hours from all supported platforms so you always get accurate, real-time pricing.`,
+          },
+        },
+      ],
+    }),
+  }],
 })
 </script>
 

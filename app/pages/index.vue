@@ -20,12 +20,29 @@ const SORT_OPTIONS = [
   { label: 'Price ↓', value: 'price_desc' },
 ]
 
+const { siteUrl } = useRuntimeConfig().public
+
 useSeoMeta({
   title: 'DealHunt — Best Deals from Shopee, Lazada & Amazon',
-  description: 'Compare prices and find the best deals across top e-commerce platforms.',
+  description: 'Compare prices instantly across Shopee, Lazada, and Amazon. Find the best deals, lowest prices, and biggest discounts — all in one place. Free to use, updated daily.',
   ogTitle: 'DealHunt — Best Deals Aggregator',
-  ogDescription: 'Discover top products with the best prices from Shopee, Lazada, and Amazon.',
+  ogDescription: 'Find the best deals across Shopee, Lazada & Amazon. Compare prices, track discounts, and save more on every purchase.',
   ogType: 'website',
+  ogImage: `${siteUrl}/og-default.png`,
+})
+
+useHead({
+  link: [{ rel: 'canonical', href: siteUrl }],
+  script: [{
+    type: 'application/ld+json',
+    innerHTML: JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: 'DealHunt',
+      url: siteUrl,
+      description: 'Price comparison and deal aggregator for Shopee, Lazada, and Amazon.',
+    }),
+  }],
 })
 </script>
 
