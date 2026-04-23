@@ -230,6 +230,12 @@ useHead({
             <span class="flex items-center gap-1">🚫 No hidden fees</span>
           </div>
 
+          <!-- FTC-required affiliate disclosure near CTA -->
+          <p class="text-xs text-gray-400 text-center">
+            Affiliate link — SmartBuy Marketplace may earn a commission if you purchase.
+            <NuxtLink to="/disclosure" class="underline hover:text-gray-600">Disclosure</NuxtLink>
+          </p>
+
           <!-- Description -->
           <p v-if="product.description" class="text-gray-600 text-sm leading-relaxed">{{ product.description }}</p>
 

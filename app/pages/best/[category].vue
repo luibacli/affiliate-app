@@ -37,7 +37,7 @@ useHead({
           name: `What are the best ${catLabel} deals right now?`,
           acceptedAnswer: {
             '@type': 'Answer',
-            text: `DealHunt tracks ${catLabel} products across Shopee, Lazada, and Amazon and sorts them by biggest discount so you always see the best deal first.`,
+            text: `SmartBuy Marketplace tracks ${catLabel} products across Shopee, Lazada, and Amazon and sorts them by biggest discount so you always see the best deal first.`,
           },
         },
         {
@@ -91,7 +91,7 @@ useHead({
       <div class="bg-white rounded-2xl border border-gray-100 p-5 mb-6">
         <p class="text-sm text-gray-600 leading-relaxed">
           Looking for the best <strong class="text-gray-800 capitalize">{{ category }}</strong> deals?
-          DealHunt compares prices across <strong class="text-gray-800">Shopee, Lazada, and Amazon</strong> in real time
+          SmartBuy Marketplace compares prices across <strong class="text-gray-800">Shopee, Lazada, and Amazon</strong> in real time
           so you never overpay. Every product below is ranked by its current discount percentage — the biggest savings first.
           Prices are refreshed every 6 hours so you always see accurate, up-to-date deals.
         </p>

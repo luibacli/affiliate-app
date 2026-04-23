@@ -16,6 +16,8 @@ export default defineEventHandler(async (event) => {
 
   const staticUrls = [
     { loc: `${siteUrl}/`, priority: '1.0', changefreq: 'daily' },
+    { loc: `${siteUrl}/about`, priority: '0.5', changefreq: 'monthly' },
+    { loc: `${siteUrl}/contact`, priority: '0.4', changefreq: 'monthly' },
     ...categories.map((cat) => ({
       loc: `${siteUrl}/category/${cat}`,
       priority: '0.7',

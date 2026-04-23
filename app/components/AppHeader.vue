@@ -8,8 +8,8 @@ const isHome = computed(() => route.path === '/')
     <div class="max-w-7xl mx-auto px-4 h-14 flex items-center gap-3">
       <!-- Logo -->
       <NuxtLink to="/" class="flex items-center gap-4 flex-shrink-0 mr-2">
-        <span class="text-xl font-black text-primary-600 tracking-tight">SMART HUB</span>
-        <span class="text-xl font-black text-accent-500 tracking-tight">MARKETPLACE</span>
+        <span class="text-xl font-black text-primary-600 tracking-tight">SmartBuy</span>
+        <span class="text-xl font-black text-accent-500 tracking-tight">Marketplace</span>
       </NuxtLink>
 
       <!-- Search bar (hidden on homepage — hero has it) -->

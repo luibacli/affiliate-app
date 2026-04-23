@@ -10,15 +10,15 @@ export default defineNitroPlugin(() => {
 
   if (missing.length) {
     console.error(
-      `\n[DealHunt] ⚠️  STARTUP WARNING — missing required env vars:\n` +
+      `\n[SmartBuy] ⚠️  STARTUP WARNING — missing required env vars:\n` +
       missing.map(({ label }) => `  • ${label}`).join('\n') +
       `\n  Set these in your .env file or deployment environment.\n`
     )
   } else {
-    console.log('[DealHunt] ✓ All required env vars present.')
+    console.log('[SmartBuy] ✓ All required env vars present.')
   }
 
   if (!config.redisUrl) {
-    console.warn('[DealHunt] ⚠️  REDIS_URL not set — caching disabled, using fallback.')
+    console.warn('[SmartBuy] ⚠️  REDIS_URL not set — caching disabled, using fallback.')
   }
 })
