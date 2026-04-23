@@ -30,7 +30,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50 font-sans">
+  <div>
 
     <!-- Hero -->
     <HeroSection />
@@ -143,16 +143,5 @@ useSeoMeta({
       </section>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-400 text-sm py-8 mt-8">
-      <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p class="font-bold text-white text-base">DealHunt</p>
-        <p>© {{ new Date().getFullYear() }} — Prices updated daily from Shopee, Lazada & Amazon</p>
-        <div class="flex gap-4">
-          <NuxtLink to="/admin/dashboard" class="hover:text-white transition-colors">Admin</NuxtLink>
-          <NuxtLink to="/sitemap.xml" class="hover:text-white transition-colors">Sitemap</NuxtLink>
-        </div>
-      </div>
-    </footer>
   </div>
 </template>

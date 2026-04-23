@@ -1,5 +1,6 @@
 import { requireAdmin } from '../../utils/adminAuth'
 import { connectDB } from '../../utils/db'
+
 import { cacheDel } from '../../utils/redis'
 import { Product } from '../../models/product'
 import { slugify } from '../../utils/slugify'
@@ -76,6 +77,9 @@ const PRODUCTS = [
 ]
 
 export default defineEventHandler(async (event) => {
+  if (process.env.NODE_ENV === 'production') {
+    throw createError({ statusCode: 404, message: 'Not found' })
+  }
   requireAdmin(event)
   const { drop } = getQuery(event)
 

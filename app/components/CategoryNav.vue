@@ -1,26 +1,34 @@
 <script setup lang="ts">
-const CATEGORIES = [
-  { name: 'All', icon: '🛍️', slug: '' },
-  { name: 'Phones', icon: '📱', slug: 'phones' },
-  { name: 'Laptops', icon: '💻', slug: 'laptops' },
-  { name: 'Accessories', icon: '🎧', slug: 'accessories' },
-  { name: 'Gaming', icon: '🎮', slug: 'gaming' },
-  { name: 'Fashion', icon: '👗', slug: 'fashion' },
-  { name: 'Home', icon: '🏠', slug: 'home' },
-  { name: 'Beauty', icon: '💄', slug: 'beauty' },
-  { name: 'Sports', icon: '⚽', slug: 'sports' },
-]
-
 const route = useRoute()
 const active = computed(() => (route.query.category as string) ?? '')
+
+const { data: apiCategories } = await useAsyncData('nav-categories', () =>
+  $fetch<{ _id: string; count: number }[]>('/api/categories').catch(() => [])
+)
+
+const ICONS: Record<string, string> = {
+  phones: '📱', laptops: '💻', accessories: '🎧', gaming: '🎮',
+  fashion: '👗', home: '🏠', beauty: '💄', sports: '⚽',
+}
+
+const categories = computed(() => [
+  { name: 'All', icon: '🛍️', slug: '' },
+  ...(apiCategories.value ?? [])
+    .filter((c) => c._id)
+    .map((c) => ({
+      name: c._id.charAt(0).toUpperCase() + c._id.slice(1),
+      icon: ICONS[c._id] ?? '🏷️',
+      slug: c._id,
+    })),
+])
 </script>
 
 <template>
-  <section class="bg-white border-b border-gray-100 sticky top-0 z-20 shadow-sm">
+  <section class="bg-white border-b border-gray-100 sticky top-14 z-20 shadow-sm">
     <div class="max-w-7xl mx-auto px-4">
       <div class="flex gap-1 overflow-x-auto py-3 scrollbar-hide">
         <NuxtLink
-          v-for="cat in CATEGORIES"
+          v-for="cat in categories"
           :key="cat.slug"
           :to="cat.slug ? { path: '/', query: { category: cat.slug } } : '/'"
           :class="active === cat.slug

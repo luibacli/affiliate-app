@@ -2,7 +2,7 @@ import { connectDB } from '../../utils/db'
 import { cacheGet, cacheSet } from '../../utils/redis'
 import { Product } from '../../models/product'
 
-const SELECT = 'title price originalPrice rating slug imageUrl source category'
+const SELECT = 'title price originalPrice rating slug imageUrl source category lastPriceDrop'
 
 export default defineEventHandler(async () => {
   const cacheKey = 'recommendations:all'

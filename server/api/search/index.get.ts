@@ -1,5 +1,5 @@
 import { connectDB } from '../../utils/db'
-import { cacheGet, cacheSet } from '../../utils/redis'
+import { cacheGet, cacheSet, cacheIncr } from '../../utils/redis'
 import { Product } from '../../models/product'
 
 const SORT_MAP: Record<string, object> = {
@@ -10,6 +10,10 @@ const SORT_MAP: Record<string, object> = {
 }
 
 export default defineEventHandler(async (event) => {
+  const ip = getRequestIP(event, { xForwardedFor: true }) ?? 'unknown'
+  const hits = await cacheIncr(`ratelimit:search:${ip}`, 60)
+  if (hits > 60) throw createError({ statusCode: 429, message: 'Too many requests' })
+
   const q = getQuery(event)
   const term = (q.q as string)?.trim() || undefined
   const page = Math.max(1, Number(q.page) || 1)
@@ -44,7 +48,7 @@ export default defineEventHandler(async (event) => {
       .sort(sort as any)
       .skip(skip)
       .limit(limit)
-      .select('title price originalPrice slug imageUrl source category')
+      .select('title price originalPrice rating slug imageUrl source category lastPriceDrop')
       .lean(),
     Product.countDocuments(filter),
   ])

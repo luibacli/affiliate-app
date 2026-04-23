@@ -9,7 +9,28 @@ const search = ref('')
 const category = ref('')
 const data = ref<any>(null)
 const loading = ref(false)
-const deleteId = ref<string | null>(null)
+
+// Bulk import
+const showImport = ref(false)
+const importJson = ref('')
+const importLoading = ref(false)
+const importResult = ref<any>(null)
+
+async function bulkImport() {
+  let items: any[]
+  try { items = JSON.parse(importJson.value) } catch { alert('Invalid JSON'); return }
+  if (!Array.isArray(items)) { alert('JSON must be an array of products'); return }
+  importLoading.value = true
+  importResult.value = null
+  try {
+    importResult.value = await apiFetch<any>('/api/admin/products/import', { method: 'POST', body: { products: items } })
+    await load()
+  } catch (e: any) {
+    alert(e.data?.message ?? 'Import failed')
+  } finally {
+    importLoading.value = false
+  }
+}
 
 const CATEGORIES = ['phones', 'laptops', 'accessories', 'gaming', 'fashion', 'home', 'beauty', 'sports']
 
@@ -50,6 +71,7 @@ onMounted(load)
       <div class="flex gap-2 flex-wrap">
         <button @click="seed(false)" class="px-3 py-2 text-sm bg-gray-100 hover:bg-gray-200 rounded-lg font-medium">Seed Data</button>
         <button @click="seed(true)" class="px-3 py-2 text-sm bg-red-100 hover:bg-red-200 text-red-700 rounded-lg font-medium">Reseed</button>
+        <button @click="showImport = true" class="px-3 py-2 text-sm bg-gray-800 hover:bg-gray-900 text-white rounded-lg font-medium">Bulk Import</button>
         <NuxtLink to="/admin/products/create" class="px-4 py-2 text-sm bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-semibold">+ Add Product</NuxtLink>
       </div>
     </div>
@@ -129,6 +151,36 @@ onMounted(load)
       <p class="text-4xl mb-3">📦</p>
       <p class="font-medium">No products yet.</p>
       <p class="text-sm mt-1">Click "Seed Data" to populate with sample products.</p>
+    </div>
+
+    <!-- Bulk Import Modal -->
+    <div v-if="showImport" class="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4" @click.self="showImport = false">
+      <div class="bg-white rounded-2xl shadow-xl w-full max-w-xl p-6 space-y-4">
+        <div class="flex items-center justify-between">
+          <h2 class="font-bold text-gray-900 text-lg">Bulk Import Products</h2>
+          <button class="text-gray-400 hover:text-gray-600 text-xl leading-none" @click="showImport = false">✕</button>
+        </div>
+        <p class="text-sm text-gray-500">Paste a JSON array of products. Each item needs: <code class="bg-gray-100 px-1 rounded">title</code>, <code class="bg-gray-100 px-1 rounded">price</code>, <code class="bg-gray-100 px-1 rounded">affiliateUrl</code>.</p>
+        <textarea
+          v-model="importJson"
+          rows="8"
+          placeholder='[{"title":"Product Name","price":29.99,"affiliateUrl":"https://...","source":"Amazon"}]'
+          class="w-full border border-gray-200 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
+        />
+        <div v-if="importResult" :class="importResult.errors?.length ? 'bg-yellow-50 border-yellow-200' : 'bg-green-50 border-green-200'" class="border rounded-xl p-3 text-sm">
+          <p class="font-semibold">{{ importResult.created }} created · {{ importResult.skipped }} skipped{{ importResult.errors?.length ? ` · ${importResult.errors.length} errors` : '' }}</p>
+        </div>
+        <div class="flex gap-2">
+          <button
+            :disabled="importLoading || !importJson.trim()"
+            class="flex-1 py-2.5 bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold rounded-xl disabled:opacity-50 transition-colors"
+            @click="bulkImport"
+          >
+            {{ importLoading ? 'Importing...' : 'Import' }}
+          </button>
+          <button class="px-5 py-2.5 border border-gray-200 text-sm font-medium rounded-xl hover:bg-gray-50 transition-colors" @click="showImport = false">Cancel</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
