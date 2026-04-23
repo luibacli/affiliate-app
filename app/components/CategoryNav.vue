@@ -1,6 +1,13 @@
 <script setup lang="ts">
 const route = useRoute()
-const active = computed(() => (route.query.category as string) ?? '')
+
+const active = computed(() => {
+  const slug = route.params.slug
+  if (slug && (route.path.startsWith('/category/') || route.path.startsWith('/best/'))) {
+    return Array.isArray(slug) ? slug[0] : slug
+  }
+  return (route.query.category as string) ?? ''
+})
 
 const { data: apiCategories } = await useAsyncData('nav-categories', () =>
   $fetch<{ _id: string; count: number }[]>('/api/categories').catch(() => [])
@@ -31,7 +38,7 @@ const categories = computed(() => [
         <NuxtLink
           v-for="cat in categories"
           :key="cat.slug"
-          :to="cat.slug ? { path: '/', query: { category: cat.slug } } : '/'"
+          :to="cat.slug ? `/category/${cat.slug}` : '/'"
           :aria-current="active === cat.slug ? 'page' : undefined"
           :class="active === cat.slug
             ? 'bg-primary-600 text-white shadow-md'

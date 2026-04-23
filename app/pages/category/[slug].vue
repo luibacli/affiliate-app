@@ -4,10 +4,11 @@ const slug = route.params.slug as string
 const page = computed(() => Number(route.query.page) || 1)
 
 const { data } = await useAsyncData(
-  `category-${slug}-p${page.value}`,
+  () => `category-${slug}-p${page.value}`,
   () => $fetch<any>('/api/products', {
     query: { page: page.value, limit: 20, category: slug },
-  })
+  }),
+  { watch: [page] }
 )
 
 const { siteUrl } = useRuntimeConfig().public
@@ -42,6 +43,9 @@ useHead({
 
 <template>
   <div>
+    <!-- Category navigation bar -->
+    <CategoryNav />
+
     <!-- Breadcrumb -->
     <div class="bg-white border-b border-gray-100">
       <div class="max-w-7xl mx-auto px-4 py-2.5 flex items-center gap-2 text-xs text-gray-500">
