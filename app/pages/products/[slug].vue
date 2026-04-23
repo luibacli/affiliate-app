@@ -51,30 +51,59 @@ useSeoMeta({
 
 useHead({
   link: [{ rel: 'canonical', href: `${siteUrl}/products/${slug}` }],
-  script: computed(() =>
-    product.value ? [{
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'Product',
-        name: product.value.title,
-        description: product.value.description,
-        image: product.value.imageUrl,
-        offers: {
-          '@type': 'Offer',
-          price: product.value.price,
-          priceCurrency: 'USD',
-          availability: 'https://schema.org/InStock',
-          url: `${siteUrl}/products/${slug}`,
-        },
-      }),
-    }] : []
-  ),
+  script: computed(() => {
+    if (!product.value) return []
+    const scripts: any[] = [
+      {
+        type: 'application/ld+json',
+        innerHTML: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Product',
+          name: product.value.title,
+          description: product.value.description,
+          image: product.value.imageUrl,
+          ...(product.value.rating > 0 && {
+            aggregateRating: {
+              '@type': 'AggregateRating',
+              ratingValue: product.value.rating,
+              bestRating: 5,
+              reviewCount: 1,
+            },
+          }),
+          offers: {
+            '@type': 'Offer',
+            price: product.value.price,
+            priceCurrency: 'USD',
+            availability: 'https://schema.org/InStock',
+            url: `${siteUrl}/products/${slug}`,
+          },
+        }),
+      },
+      {
+        type: 'application/ld+json',
+        innerHTML: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl },
+            ...(product.value.category ? [{
+              '@type': 'ListItem',
+              position: 2,
+              name: product.value.category.charAt(0).toUpperCase() + product.value.category.slice(1),
+              item: `${siteUrl}/category/${product.value.category}`,
+            }] : []),
+            { '@type': 'ListItem', position: product.value.category ? 3 : 2, name: product.value.title },
+          ],
+        }),
+      },
+    ]
+    return scripts
+  }),
 })
 </script>
 
 <template>
-  <div v-if="product">
+  <div v-if="product" class="pb-20 lg:pb-0">
     <!-- Breadcrumb -->
     <div class="bg-white border-b border-gray-100">
       <div class="max-w-6xl mx-auto px-4 py-2.5 flex items-center gap-2 text-xs text-gray-500">
@@ -307,4 +336,22 @@ useHead({
       </div>
     </div>
   </div>
+
+  <!-- Sticky mobile CTA bar -->
+  <Teleport to="body">
+    <div class="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-white/95 backdrop-blur border-t border-gray-200 shadow-2xl px-4 py-3 flex items-center gap-3">
+      <div class="flex-1 min-w-0">
+        <p class="text-xs text-gray-500 truncate">{{ product?.title }}</p>
+        <p class="text-base font-black text-primary-600">${{ product?.price?.toFixed(2) }}</p>
+      </div>
+      <a
+        :href="affiliateLink"
+        target="_blank"
+        rel="noopener noreferrer sponsored"
+        class="flex-shrink-0 px-5 py-2.5 text-sm font-black text-white bg-accent-500 hover:bg-accent-600 active:scale-95 transition-all rounded-xl shadow-lg"
+      >
+        Check Price 🔥
+      </a>
+    </div>
+  </Teleport>
 </template>
