@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { toast } from 'vue-sonner'
 definePageMeta({ layout: 'admin', ssr: false })
 
 const { apiFetch } = useAdminAuth()
@@ -8,15 +9,20 @@ const id = route.params.id as string
 
 const CATEGORIES = ['phones', 'laptops', 'accessories', 'gaming', 'fashion', 'home', 'beauty', 'sports']
 const SOURCES = ['Shopee', 'Lazada', 'Amazon']
+const CURRENCIES = ['USD', 'PHP', 'SGD', 'MYR', 'IDR', 'THB']
 
 const form = reactive({
   title: '', description: '', price: '', originalPrice: '',
   affiliateUrl: '', imageUrl: '', category: '', source: '',
-  rating: '', tags: '', compareGroupId: '',
+  currency: 'USD', rating: '', tags: '', compareGroupId: '',
+  isFeatured: false, isTrending: false, isBestDeal: false,
 })
 const loading = ref(true)
 const saving = ref(false)
 const error = ref('')
+const imagePreviewError = ref(false)
+
+watch(() => form.imageUrl, () => { imagePreviewError.value = false })
 
 onMounted(async () => {
   const product = await apiFetch<any>(`/api/admin/products/${id}`)
@@ -35,6 +41,10 @@ onMounted(async () => {
     rating: product.rating ?? '',
     tags: Array.isArray(product.tags) ? product.tags.join(', ') : '',
     compareGroupId: product.compareGroupId ?? '',
+    currency: product.currency ?? 'USD',
+    isFeatured: !!product.isFeatured,
+    isTrending: !!product.isTrending,
+    isBestDeal: !!product.isBestDeal,
   })
   loading.value = false
 })
@@ -44,9 +54,16 @@ async function submit() {
   error.value = ''
   try {
     await apiFetch(`/api/admin/products/${id}`, { method: 'PUT', body: form })
+    toast.success('Product updated', {
+      description: form.title,
+    })
+    await new Promise(r => setTimeout(r, 600))
     router.push('/admin/products')
   } catch (e: any) {
     error.value = e.data?.message ?? 'Failed to update product'
+    toast.error('Failed to update product', {
+      description: error.value,
+    })
   } finally {
     saving.value = false
   }
@@ -54,8 +71,14 @@ async function submit() {
 
 async function remove() {
   if (!confirm('Delete this product permanently?')) return
-  await apiFetch(`/api/admin/products/${id}`, { method: 'DELETE' })
-  router.push('/admin/products')
+  try {
+    await apiFetch(`/api/admin/products/${id}`, { method: 'DELETE' })
+    toast.success('Product deleted')
+    await new Promise(r => setTimeout(r, 400))
+    router.push('/admin/products')
+  } catch {
+    toast.error('Failed to delete product')
+  }
 }
 </script>
 
@@ -104,6 +127,12 @@ async function remove() {
           </select>
         </div>
         <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1">Currency</label>
+          <select v-model="form.currency" class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-400">
+            <option v-for="c in CURRENCIES" :key="c" :value="c">{{ c }}</option>
+          </select>
+        </div>
+        <div>
           <label class="block text-xs font-semibold text-gray-600 mb-1">Rating (0–5)</label>
           <input v-model="form.rating" type="number" step="0.1" min="0" max="5" class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-400" />
         </div>
@@ -118,10 +147,30 @@ async function remove() {
         <div class="sm:col-span-2">
           <label class="block text-xs font-semibold text-gray-600 mb-1">Image URL</label>
           <input v-model="form.imageUrl" type="url" class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-400" />
+          <div v-if="form.imageUrl && !imagePreviewError" class="mt-2 flex items-center gap-3">
+            <img
+              :src="form.imageUrl"
+              class="w-16 h-16 object-contain rounded-xl border border-gray-200 bg-gray-50"
+              @error="imagePreviewError = true"
+            />
+            <span class="text-xs text-gray-400">Preview</span>
+          </div>
+          <p v-if="imagePreviewError" class="text-xs text-red-500 mt-1">⚠ Image failed to load — check the URL</p>
         </div>
         <div class="sm:col-span-2">
           <label class="block text-xs font-semibold text-gray-600 mb-1">Tags (comma-separated)</label>
           <input v-model="form.tags" class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-400" />
+        </div>
+
+        <!-- Flags -->
+        <div class="sm:col-span-2">
+          <label class="block text-xs font-semibold text-gray-600 mb-2">Product Flags</label>
+          <div class="flex flex-wrap gap-4">
+            <label v-for="flag in ['isFeatured', 'isTrending', 'isBestDeal']" :key="flag" class="flex items-center gap-2 cursor-pointer select-none">
+              <input v-model="(form as any)[flag]" type="checkbox" class="w-4 h-4 rounded accent-primary-600" />
+              <span class="text-sm font-medium text-gray-700 capitalize">{{ flag.replace('is', '') }}</span>
+            </label>
+          </div>
         </div>
       </div>
 

@@ -7,7 +7,7 @@ import { slugify } from '../../../utils/slugify'
 import { getAmazonConfig } from '../../../services/amazon'
 
 export default defineEventHandler(async (event) => {
-  requireAdmin(event)
+  await requireAdmin(event)
   const body = await readBody(event)
   const items: any[] = Array.isArray(body) ? body : body.items ?? []
 

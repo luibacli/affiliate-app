@@ -1,8 +1,9 @@
 import { connectDB } from '../../utils/db'
 import { cacheGet, cacheSet } from '../../utils/redis'
 import { Product } from '../../models/product'
+import { ACTIVE } from '../../utils/filters'
 
-const SELECT = 'title price originalPrice rating slug imageUrl source category'
+const SELECT = 'title price originalPrice rating slug imageUrl source category currency lastPriceDrop lowestPrice30d'
 
 export default defineEventHandler(async () => {
   const cacheKey = 'recommendations:all'
@@ -11,7 +12,7 @@ export default defineEventHandler(async () => {
 
   await connectDB()
 
-  const hasSlug = { slug: { $exists: true, $ne: null } }
+  const hasSlug = { slug: { $exists: true, $ne: null }, ...ACTIVE }
 
   const [bestValue, topRated, budgetPicks] = await Promise.all([
     // Best Value: highest rating/price ratio

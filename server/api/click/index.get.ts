@@ -16,13 +16,14 @@ export default defineEventHandler(async (event) => {
 
   await connectDB()
 
-  const product = await Product.findById(productId).select('affiliateUrl slug').lean()
+  const product = await Product.findById(productId).select('affiliateUrl slug category').lean()
   if (!product) throw createError({ statusCode: 404, message: 'Product not found' })
 
   Click.create({
     productId: product._id,
     slug: product.slug,
     source,
+    category: (product as any).category ?? null,
     referrer: getHeader(event, 'referer'),
     userAgent: getHeader(event, 'user-agent'),
   }).catch(() => {})

@@ -1,6 +1,7 @@
 import { connectDB } from '../../utils/db'
 import { cacheGet, cacheSet } from '../../utils/redis'
 import { Product } from '../../models/product'
+import { ACTIVE } from '../../utils/filters'
 
 const SORT_MAP: Record<string, Record<string, 1 | -1>> = {
   price_asc: { price: 1 },
@@ -23,7 +24,7 @@ export default defineEventHandler(async (event) => {
 
   await connectDB()
 
-  const filter: Record<string, unknown> = {}
+  const filter: Record<string, unknown> = { ...ACTIVE }
   if (category) filter.category = category
   if (minPrice !== undefined || maxPrice !== undefined) {
     filter.price = {
@@ -35,7 +36,7 @@ export default defineEventHandler(async (event) => {
   const skip = (page - 1) * limit
 
   const [products, total] = await Promise.all([
-    Product.find(filter).sort(sort).skip(skip).limit(limit).lean(),
+    Product.find(filter).sort(sort).skip(skip).limit(limit).select('-affiliateUrl -asin').lean(),
     Product.countDocuments(filter),
   ])
 

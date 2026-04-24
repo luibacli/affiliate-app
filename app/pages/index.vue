@@ -4,7 +4,7 @@ const page = computed(() => Number(route.query.page) || 1)
 const category = computed(() => (route.query.category as string) || undefined)
 const sort = computed(() => (route.query.sort as string) || 'newest')
 
-const [{ data }, { data: recs }] = await Promise.all([
+const [{ data }, { data: recs }, { data: trending }] = await Promise.all([
   useAsyncData(
     () => `home-p${page.value}-c${category.value ?? ''}-s${sort.value}`,
     () => $fetch<any>('/api/products', {
@@ -12,6 +12,7 @@ const [{ data }, { data: recs }] = await Promise.all([
     })
   ),
   useAsyncData('recommendations', () => $fetch<any>('/api/recommendations')),
+  useAsyncData('trending', () => $fetch<any[]>('/api/trending').catch(() => [])),
 ])
 
 const SORT_OPTIONS = [
@@ -20,17 +21,34 @@ const SORT_OPTIONS = [
   { label: 'Price ↓', value: 'price_desc' },
 ]
 
+const { siteUrl } = useRuntimeConfig().public
+
 useSeoMeta({
-  title: 'DealHunt — Best Deals from Shopee, Lazada & Amazon',
-  description: 'Compare prices and find the best deals across top e-commerce platforms.',
-  ogTitle: 'DealHunt — Best Deals Aggregator',
-  ogDescription: 'Discover top products with the best prices from Shopee, Lazada, and Amazon.',
+  title: 'SmartBuy Marketplace — Best Online Deals & Price Comparison',
+  description: 'Compare prices instantly across top e-commerce platforms. Find the best deals, lowest prices, and biggest discounts — all in one place. Free to use, updated daily.',
+  ogTitle: 'SmartBuy Marketplace — Best Deals Aggregator',
+  ogDescription: 'Find the best deals from top online shopping platforms. Compare prices, track discounts, and save more on every purchase.',
   ogType: 'website',
+  ogImage: `${siteUrl}/og-default.png`,
+})
+
+useHead({
+  link: [{ rel: 'canonical', href: siteUrl }],
+  script: [{
+    type: 'application/ld+json',
+    innerHTML: JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: 'SmartBuy Marketplace',
+      url: siteUrl,
+      description: 'Price comparison and deal aggregator across top e-commerce platforms globally.',
+    }),
+  }],
 })
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50 font-sans">
+  <div>
 
     <!-- Hero -->
     <HeroSection />
@@ -42,6 +60,16 @@ useSeoMeta({
     <CategoryNav />
 
     <div class="max-w-7xl mx-auto px-4">
+
+      <!-- Trending Now (click-data driven) -->
+      <FeaturedRow
+        v-if="trending?.length"
+        title="📈 Trending Now"
+        :products="trending"
+        label="Trending"
+        traffic-source="homepage-trending"
+        view-all-link="/search?sort=newest"
+      />
 
       <!-- Featured sections -->
       <div v-if="recs" class="divide-y divide-gray-100">
@@ -143,16 +171,5 @@ useSeoMeta({
       </section>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-400 text-sm py-8 mt-8">
-      <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p class="font-bold text-white text-base">DealHunt</p>
-        <p>© {{ new Date().getFullYear() }} — Prices updated daily from Shopee, Lazada & Amazon</p>
-        <div class="flex gap-4">
-          <NuxtLink to="/admin/dashboard" class="hover:text-white transition-colors">Admin</NuxtLink>
-          <NuxtLink to="/sitemap.xml" class="hover:text-white transition-colors">Sitemap</NuxtLink>
-        </div>
-      </div>
-    </footer>
   </div>
 </template>

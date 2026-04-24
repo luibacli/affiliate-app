@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import { formatPrice } from '~/composables/usePrice'
+
 const props = defineProps<{
   product: {
     _id: string
     title: string
     price: number
     originalPrice?: number
+    currency?: string
     slug?: string
     imageUrl?: string
     source?: string
@@ -12,10 +15,17 @@ const props = defineProps<{
     discountPct?: number
     category?: string
     lastPriceDrop?: string | Date | null
+    lowestPrice30d?: number | null
   }
   trafficSource?: string
   label?: string
 }>()
+
+const currency = computed(() => props.product.currency ?? 'USD')
+const isLowestPrice = computed(() =>
+  props.product.lowestPrice30d != null &&
+  props.product.price <= props.product.lowestPrice30d
+)
 
 const isPriceDrop = computed(() => {
   if (!props.product.lastPriceDrop) return false
@@ -40,12 +50,18 @@ const LABEL_STYLES: Record<string, string> = {
   'Best Value': 'bg-accent-500 text-white',
   'Top Rated': 'bg-yellow-400 text-yellow-900',
   'Budget Pick': 'bg-green-500 text-white',
+  'Trending': 'bg-pink-500 text-white',
+  'Featured': 'bg-primary-600 text-white',
+  'Best Deal': 'bg-red-500 text-white',
 }
 
 const LABEL_ICON: Record<string, string> = {
   'Best Value': '🔥',
   'Top Rated': '⭐',
   'Budget Pick': '💸',
+  'Trending': '📈',
+  'Featured': '✨',
+  'Best Deal': '🏷️',
 }
 
 const SOURCE_COLORS: Record<string, string> = {
@@ -56,7 +72,7 @@ const SOURCE_COLORS: Record<string, string> = {
 </script>
 
 <template>
-  <div class="group relative flex flex-col bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-100 h-full">
+  <div class="group relative flex flex-col bg-white rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 overflow-hidden border border-gray-100 hover:border-primary-100 h-full">
 
     <!-- Badges row -->
     <div class="absolute top-2 left-2 right-2 z-10 flex items-start justify-between gap-1">
@@ -84,19 +100,24 @@ const SOURCE_COLORS: Record<string, string> = {
       </div>
     </div>
 
-    <!-- Image -->
+    <!-- Image (aspect-ratio container prevents CLS) -->
     <NuxtLink :to="product.slug ? `/products/${product.slug}` : '#'" class="block overflow-hidden bg-gray-50">
-      <img
-        v-if="product.imageUrl"
-        :src="product.imageUrl"
-        :alt="product.title"
-        loading="lazy"
-        class="w-full h-44 object-contain p-3 group-hover:scale-105 transition-transform duration-300"
-      />
-      <div v-else class="w-full h-44 flex items-center justify-center text-gray-300">
-        <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-        </svg>
+      <div class="aspect-[4/3] w-full relative overflow-hidden">
+        <img
+          v-if="product.imageUrl"
+          :src="product.imageUrl"
+          :alt="product.title"
+          width="300"
+          height="225"
+          loading="lazy"
+          decoding="async"
+          class="absolute inset-0 w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300"
+        />
+        <div v-else class="absolute inset-0 flex items-center justify-center text-gray-300">
+          <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+        </div>
       </div>
     </NuxtLink>
 
@@ -136,14 +157,18 @@ const SOURCE_COLORS: Record<string, string> = {
       <div class="flex-1" />
 
       <!-- Pricing -->
-      <div class="flex items-baseline gap-2">
-        <span class="text-lg font-bold text-primary-600">${{ product.price.toFixed(2) }}</span>
+      <div class="flex items-baseline gap-2 flex-wrap">
+        <span class="text-lg font-bold text-primary-600">{{ formatPrice(product.price, currency) }}</span>
         <span
           v-if="product.originalPrice && product.originalPrice > product.price"
           class="text-sm text-gray-400 line-through"
         >
-          ${{ product.originalPrice.toFixed(2) }}
+          {{ formatPrice(product.originalPrice, currency) }}
         </span>
+      </div>
+      <!-- Lowest price badge -->
+      <div v-if="isLowestPrice" class="text-xs font-bold text-emerald-600 flex items-center gap-1">
+        <span>🏷️</span> Lowest in 30 days
       </div>
 
       <!-- CTA -->

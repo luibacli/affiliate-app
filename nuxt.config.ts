@@ -3,6 +3,23 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   modules: ['@nuxtjs/tailwindcss'],
+  app: {
+    head: {
+      link: [
+        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+        {
+          rel: 'preload',
+          as: 'style',
+          href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap',
+        },
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap',
+        },
+      ],
+    },
+  },
   runtimeConfig: {
     mongoUri: process.env.MONGO_URI || '',
     redisUrl: process.env.REDIS_URL || 'redis://localhost:6379',
@@ -13,6 +30,9 @@ export default defineNuxtConfig({
     amazonPartnerTag: process.env.AMAZON_PARTNER_TAG || '',
     amazonRegion: process.env.AMAZON_REGION || 'us-east-1',
     amazonMarketplace: process.env.AMAZON_MARKETPLACE || 'www.amazon.com',
+    public: {
+      siteUrl: process.env.SITE_URL || 'http://localhost:3000',
+    },
   },
   nitro: {
     compressPublicAssets: true,
@@ -20,21 +40,22 @@ export default defineNuxtConfig({
     scheduledTasks: { '0 */6 * * *': ['prices:update'] },
   },
   routeRules: {
-    '/': { swr: 300 },
-    '/products/**': { swr: 3600 },
-    '/category/**': { swr: 1800 },
+    '/': { headers: { 'cache-control': 's-maxage=300, stale-while-revalidate=600' } },
+    '/products/**': { headers: { 'cache-control': 's-maxage=3600, stale-while-revalidate=86400' } },
+    '/category/**': { headers: { 'cache-control': 's-maxage=1800, stale-while-revalidate=3600' } },
     '/api/products': { headers: { 'cache-control': 's-maxage=60, stale-while-revalidate=300' } },
     '/api/products/**': { headers: { 'cache-control': 's-maxage=120, stale-while-revalidate=600' } },
     '/api/categories/**': { headers: { 'cache-control': 's-maxage=300, stale-while-revalidate=3600' } },
     '/api/affiliate/**': { headers: { 'cache-control': 'no-store' } },
-    '/search': { headers: { 'cache-control': 'no-store' } },
-    '/best/**': { swr: 3600 },
+    '/best/**': { headers: { 'cache-control': 's-maxage=3600, stale-while-revalidate=86400' } },
     '/api/search': { headers: { 'cache-control': 's-maxage=30, stale-while-revalidate=120' } },
     '/api/best/**': { headers: { 'cache-control': 's-maxage=300, stale-while-revalidate=3600' } },
     '/api/click': { headers: { 'cache-control': 'no-store' } },
     '/api/recommendations': { headers: { 'cache-control': 's-maxage=300, stale-while-revalidate=3600' } },
+    '/api/trending': { headers: { 'cache-control': 's-maxage=300, stale-while-revalidate=600' } },
     '/api/admin/**': { headers: { 'cache-control': 'no-store' } },
-    '/admin/**': { ssr: false },
+    '/admin/**': { ssr: false, headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
+    '/search': { headers: { 'cache-control': 'no-store', 'X-Robots-Tag': 'noindex' } },
     '/sitemap.xml': { headers: { 'cache-control': 's-maxage=3600' } },
   },
 })
