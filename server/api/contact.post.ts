@@ -1,4 +1,6 @@
 import { cacheIncr } from '../utils/redis'
+import { connectDB } from '../utils/db'
+import { ContactMessage } from '../models/contactMessage'
 
 export default defineEventHandler(async (event) => {
   const ip = getRequestIP(event, { xForwardedFor: true }) ?? 'unknown'
@@ -18,8 +20,14 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, message: 'Message too long' })
   }
 
-  // Log to server console — wire up email/webhook here when ready
-  console.info(`[Contact] from=${email} subject=${subject ?? 'general'} name=${name}`)
+  await connectDB()
+  await ContactMessage.create({
+    name: String(name).slice(0, 100),
+    email: String(email).slice(0, 254),
+    subject: String(subject ?? 'general').slice(0, 50),
+    message: String(message).slice(0, 2000),
+    ip,
+  })
 
   return { ok: true }
 })

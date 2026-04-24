@@ -35,7 +35,7 @@ const totalDisplay = computed(() => {
       <!-- Platform pills -->
       <div class="flex justify-center gap-2 mb-6 flex-wrap">
         <span
-          v-for="p in ['Shopee', 'Lazada', 'Amazon']"
+          v-for="p in ['Global Platforms', 'Real-Time Prices', 'Best Deals Daily']"
           :key="p"
           class="text-xs font-semibold px-3 py-1 rounded-full bg-white/15 border border-white/20 backdrop-blur-sm"
         >

@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
 
   await connectDB()
 
-  const product = await Product.findOne({ slug, ...ACTIVE }).lean()
+  const product = await Product.findOne({ slug, ...ACTIVE }).select('-affiliateUrl -asin').lean()
   if (!product) throw createError({ statusCode: 404, message: 'Product not found' })
 
   await cacheSet(cacheKey, product, 120)

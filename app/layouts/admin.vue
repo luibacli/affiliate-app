@@ -2,9 +2,10 @@
 import { Toaster } from 'vue-sonner'
 
 const route = useRoute()
-const { key, authError } = useAdminAuth()
+const { key, authError, apiFetch } = useAdminAuth()
 const showKey = ref(false)
 const sidebarOpen = ref(false)
+const unreadCount = ref(0)
 
 const NAV = [
   { label: 'Dashboard', to: '/admin/dashboard', icon: '📊' },
@@ -12,13 +13,24 @@ const NAV = [
   { label: '+ Add Product', to: '/admin/products/create', icon: '➕' },
   { label: 'Categories', to: '/admin/categories', icon: '🏷️' },
   { label: 'Amazon Import', to: '/admin/amazon', icon: '🛒' },
+  { label: 'Messages', to: '/admin/messages', icon: '✉️' },
   { label: '← Storefront', to: '/', icon: '🏠' },
 ]
 
 const isAuthenticated = computed(() => !!key.value)
 const maskedKey = computed(() => key.value ? '••••••••' + key.value.slice(-6) : '')
 
+async function fetchUnread() {
+  if (!key.value) return
+  try {
+    const res = await apiFetch<any>('/api/admin/messages', { query: { page: 1 } })
+    unreadCount.value = res?.unreadCount ?? 0
+  } catch {}
+}
+
 watch(() => route.path, () => { sidebarOpen.value = false })
+watch(key, (val) => { if (val) fetchUnread() })
+onMounted(fetchUnread)
 </script>
 
 <template>
@@ -75,7 +87,11 @@ watch(() => route.path, () => { sidebarOpen.value = false })
             class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors"
           >
             <span>{{ item.icon }}</span>
-            <span>{{ item.label }}</span>
+            <span class="flex-1">{{ item.label }}</span>
+            <span
+              v-if="item.to === '/admin/messages' && unreadCount > 0"
+              class="ml-auto min-w-[20px] text-center px-1.5 py-0.5 rounded-full bg-red-500 text-white text-xs font-bold leading-none"
+            >{{ unreadCount }}</span>
           </NuxtLink>
         </nav>
 

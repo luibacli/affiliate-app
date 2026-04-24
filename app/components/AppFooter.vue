@@ -8,7 +8,7 @@
           <p class="font-black text-white text-xl tracking-tight">
             <span class="text-primary-400">SmartBuy</span><span class="text-accent-400"> Marketplace</span>
           </p>
-          <p class="text-xs mt-1 text-gray-500">Compare prices across Shopee, Lazada & Amazon</p>
+          <p class="text-xs mt-1 text-gray-500">Compare prices across top online shopping platforms globally</p>
         </div>
 
         <!-- Navigation links -->
@@ -26,7 +26,7 @@
       <div class="border-t border-gray-800 pt-4 text-xs text-gray-600">
         <p class="mb-2">
           <strong class="text-gray-500">Affiliate Disclosure:</strong>
-          SmartBuy Marketplace participates in affiliate programs including Amazon Associates, Shopee Affiliate, and Lazada Affiliate.
+          SmartBuy Marketplace participates in affiliate programs from leading e-commerce platforms worldwide.
           We earn commissions on qualifying purchases at no extra cost to you.
           <NuxtLink to="/disclosure" class="text-gray-500 hover:text-white underline ml-1">Learn more</NuxtLink>
         </p>

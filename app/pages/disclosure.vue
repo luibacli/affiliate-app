@@ -37,7 +37,7 @@
         <p>
           All outbound product links on SmartBuy Marketplace lead to third-party merchant websites through our
           <code class="bg-gray-100 px-1 rounded">/api/click</code> redirect system. These are affiliate links.
-          You can identify them because they always open on the merchant's website (Amazon, Shopee, or Lazada),
+          You can identify them because they always open on the merchant's website,
           not on SmartBuy Marketplace.
         </p>
         <p class="mt-2">
@@ -85,7 +85,7 @@
 useHead({
   title: 'Affiliate Disclosure — SmartBuy Marketplace',
   meta: [
-    { name: 'description', content: 'SmartBuy Marketplace affiliate disclosure. Learn about our participation in Amazon Associates, Shopee Affiliate, and Lazada Affiliate programs.' },
+    { name: 'description', content: 'SmartBuy Marketplace affiliate disclosure. Learn about our participation in affiliate programs across leading global e-commerce platforms.' },
     { name: 'robots', content: 'noindex' },
   ],
 })

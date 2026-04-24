@@ -14,7 +14,7 @@ useSeoMeta({
   title: `Best ${category.charAt(0).toUpperCase() + category.slice(1)} Deals — Top Discounts`,
   description: `Shop the best ${category} products sorted by highest discount. Compare prices and save big.`,
   ogTitle: `Best ${category} Deals`,
-  ogDescription: `Top-rated ${category} products with the biggest discounts across Shopee, Lazada, and Amazon.`,
+  ogDescription: `Top-rated ${category} products with the biggest discounts across leading online shopping platforms.`,
   ogImage: `${siteUrl}/og-default.png`,
   ogType: 'website',
 })
@@ -37,7 +37,7 @@ useHead({
           name: `What are the best ${catLabel} deals right now?`,
           acceptedAnswer: {
             '@type': 'Answer',
-            text: `SmartBuy Marketplace tracks ${catLabel} products across Shopee, Lazada, and Amazon and sorts them by biggest discount so you always see the best deal first.`,
+            text: `SmartBuy Marketplace tracks ${catLabel} products across top e-commerce platforms globally and sorts them by biggest discount so you always see the best deal first.`,
           },
         },
         {
@@ -91,7 +91,7 @@ useHead({
       <div class="bg-white rounded-2xl border border-gray-100 p-5 mb-6">
         <p class="text-sm text-gray-600 leading-relaxed">
           Looking for the best <strong class="text-gray-800 capitalize">{{ category }}</strong> deals?
-          SmartBuy Marketplace compares prices across <strong class="text-gray-800">Shopee, Lazada, and Amazon</strong> in real time
+          SmartBuy Marketplace compares prices across <strong class="text-gray-800">the world's top e-commerce platforms</strong> in real time
           so you never overpay. Every product below is ranked by its current discount percentage — the biggest savings first.
           Prices are refreshed every 6 hours so you always see accurate, up-to-date deals.
         </p>

@@ -1,12 +1,12 @@
 <template>
   <div class="max-w-3xl mx-auto px-4 py-12">
     <h1 class="text-3xl font-black text-gray-900 mb-2">About SmartBuy Marketplace</h1>
-    <p class="text-gray-500 mb-10">Your independent price comparison engine for Shopee, Lazada & Amazon.</p>
+    <p class="text-gray-500 mb-10">Your independent price comparison engine across top online shopping platforms worldwide.</p>
 
     <section class="prose prose-gray max-w-none space-y-6 text-gray-700 leading-relaxed">
       <p>
-        SmartBuy Marketplace is an independent affiliate price-comparison platform that helps consumers in Southeast Asia
-        find the best product prices across major e-commerce platforms including Shopee, Lazada, and Amazon.
+        SmartBuy Marketplace is an independent affiliate price-comparison platform that helps consumers worldwide
+        find the best product prices across major global e-commerce platforms.
         We aggregate product listings, track price history, and surface the best deals — all in one place.
       </p>
 
@@ -19,8 +19,8 @@
 
       <h2 class="text-xl font-bold text-gray-900 mt-8 mb-2">How We Make Money</h2>
       <p>
-        SmartBuy Marketplace earns a small commission from affiliate programs (including Amazon Associates, Shopee
-        Affiliate, and Lazada Affiliate) when you click through to a product and make a purchase.
+        SmartBuy Marketplace earns a small commission from affiliate programs on leading e-commerce platforms
+        when you click through to a product and make a purchase.
         <strong>This never affects the price you pay</strong> — prices are always sourced directly from the
         merchant and updated regularly.
       </p>
@@ -31,7 +31,7 @@
 
       <h2 class="text-xl font-bold text-gray-900 mt-8 mb-2">What We Track</h2>
       <ul class="list-disc list-inside space-y-1 text-gray-600">
-        <li>Real-time and historical prices across Shopee, Lazada, and Amazon</li>
+        <li>Real-time and historical prices across top global e-commerce platforms</li>
         <li>30-day lowest price tracking per product</li>
         <li>Trending products based on community interest</li>
         <li>Best-value scores (rating-to-price ratio)</li>
@@ -59,9 +59,9 @@
 useHead({
   title: 'About SmartBuy Marketplace — Price Comparison & Deals in Southeast Asia',
   meta: [
-    { name: 'description', content: 'SmartBuy Marketplace is a free price comparison platform for Shopee, Lazada & Amazon. Learn how we help you find the best deals and how our affiliate model works.' },
+    { name: 'description', content: 'SmartBuy Marketplace is a free price comparison platform across top online shopping stores globally. Learn how we help you find the best deals and how our affiliate model works.' },
     { property: 'og:title', content: 'About SmartBuy Marketplace' },
-    { property: 'og:description', content: 'Free price comparison across Shopee, Lazada & Amazon. No bias. No markup.' },
+    { property: 'og:description', content: 'Free price comparison across leading e-commerce platforms worldwide. No bias. No markup.' },
   ],
 })
 </script>

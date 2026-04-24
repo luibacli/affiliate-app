@@ -17,7 +17,7 @@
         <h2 class="text-lg font-bold text-gray-900 mb-2">2. Nature of the Service</h2>
         <p>
           SmartBuy Marketplace is a price comparison and affiliate marketplace aggregator. We do <strong>not</strong> sell
-          products directly. All purchases are made on third-party platforms (Shopee, Lazada, Amazon).
+          products directly. All purchases are made on third-party e-commerce platforms.
           We are not a party to any transaction between you and these merchants.
         </p>
       </div>

@@ -24,10 +24,10 @@ const SORT_OPTIONS = [
 const { siteUrl } = useRuntimeConfig().public
 
 useSeoMeta({
-  title: 'SmartBuy Marketplace — Best Deals from Shopee, Lazada & Amazon',
-  description: 'Compare prices instantly across Shopee, Lazada, and Amazon. Find the best deals, lowest prices, and biggest discounts — all in one place. Free to use, updated daily.',
+  title: 'SmartBuy Marketplace — Best Online Deals & Price Comparison',
+  description: 'Compare prices instantly across top e-commerce platforms. Find the best deals, lowest prices, and biggest discounts — all in one place. Free to use, updated daily.',
   ogTitle: 'SmartBuy Marketplace — Best Deals Aggregator',
-  ogDescription: 'Find the best deals across Shopee, Lazada & Amazon. Compare prices, track discounts, and save more on every purchase.',
+  ogDescription: 'Find the best deals from top online shopping platforms. Compare prices, track discounts, and save more on every purchase.',
   ogType: 'website',
   ogImage: `${siteUrl}/og-default.png`,
 })
@@ -41,7 +41,7 @@ useHead({
       '@type': 'Organization',
       name: 'SmartBuy Marketplace',
       url: siteUrl,
-      description: 'Price comparison and deal aggregator for Shopee, Lazada, and Amazon.',
+      description: 'Price comparison and deal aggregator across top e-commerce platforms globally.',
     }),
   }],
 })

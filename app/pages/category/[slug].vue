@@ -15,7 +15,7 @@ const { siteUrl } = useRuntimeConfig().public
 
 useSeoMeta({
   title: computed(() => `${slug.charAt(0).toUpperCase() + slug.slice(1)} Deals — Best Prices`),
-  description: computed(() => `Shop the best ${slug} products at unbeatable prices. Compare across Shopee, Lazada & Amazon.`),
+  description: computed(() => `Shop the best ${slug} products at unbeatable prices. Compare across top online shopping platforms.`),
   ogTitle: computed(() => `${slug} Deals — SmartBuy Marketplace`),
   ogDescription: computed(() => `Browse top-rated ${slug} products with affiliate pricing.`),
   ogImage: `${siteUrl}/og-default.png`,
@@ -74,7 +74,7 @@ useHead({
       <div class="bg-white rounded-2xl border border-gray-100 p-5 mb-6">
         <p class="text-sm text-gray-600 leading-relaxed">
           Browse all <strong class="text-gray-800 capitalize">{{ slug }}</strong> products available across
-          <strong class="text-gray-800">Shopee, Lazada, and Amazon</strong>.
+          <strong class="text-gray-800">the world's leading online shopping platforms</strong>.
           SmartBuy Marketplace aggregates the latest listings so you can compare prices and find the best deal in one place —
           no tab-switching required. All prices are updated every 6 hours.
         </p>
