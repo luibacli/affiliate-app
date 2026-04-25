@@ -35,9 +35,9 @@ export default defineNuxtConfig({
     },
   },
   nitro: {
+    preset: 'vercel',
     compressPublicAssets: true,
     experimental: { tasks: true },
-    scheduledTasks: { '0 */6 * * *': ['prices:update'] },
   },
   routeRules: {
     '/': { headers: { 'cache-control': 's-maxage=300, stale-while-revalidate=600' } },
