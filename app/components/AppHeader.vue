@@ -21,10 +21,16 @@ const isHome = computed(() => route.path === '/')
       <!-- Nav links -->
       <nav class="flex items-center gap-1 flex-shrink-0">
         <NuxtLink
+          to="/shop"
+          class="hidden sm:flex items-center px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-gray-50 rounded-lg transition-colors"
+        >
+          Shop
+        </NuxtLink>
+        <NuxtLink
           to="/search"
           class="hidden sm:flex items-center px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-gray-50 rounded-lg transition-colors"
         >
-          Browse
+          Search
         </NuxtLink>
         <NuxtLink
           to="/best/phones"

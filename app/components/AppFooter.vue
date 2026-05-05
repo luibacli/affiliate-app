@@ -14,6 +14,7 @@
         <!-- Navigation links -->
         <div class="flex flex-wrap gap-x-6 gap-y-2 text-xs">
           <NuxtLink to="/" class="hover:text-white transition-colors">Home</NuxtLink>
+          <NuxtLink to="/shop" class="hover:text-white transition-colors">Shop</NuxtLink>
           <NuxtLink to="/search" class="hover:text-white transition-colors">Search</NuxtLink>
           <NuxtLink to="/best/phones" class="hover:text-white transition-colors">Best Deals</NuxtLink>
           <NuxtLink to="/about" class="hover:text-white transition-colors">About</NuxtLink>
