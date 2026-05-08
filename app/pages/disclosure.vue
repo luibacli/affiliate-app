@@ -22,11 +22,11 @@
             advertising fees by advertising and linking to Amazon.com and affiliated Amazon sites.
           </li>
           <li>
-            <strong>Shopee Affiliate Program</strong> — We link to products on Shopee and may earn a commission
+            <strong>Walmart Affiliate Program</strong> — We link to products on Walmart and may earn a commission
             on qualifying purchases made through our links.
           </li>
           <li>
-            <strong>Lazada Affiliate Program</strong> — We link to products on Lazada and may earn a commission
+            <strong>eBay Partner Network</strong> — We link to products on eBay and may earn a commission
             on qualifying purchases made through our links.
           </li>
         </ul>

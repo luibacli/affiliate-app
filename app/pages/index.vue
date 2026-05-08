@@ -15,7 +15,7 @@ const { siteUrl } = useRuntimeConfig().public
 
 useSeoMeta({
   title: 'SmartBuy Hub — All the Best Deals in One Place',
-  description: 'Discover products from Amazon, Walmart, Shopee, and more — all in one platform. Compare deals, save money, and earn as an affiliate contributor.',
+  description: 'Discover products from Amazon, Walmart, eBay, and more — all in one platform. Compare deals, save money, and earn as an affiliate contributor.',
   ogTitle: 'SmartBuy Hub — Best Deals from Every Platform',
   ogDescription: 'All the best deals from top online shopping platforms in one place. Free to use, updated daily.',
   ogType: 'website',
