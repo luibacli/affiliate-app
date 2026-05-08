@@ -26,7 +26,7 @@ onMounted(() => {
 
 const display = computed(() => results.value ?? ssrData.value)
 
-const SOURCES = ['Shopee', 'Lazada', 'Amazon']
+const SOURCES = ['Amazon', 'Walmart', 'eBay']
 const SORTS = [
   { label: 'Relevance', value: 'relevance' },
   { label: 'Price ↑', value: 'price_asc' },

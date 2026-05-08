@@ -3,7 +3,7 @@ const perks = [
   {
     icon: '📦',
     title: 'Post Any Product',
-    desc: 'Submit listings from Amazon, Shopee, Lazada, or any platform using your affiliate link.',
+    desc: 'Submit listings from Amazon, Walmart, eBay, or any platform using your affiliate link.',
   },
   {
     icon: '💸',

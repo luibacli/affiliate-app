@@ -11,7 +11,7 @@
             <span class="text-white">SmartBuy</span><span class="text-accent-400">Hub</span>
           </p>
           <p class="text-xs text-gray-600 leading-relaxed">
-            Compare prices across Amazon, Shopee, Lazada & more — all in one place, free forever.
+            Compare prices across Amazon, Walmart, eBay & more — all in one place, free forever.
           </p>
         </div>
 
