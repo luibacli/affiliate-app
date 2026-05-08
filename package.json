@@ -10,6 +10,8 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "bcryptjs": "^3.0.3",
     "ioredis": "^5.10.1",
     "mongoose": "^9.5.0",
     "nuxt": "^4.4.2",
