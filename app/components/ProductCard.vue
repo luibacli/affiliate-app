@@ -72,7 +72,7 @@ const SOURCE_COLORS: Record<string, string> = {
 </script>
 
 <template>
-  <div class="group relative flex flex-col bg-white rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 overflow-hidden border border-gray-100 hover:border-primary-100 h-full">
+  <div class="group relative flex flex-col bg-white rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200 overflow-hidden border border-gray-100 hover:border-primary-200 h-full">
 
     <!-- Badges row -->
     <div class="absolute top-2 left-2 right-2 z-10 flex items-start justify-between gap-1">
@@ -157,18 +157,27 @@ const SOURCE_COLORS: Record<string, string> = {
       <div class="flex-1" />
 
       <!-- Pricing -->
-      <div class="flex items-baseline gap-2 flex-wrap">
-        <span class="text-lg font-bold text-primary-600">{{ formatPrice(product.price, currency) }}</span>
-        <span
+      <div class="space-y-1">
+        <div class="flex items-baseline gap-2 flex-wrap">
+          <span class="text-lg font-black text-primary-600">{{ formatPrice(product.price, currency) }}</span>
+          <span
+            v-if="product.originalPrice && product.originalPrice > product.price"
+            class="text-sm text-gray-400 line-through"
+          >
+            {{ formatPrice(product.originalPrice, currency) }}
+          </span>
+        </div>
+        <!-- Savings amount -->
+        <div
           v-if="product.originalPrice && product.originalPrice > product.price"
-          class="text-sm text-gray-400 line-through"
+          class="text-xs font-bold text-emerald-600"
         >
-          {{ formatPrice(product.originalPrice, currency) }}
-        </span>
-      </div>
-      <!-- Lowest price badge -->
-      <div v-if="isLowestPrice" class="text-xs font-bold text-emerald-600 flex items-center gap-1">
-        <span>🏷️</span> Lowest in 30 days
+          Save {{ formatPrice(product.originalPrice - product.price, currency) }}
+        </div>
+        <!-- Lowest price badge -->
+        <div v-if="isLowestPrice" class="text-xs font-bold text-emerald-600 flex items-center gap-1">
+          🏷️ Lowest in 30 days
+        </div>
       </div>
 
       <!-- CTA -->
@@ -176,10 +185,10 @@ const SOURCE_COLORS: Record<string, string> = {
         :href="dealUrl"
         target="_blank"
         rel="noopener noreferrer sponsored"
-        class="mt-1 w-full text-center text-sm font-bold text-white bg-accent-500 hover:bg-accent-600 active:scale-95 transition-all duration-150 py-2.5 rounded-xl shadow-sm"
+        class="mt-2 w-full text-center text-sm font-bold text-white bg-accent-500 hover:bg-accent-600 active:scale-[0.97] transition-all duration-150 py-2.5 rounded-xl shadow-sm hover:shadow-md"
         @click.stop
       >
-        Check Price Now 🔥
+        Check Price 🔥
       </a>
     </div>
   </div>

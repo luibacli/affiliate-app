@@ -1,80 +1,94 @@
-<template>
-  <section class="bg-gray-50 py-14 md:py-20">
-    <div class="max-w-5xl mx-auto px-4">
+<script setup lang="ts">
+const steps = [
+  {
+    step: '01',
+    icon: '🔍',
+    iconBg: 'bg-primary-600/20 border border-primary-500/30',
+    title: 'Search or Browse',
+    desc: 'Search thousands of products or browse by category. We aggregate deals from Amazon, Shopee, Lazada, and more.',
+  },
+  {
+    step: '02',
+    icon: '💡',
+    iconBg: 'bg-accent-500/20 border border-accent-400/30',
+    title: 'Compare Prices',
+    desc: 'See the real price from every platform side by side. No markup, no hidden fees. Just the best deal, instantly.',
+  },
+  {
+    step: '03',
+    icon: '🛒',
+    iconBg: 'bg-emerald-500/20 border border-emerald-400/30',
+    title: 'Buy & Save',
+    desc: 'Click "Check Price" and we redirect you straight to the best deal on the original platform. Fast, safe, free.',
+  },
+]
+</script>
 
-      <div class="text-center mb-12">
-        <span class="inline-block text-xs font-bold uppercase tracking-widest text-accent-500 bg-accent-500/10 px-3 py-1 rounded-full mb-4">
+<template>
+  <section class="bg-gray-900 text-white py-16 md:py-24">
+    <div class="max-w-6xl mx-auto px-4">
+
+      <!-- Header -->
+      <div class="text-center mb-14">
+        <span class="inline-block text-xs font-bold uppercase tracking-widest text-accent-400 bg-accent-400/10 border border-accent-400/20 px-3 py-1 rounded-full mb-4">
           How It Works
         </span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900">
-          3 Simple Steps
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">
+          Save More in 3 Simple Steps
         </h2>
+        <p class="text-gray-400 text-sm sm:text-base mt-2 max-w-lg mx-auto">
+          No account needed. No fees. Just better deals.
+        </p>
       </div>
 
       <!-- Steps -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 relative">
 
-        <!-- Connector lines (desktop only) -->
-        <div class="hidden md:block absolute top-12 left-1/3 right-1/3 h-0.5 bg-gradient-to-r from-primary-200 via-accent-300 to-primary-200 z-0" />
+        <!-- Connector line (desktop) -->
+        <div class="hidden md:block absolute top-14 left-[calc(33%+1rem)] right-[calc(33%+1rem)] h-px bg-gradient-to-r from-primary-500/30 via-accent-400/40 to-emerald-500/30" />
 
         <div
           v-for="(step, i) in steps"
-          :key="step.title"
-          class="relative z-10 flex flex-col items-center text-center bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+          :key="step.step"
+          class="relative flex flex-col gap-5 p-6 sm:p-8 bg-white/[0.04] hover:bg-white/[0.07] border border-white/[0.07] rounded-2xl transition-all duration-200"
         >
-          <!-- Number + Icon -->
-          <div class="relative mb-5">
-            <div
-              :class="step.bg"
-              class="w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg"
-            >
-              <span class="text-3xl">{{ step.icon }}</span>
-            </div>
-            <span class="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-gray-900 text-white text-xs font-black flex items-center justify-center shadow">
-              {{ i + 1 }}
-            </span>
+          <!-- Step number (large faded) -->
+          <span class="absolute top-5 right-6 text-6xl font-black text-white/[0.05] leading-none select-none">
+            {{ step.step }}
+          </span>
+
+          <!-- Icon -->
+          <div
+            :class="step.iconBg"
+            class="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0"
+          >
+            {{ step.icon }}
           </div>
 
-          <h3 class="text-lg font-extrabold text-gray-900 mb-2">{{ step.title }}</h3>
-          <p class="text-sm text-gray-500 leading-relaxed">{{ step.desc }}</p>
+          <!-- Content -->
+          <div>
+            <h3 class="text-lg font-extrabold text-white mb-2">{{ step.title }}</h3>
+            <p class="text-sm text-gray-400 leading-relaxed">{{ step.desc }}</p>
+          </div>
+
+          <!-- Mobile step connector -->
+          <div v-if="i < 2" class="md:hidden absolute -bottom-3 left-1/2 -translate-x-1/2 w-px h-6 bg-white/10" />
         </div>
       </div>
 
       <!-- CTA -->
-      <div class="text-center mt-10">
+      <div class="text-center mt-12">
         <NuxtLink
           to="/shop"
-          class="inline-flex items-center gap-2 px-7 py-3.5 bg-primary-600 hover:bg-primary-700 active:scale-95 text-white font-bold rounded-xl shadow-lg shadow-primary-500/25 transition-all duration-150"
+          class="inline-flex items-center gap-2 px-8 py-4 bg-primary-600 hover:bg-primary-500 active:scale-95 text-white font-bold text-base rounded-2xl shadow-xl shadow-primary-900/50 transition-all duration-150 hover:-translate-y-0.5"
         >
           Start Browsing Deals
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
           </svg>
         </NuxtLink>
       </div>
+
     </div>
   </section>
 </template>
-
-<script setup lang="ts">
-const steps = [
-  {
-    icon: '🔍',
-    bg: 'bg-primary-50',
-    title: 'Browse Products',
-    desc: 'Search or browse thousands of products across Amazon, Walmart, Shopee, and more.',
-  },
-  {
-    icon: '👆',
-    bg: 'bg-accent-50',
-    title: 'Click the Deal',
-    desc: 'Found what you want? Hit "Check Price" and we track the click through our affiliate system.',
-  },
-  {
-    icon: '🛒',
-    bg: 'bg-green-50',
-    title: 'Buy from Partner Platform',
-    desc: 'Complete your purchase on the original platform — at the same price, guaranteed.',
-  },
-]
-</script>

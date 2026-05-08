@@ -1,7 +1,15 @@
 <script setup lang="ts">
-const { data: featuredData } = await useAsyncData('landing-featured', () =>
-  $fetch<any>('/api/products', { query: { limit: 6, sort: 'newest' } }).catch(() => null)
-)
+const [{ data: productsData }, { data: trendingData }, { data: recsData }] = await Promise.all([
+  useAsyncData('landing-v2-featured', () =>
+    $fetch<any>('/api/products', { query: { limit: 12, sort: 'newest' } }).catch(() => null)
+  ),
+  useAsyncData('landing-v2-trending', () =>
+    $fetch<any[]>('/api/trending').catch(() => [])
+  ),
+  useAsyncData('landing-v2-recs', () =>
+    $fetch<any>('/api/recommendations').catch(() => null)
+  ),
+])
 
 const { siteUrl } = useRuntimeConfig().public
 
@@ -31,11 +39,31 @@ useHead({
 
 <template>
   <div>
+    <!-- 1. Hero — dark, search-first, stats -->
     <LandingHero />
-    <LandingWhatIsThis />
+
+    <!-- 2. Featured products with tabs -->
+    <LandingFeaturedProducts
+      :newest="productsData?.products ?? []"
+      :trending="trendingData ?? []"
+      :best-value="recsData?.bestValue ?? []"
+      :top-rated="recsData?.topRated ?? []"
+      :budget-picks="recsData?.budgetPicks ?? []"
+    />
+
+    <!-- 3. Category discovery grid -->
+    <LandingCategoryGrid />
+
+    <!-- 4. How it works — dark, 3 steps -->
     <LandingHowItWorks />
-    <LandingBenefits />
-    <LandingFeaturedProducts :products="featuredData?.products ?? []" />
+
+    <!-- 5. Affiliate invite — dark, split layout -->
     <LandingAffiliateInvite />
+
+    <!-- 6. Social proof + trust signals -->
+    <LandingSocialProof />
+
+    <!-- 7. Final CTA — dark, conversion -->
+    <LandingFinalCTA />
   </div>
 </template>
