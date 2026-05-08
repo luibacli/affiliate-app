@@ -12,18 +12,27 @@ export default defineEventHandler(async (event) => {
   const category = (q.category as string) || undefined
   const search = (q.search as string)?.trim() || undefined
 
+  const source = (q.source as string) || undefined
+  const onlyInactive = q.inactive === 'true'
+  const onlyPartner = q.partner === 'true'
+
   const filter: Record<string, unknown> = {}
   if (category) filter.category = category
   if (search) filter.$text = { $search: search }
+  if (source) filter.source = source
+  if (onlyInactive) filter.isActive = false
+  if (onlyPartner) filter.source = 'partner'
 
-  const [products, total] = await Promise.all([
+  const [products, total, pendingPartnerCount] = await Promise.all([
     Product.find(filter)
       .sort({ createdAt: -1 })
       .skip((page - 1) * limit)
       .limit(limit)
+      .populate('submittedBy', 'name email')
       .lean(),
     Product.countDocuments(filter),
+    Product.countDocuments({ source: 'partner', isActive: false }),
   ])
 
-  return { products, total, page, limit, totalPages: Math.ceil(total / limit) }
+  return { products, total, page, limit, totalPages: Math.ceil(total / limit), pendingPartnerCount }
 })

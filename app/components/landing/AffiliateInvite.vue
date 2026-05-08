@@ -61,19 +61,19 @@ const perks = [
           <!-- CTA buttons -->
           <div class="flex flex-col sm:flex-row gap-3">
             <NuxtLink
-              to="/contact"
+              to="/partner/apply"
               class="inline-flex items-center justify-center gap-2 px-7 py-4 bg-accent-500 hover:bg-accent-600 active:scale-95 text-white font-bold text-base rounded-2xl shadow-2xl shadow-accent-500/30 transition-all duration-150 hover:-translate-y-0.5"
             >
-              Become a Contributor
+              Apply to Partner Hub
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
               </svg>
             </NuxtLink>
             <NuxtLink
-              to="/contact"
+              to="/partner/login"
               class="inline-flex items-center justify-center gap-2 px-7 py-4 bg-white/[0.07] hover:bg-white/[0.12] active:scale-95 text-white font-semibold text-base rounded-2xl border border-white/[0.15] transition-all duration-150"
             >
-              Learn More
+              Partner Sign In
             </NuxtLink>
           </div>
 
