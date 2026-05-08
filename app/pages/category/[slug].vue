@@ -16,7 +16,7 @@ const { siteUrl } = useRuntimeConfig().public
 useSeoMeta({
   title: computed(() => `${slug.charAt(0).toUpperCase() + slug.slice(1)} Deals — Best Prices`),
   description: computed(() => `Shop the best ${slug} products at unbeatable prices. Compare across top online shopping platforms.`),
-  ogTitle: computed(() => `${slug} Deals — SmartBuy Marketplace`),
+  ogTitle: computed(() => `${slug} Deals — SmartBuy Hub`),
   ogDescription: computed(() => `Browse top-rated ${slug} products with affiliate pricing.`),
   ogImage: `${siteUrl}/og-default.png`,
   ogType: 'website',
@@ -59,7 +59,7 @@ useHead({
       <!-- Header -->
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
         <div>
-          <h1 class="text-2xl font-bold text-gray-900 capitalize">{{ slug }}</h1>
+          <h1 class="text-2xl font-black text-gray-900 capitalize">{{ slug }}</h1>
           <p v-if="data?.total" class="text-sm text-gray-400 mt-0.5">{{ data.total.toLocaleString() }} products</p>
         </div>
         <NuxtLink
@@ -75,7 +75,7 @@ useHead({
         <p class="text-sm text-gray-600 leading-relaxed">
           Browse all <strong class="text-gray-800 capitalize">{{ slug }}</strong> products available across
           <strong class="text-gray-800">the world's leading online shopping platforms</strong>.
-          SmartBuy Marketplace aggregates the latest listings so you can compare prices and find the best deal in one place —
+          SmartBuy Hub aggregates the latest listings so you can compare prices and find the best deal in one place —
           no tab-switching required. All prices are updated every 6 hours.
         </p>
         <div class="flex gap-3 mt-3 flex-wrap">

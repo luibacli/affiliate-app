@@ -32,22 +32,22 @@ const categories = computed(() => [
 </script>
 
 <template>
-  <section class="bg-white border-b border-gray-100 sticky top-14 z-20 shadow-sm">
+  <section class="bg-gray-900 border-b border-white/[0.07] sticky top-14 z-20">
     <div class="max-w-7xl mx-auto px-4">
-      <div class="flex gap-1 overflow-x-auto py-3 scrollbar-hide">
+      <div class="flex gap-1.5 overflow-x-auto py-2.5 scrollbar-hide">
         <NuxtLink
           v-for="cat in categories"
           :key="cat.slug"
-          :to="cat.slug ? `/category/${cat.slug}` : '/'"
+          :to="cat.slug ? `/category/${cat.slug}` : '/shop'"
           :aria-current="active === cat.slug ? 'page' : undefined"
           :class="active === cat.slug
-            ? 'bg-primary-600 text-white shadow-md'
-            : 'bg-gray-100 text-gray-600 hover:bg-primary-50 hover:text-primary-600'"
-          class="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-150 flex-shrink-0"
+            ? 'bg-white/[0.12] text-white border-white/[0.2]'
+            : 'text-gray-500 hover:text-white hover:bg-white/[0.07] border-transparent hover:border-white/[0.1]'"
+          class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-150 flex-shrink-0 border"
         >
-          <span>{{ cat.icon }}</span>
+          <span class="leading-none">{{ cat.icon }}</span>
           <span>{{ cat.name }}</span>
-          <span v-if="cat.count" class="text-xs opacity-60">({{ cat.count }})</span>
+          <span v-if="cat.count" class="opacity-40 text-[10px]">{{ cat.count }}</span>
         </NuxtLink>
       </div>
     </div>

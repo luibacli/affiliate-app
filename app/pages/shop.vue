@@ -24,9 +24,9 @@ const SORT_OPTIONS = [
 const { siteUrl } = useRuntimeConfig().public
 
 useSeoMeta({
-  title: 'Shop All Deals — SmartBuy Marketplace',
+  title: 'Shop All Deals — SmartBuy Hub',
   description: 'Browse thousands of products from top e-commerce platforms. Compare prices, find best deals, and save more on every purchase.',
-  ogTitle: 'Shop Best Deals — SmartBuy Marketplace',
+  ogTitle: 'Shop Best Deals — SmartBuy Hub',
   ogDescription: 'Browse and compare prices across Amazon, Walmart, Shopee, and more.',
   ogType: 'website',
   ogImage: `${siteUrl}/og-default.png`,
@@ -40,18 +40,18 @@ useHead({
 <template>
   <div>
 
-    <!-- Hero -->
+    <!-- Dark hero with search -->
     <HeroSection />
 
-    <!-- Trust bar -->
+    <!-- Dark trust bar -->
     <TrustBar />
 
-    <!-- Sticky category nav -->
+    <!-- Dark sticky category nav -->
     <CategoryNav />
 
     <div class="max-w-7xl mx-auto px-4">
 
-      <!-- Trending Now -->
+      <!-- Trending -->
       <FeaturedRow
         v-if="trending?.length"
         title="📈 Trending Now"
@@ -61,7 +61,7 @@ useHead({
         view-all-link="/search?sort=newest"
       />
 
-      <!-- Featured sections -->
+      <!-- Curated rows -->
       <div v-if="recs" class="divide-y divide-gray-100">
         <FeaturedRow
           title="🔥 Best Value"
@@ -87,26 +87,30 @@ useHead({
       </div>
 
       <!-- All products -->
-      <section class="py-8">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
-          <h2 class="text-xl font-bold text-gray-900">
-            All Products
-            <span v-if="data?.total" class="text-sm font-normal text-gray-400 ml-2">
-              {{ data.total.toLocaleString() }} items
-            </span>
-          </h2>
+      <section class="py-8 border-t border-gray-100">
 
-          <!-- Sort -->
+        <!-- Section header + sort -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+          <div>
+            <h2 class="text-xl font-black text-gray-900">
+              All Products
+              <span v-if="data?.total" class="text-sm font-normal text-gray-400 ml-2">
+                {{ data.total.toLocaleString() }} items
+              </span>
+            </h2>
+          </div>
+
+          <!-- Sort pills -->
           <div class="flex items-center gap-2">
-            <span class="text-sm text-gray-500">Sort:</span>
+            <span class="text-xs text-gray-400 font-medium">Sort by:</span>
             <div class="flex gap-1">
               <NuxtLink
                 v-for="opt in SORT_OPTIONS"
                 :key="opt.value"
                 :to="{ query: { ...route.query, sort: opt.value, page: 1 } }"
                 :class="sort === opt.value
-                  ? 'bg-primary-600 text-white'
-                  : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'"
+                  ? 'bg-gray-900 text-white'
+                  : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'"
                 class="px-3 py-1.5 text-xs font-semibold rounded-lg transition-all"
               >
                 {{ opt.label }}
@@ -130,11 +134,11 @@ useHead({
 
         <!-- Empty state -->
         <div v-else class="text-center py-20 text-gray-400">
-          <svg class="w-16 h-16 mx-auto mb-4 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-14 h-14 mx-auto mb-4 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
               d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
           </svg>
-          <p class="text-lg font-medium">No products yet</p>
+          <p class="text-base font-semibold text-gray-500">No products yet</p>
           <p class="text-sm mt-1">Products will appear here once added.</p>
         </div>
 
@@ -143,7 +147,7 @@ useHead({
           <NuxtLink
             v-if="page > 1"
             :to="{ query: { ...route.query, page: page - 1 } }"
-            class="flex items-center gap-1 px-4 py-2 text-sm font-semibold text-primary-600 bg-white border border-primary-200 rounded-xl hover:bg-primary-50 transition-all"
+            class="flex items-center gap-1 px-4 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-all"
           >
             ← Prev
           </NuxtLink>
@@ -153,7 +157,7 @@ useHead({
           <NuxtLink
             v-if="page < (data?.totalPages ?? 0)"
             :to="{ query: { ...route.query, page: page + 1 } }"
-            class="flex items-center gap-1 px-4 py-2 text-sm font-semibold text-primary-600 bg-white border border-primary-200 rounded-xl hover:bg-primary-50 transition-all"
+            class="flex items-center gap-1 px-4 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-all"
           >
             Next →
           </NuxtLink>
