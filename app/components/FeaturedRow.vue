@@ -26,15 +26,21 @@ defineProps<{
         </NuxtLink>
       </div>
 
-      <!-- Horizontal scroll -->
-      <div class="flex gap-4 overflow-x-auto pb-3 scrollbar-hide -mx-4 px-4">
-        <div
-          v-for="product in products"
-          :key="product._id"
-          class="flex-shrink-0 w-44 sm:w-52"
-        >
-          <ProductCard :product="product" :label="label" :traffic-source="trafficSource" />
+      <!-- Horizontal scroll with right-fade hint on mobile -->
+      <div class="relative">
+        <div class="flex gap-3 sm:gap-4 overflow-x-auto pb-3 scrollbar-hide -mx-4 px-4">
+          <div
+            v-for="product in products"
+            :key="product._id"
+            class="flex-shrink-0 w-40 sm:w-52"
+          >
+            <ProductCard :product="product" :label="label" :traffic-source="trafficSource" />
+          </div>
+          <!-- Trailing spacer so last card isn't flush against edge -->
+          <div class="flex-shrink-0 w-2 sm:hidden" />
         </div>
+        <!-- Right fade: scroll hint for mobile -->
+        <div class="pointer-events-none absolute right-0 top-0 bottom-3 w-10 bg-gradient-to-l from-white to-transparent sm:hidden" />
       </div>
     </div>
   </section>

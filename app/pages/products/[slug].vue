@@ -302,8 +302,8 @@ useHead({
     <div v-if="priceHistory?.length" class="border-t border-gray-100">
       <div class="max-w-6xl mx-auto px-4 py-8">
         <h2 class="text-xl font-bold text-gray-900 mb-4">📈 Price History</h2>
-        <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-          <table class="w-full text-sm">
+        <div class="overflow-x-auto rounded-2xl border border-gray-200">
+          <table class="w-full text-sm min-w-[360px] bg-white">
             <thead class="bg-gray-50 border-b border-gray-200">
               <tr>
                 <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Date</th>
@@ -360,7 +360,7 @@ useHead({
 
   <!-- Sticky mobile CTA bar -->
   <Teleport to="body">
-    <div class="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-white/95 backdrop-blur border-t border-gray-200 shadow-2xl px-4 py-3 flex items-center gap-3">
+    <div class="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-white/95 backdrop-blur border-t border-gray-200 shadow-2xl px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] flex items-center gap-3">
       <div class="flex-1 min-w-0">
         <p class="text-xs text-gray-500 truncate">{{ product?.title }}</p>
         <p class="text-base font-black text-primary-600">${{ product?.price?.toFixed(2) }}</p>
