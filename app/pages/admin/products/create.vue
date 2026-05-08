@@ -6,14 +6,14 @@ const { apiFetch } = useAdminAuth()
 const router = useRouter()
 
 const CATEGORIES = ['phones', 'laptops', 'accessories', 'gaming', 'fashion', 'home', 'beauty', 'sports']
-const SOURCES = ['Shopee', 'Lazada', 'Amazon']
+const SOURCES = ['Amazon', 'Walmart', 'eBay']
 
 const CURRENCIES = ['USD', 'PHP', 'SGD', 'MYR', 'IDR', 'THB']
 
 const form = reactive({
   title: '', description: '', price: '', originalPrice: '',
   affiliateUrl: '', imageUrl: '', category: 'phones',
-  source: 'Shopee', currency: 'USD', rating: '', tags: '', compareGroupId: '',
+  source: 'Amazon', currency: 'USD', rating: '', tags: '', compareGroupId: '',
   isFeatured: false, isTrending: false, isBestDeal: false,
 })
 
