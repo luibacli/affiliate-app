@@ -101,7 +101,9 @@ const onBlur = () => setTimeout(() => { showSuggestions.value = false; activeInd
           v-model="query"
           type="search"
           placeholder="Search products, brands, categories..."
-          :class="large ? 'text-base py-4 pr-36 pl-12' : 'text-sm py-3 pr-28 pl-10'"
+          :class="large
+            ? 'text-base py-4 pr-24 sm:pr-36 pl-12'
+            : 'text-sm py-3 pr-11 sm:pr-28 pl-10'"
           class="w-full rounded-2xl border border-gray-200 bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent placeholder-gray-400 text-gray-800 transition-shadow"
           autocomplete="off"
           aria-autocomplete="list"
@@ -111,10 +113,23 @@ const onBlur = () => setTimeout(() => { showSuggestions.value = false; activeInd
         />
         <button
           type="submit"
-          :class="large ? 'px-6 py-2.5 text-sm' : 'px-4 py-2 text-xs'"
           class="absolute right-2 font-bold text-white bg-primary-600 hover:bg-primary-700 active:scale-95 transition-all rounded-xl"
+          :class="large
+            ? 'px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm'
+            : 'p-2 sm:px-4 sm:py-2 sm:text-xs'"
         >
-          Search Deals
+          <!-- Large mode: short text on mobile, full on desktop -->
+          <template v-if="large">
+            <span class="sm:hidden">Search</span>
+            <span class="hidden sm:inline">Search Deals</span>
+          </template>
+          <!-- Normal mode: icon on mobile, text on desktop -->
+          <template v-else>
+            <svg class="w-4 h-4 sm:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            <span class="hidden sm:inline">Search Deals</span>
+          </template>
         </button>
       </div>
     </form>

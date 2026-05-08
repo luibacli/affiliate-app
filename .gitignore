@@ -23,3 +23,7 @@ CLAUDE.md
 .env
 .env.*
 !.env.example
+
+
+.vercel
+.vercel/output

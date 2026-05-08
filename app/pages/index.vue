@@ -1,33 +1,23 @@
 <script setup lang="ts">
-const route = useRoute()
-const page = computed(() => Number(route.query.page) || 1)
-const category = computed(() => (route.query.category as string) || undefined)
-const sort = computed(() => (route.query.sort as string) || 'newest')
-
-const [{ data }, { data: recs }, { data: trending }] = await Promise.all([
-  useAsyncData(
-    () => `home-p${page.value}-c${category.value ?? ''}-s${sort.value}`,
-    () => $fetch<any>('/api/products', {
-      query: { page: page.value, limit: 20, category: category.value, sort: sort.value },
-    })
+const [{ data: productsData }, { data: trendingData }, { data: recsData }] = await Promise.all([
+  useAsyncData('landing-v2-featured', () =>
+    $fetch<any>('/api/products', { query: { limit: 12, sort: 'newest' } }).catch(() => null)
   ),
-  useAsyncData('recommendations', () => $fetch<any>('/api/recommendations')),
-  useAsyncData('trending', () => $fetch<any[]>('/api/trending').catch(() => [])),
+  useAsyncData('landing-v2-trending', () =>
+    $fetch<any[]>('/api/trending').catch(() => [])
+  ),
+  useAsyncData('landing-v2-recs', () =>
+    $fetch<any>('/api/recommendations').catch(() => null)
+  ),
 ])
-
-const SORT_OPTIONS = [
-  { label: 'Newest', value: 'newest' },
-  { label: 'Price ↑', value: 'price_asc' },
-  { label: 'Price ↓', value: 'price_desc' },
-]
 
 const { siteUrl } = useRuntimeConfig().public
 
 useSeoMeta({
-  title: 'SmartBuy Marketplace — Best Online Deals & Price Comparison',
-  description: 'Compare prices instantly across top e-commerce platforms. Find the best deals, lowest prices, and biggest discounts — all in one place. Free to use, updated daily.',
-  ogTitle: 'SmartBuy Marketplace — Best Deals Aggregator',
-  ogDescription: 'Find the best deals from top online shopping platforms. Compare prices, track discounts, and save more on every purchase.',
+  title: 'SmartBuy Hub — All the Best Deals in One Place',
+  description: 'Discover products from Amazon, Walmart, Shopee, and more — all in one platform. Compare deals, save money, and earn as an affiliate contributor.',
+  ogTitle: 'SmartBuy Hub — Best Deals from Every Platform',
+  ogDescription: 'All the best deals from top online shopping platforms in one place. Free to use, updated daily.',
   ogType: 'website',
   ogImage: `${siteUrl}/og-default.png`,
 })
@@ -39,9 +29,9 @@ useHead({
     innerHTML: JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'Organization',
-      name: 'SmartBuy Marketplace',
+      name: 'SmartBuy Hub',
       url: siteUrl,
-      description: 'Price comparison and deal aggregator across top e-commerce platforms globally.',
+      description: 'Affiliate marketplace aggregating deals from top e-commerce platforms globally.',
     }),
   }],
 })
@@ -49,127 +39,31 @@ useHead({
 
 <template>
   <div>
+    <!-- 1. Hero — dark, search-first, stats -->
+    <LandingHero />
 
-    <!-- Hero -->
-    <HeroSection />
+    <!-- 2. Featured products with tabs -->
+    <LandingFeaturedProducts
+      :newest="productsData?.products ?? []"
+      :trending="trendingData ?? []"
+      :best-value="recsData?.bestValue ?? []"
+      :top-rated="recsData?.topRated ?? []"
+      :budget-picks="recsData?.budgetPicks ?? []"
+    />
 
-    <!-- Trust bar -->
-    <TrustBar />
+    <!-- 3. Category discovery grid -->
+    <LandingCategoryGrid />
 
-    <!-- Sticky category nav -->
-    <CategoryNav />
+    <!-- 4. How it works — dark, 3 steps -->
+    <LandingHowItWorks />
 
-    <div class="max-w-7xl mx-auto px-4">
+    <!-- 5. Affiliate invite — dark, split layout -->
+    <LandingAffiliateInvite />
 
-      <!-- Trending Now (click-data driven) -->
-      <FeaturedRow
-        v-if="trending?.length"
-        title="📈 Trending Now"
-        :products="trending"
-        label="Trending"
-        traffic-source="homepage-trending"
-        view-all-link="/search?sort=newest"
-      />
+    <!-- 6. Social proof + trust signals -->
+    <LandingSocialProof />
 
-      <!-- Featured sections -->
-      <div v-if="recs" class="divide-y divide-gray-100">
-        <FeaturedRow
-          title="🔥 Best Value"
-          :products="recs.bestValue"
-          label="Best Value"
-          traffic-source="homepage-best-value"
-          view-all-link="/search?sort=price_asc"
-        />
-        <FeaturedRow
-          title="⭐ Top Rated"
-          :products="recs.topRated"
-          label="Top Rated"
-          traffic-source="homepage-top-rated"
-          view-all-link="/search?sort=newest"
-        />
-        <FeaturedRow
-          title="💸 Budget Picks"
-          :products="recs.budgetPicks"
-          label="Budget Pick"
-          traffic-source="homepage-budget"
-          view-all-link="/search?sort=price_asc"
-        />
-      </div>
-
-      <!-- All products -->
-      <section class="py-8">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
-          <h2 class="text-xl font-bold text-gray-900">
-            All Products
-            <span v-if="data?.total" class="text-sm font-normal text-gray-400 ml-2">
-              {{ data.total.toLocaleString() }} items
-            </span>
-          </h2>
-
-          <!-- Sort -->
-          <div class="flex items-center gap-2">
-            <span class="text-sm text-gray-500">Sort:</span>
-            <div class="flex gap-1">
-              <NuxtLink
-                v-for="opt in SORT_OPTIONS"
-                :key="opt.value"
-                :to="{ query: { ...route.query, sort: opt.value, page: 1 } }"
-                :class="sort === opt.value
-                  ? 'bg-primary-600 text-white'
-                  : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'"
-                class="px-3 py-1.5 text-xs font-semibold rounded-lg transition-all"
-              >
-                {{ opt.label }}
-              </NuxtLink>
-            </div>
-          </div>
-        </div>
-
-        <!-- Grid -->
-        <div
-          v-if="data?.products?.length"
-          class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4"
-        >
-          <ProductCard
-            v-for="product in data.products"
-            :key="product._id"
-            :product="product"
-            traffic-source="homepage-grid"
-          />
-        </div>
-
-        <!-- Empty state -->
-        <div v-else class="text-center py-20 text-gray-400">
-          <svg class="w-16 h-16 mx-auto mb-4 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-              d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
-          </svg>
-          <p class="text-lg font-medium">No products yet</p>
-          <p class="text-sm mt-1">Products will appear here once added.</p>
-        </div>
-
-        <!-- Pagination -->
-        <div v-if="(data?.totalPages ?? 0) > 1" class="flex items-center justify-center gap-2 mt-10">
-          <NuxtLink
-            v-if="page > 1"
-            :to="{ query: { ...route.query, page: page - 1 } }"
-            class="flex items-center gap-1 px-4 py-2 text-sm font-semibold text-primary-600 bg-white border border-primary-200 rounded-xl hover:bg-primary-50 transition-all"
-          >
-            ← Prev
-          </NuxtLink>
-          <span class="px-4 py-2 text-sm text-gray-500">
-            Page <strong class="text-gray-800">{{ page }}</strong> of {{ data?.totalPages }}
-          </span>
-          <NuxtLink
-            v-if="page < (data?.totalPages ?? 0)"
-            :to="{ query: { ...route.query, page: page + 1 } }"
-            class="flex items-center gap-1 px-4 py-2 text-sm font-semibold text-primary-600 bg-white border border-primary-200 rounded-xl hover:bg-primary-50 transition-all"
-          >
-            Next →
-          </NuxtLink>
-        </div>
-      </section>
-    </div>
-
+    <!-- 7. Final CTA — dark, conversion -->
+    <LandingFinalCTA />
   </div>
 </template>

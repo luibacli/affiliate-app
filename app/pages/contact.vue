@@ -107,9 +107,9 @@ async function submit() {
 }
 
 useHead({
-  title: 'Contact SmartBuy Marketplace — Get in Touch',
+  title: 'Contact SmartBuy Hub — Get in Touch',
   meta: [
-    { name: 'description', content: 'Contact SmartBuy Marketplace for product data corrections, partnership inquiries, privacy requests, or general questions about our price comparison platform.' },
+    { name: 'description', content: 'Contact SmartBuy Hub for product data corrections, partnership inquiries, privacy requests, or general questions about our price comparison platform.' },
   ],
 })
 </script>

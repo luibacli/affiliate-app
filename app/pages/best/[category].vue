@@ -37,7 +37,7 @@ useHead({
           name: `What are the best ${catLabel} deals right now?`,
           acceptedAnswer: {
             '@type': 'Answer',
-            text: `SmartBuy Marketplace tracks ${catLabel} products across top e-commerce platforms globally and sorts them by biggest discount so you always see the best deal first.`,
+            text: `SmartBuy Hub tracks ${catLabel} products across top e-commerce platforms globally and sorts them by biggest discount so you always see the best deal first.`,
           },
         },
         {
@@ -74,7 +74,7 @@ useHead({
           <div class="flex items-center gap-2 mb-1">
             <span class="text-xs font-semibold px-2.5 py-1 bg-red-100 text-red-600 rounded-full">🔥 Hot Deals</span>
           </div>
-          <h1 class="text-2xl font-bold text-gray-900 capitalize">Best {{ category }} Deals</h1>
+          <h1 class="text-2xl font-black text-gray-900 capitalize">Best {{ category }} Deals</h1>
           <p v-if="data?.total" class="text-sm text-gray-400 mt-0.5">
             {{ data.total.toLocaleString() }} products — sorted by biggest discount
           </p>
@@ -91,7 +91,7 @@ useHead({
       <div class="bg-white rounded-2xl border border-gray-100 p-5 mb-6">
         <p class="text-sm text-gray-600 leading-relaxed">
           Looking for the best <strong class="text-gray-800 capitalize">{{ category }}</strong> deals?
-          SmartBuy Marketplace compares prices across <strong class="text-gray-800">the world's top e-commerce platforms</strong> in real time
+          SmartBuy Hub compares prices across <strong class="text-gray-800">the world's top e-commerce platforms</strong> in real time
           so you never overpay. Every product below is ranked by its current discount percentage — the biggest savings first.
           Prices are refreshed every 6 hours so you always see accurate, up-to-date deals.
         </p>
@@ -100,7 +100,7 @@ useHead({
             v-for="related in relatedCategories"
             :key="related"
             :to="`/best/${related}`"
-            class="text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-600 hover:bg-primary-50 hover:text-primary-700 capitalize transition-colors"
+            class="text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900 capitalize transition-colors"
           >
             Best {{ related }} deals
           </NuxtLink>

@@ -37,7 +37,7 @@ const SORTS = [
 const showFilters = ref(false)
 
 useSeoMeta({
-  title: computed(() => query.value ? `"${query.value}" — Search Results` : 'Search Products — SmartBuy Marketplace'),
+  title: computed(() => query.value ? `"${query.value}" — Search Results` : 'Search Products — SmartBuy Hub'),
   description: 'Search thousands of products. Filter by price and store.',
   robots: 'noindex, follow',
 })
@@ -49,8 +49,8 @@ useSeoMeta({
     <!-- Page header -->
     <div class="flex items-center justify-between mb-5 gap-3">
       <div>
-        <h1 class="text-xl font-bold text-gray-900">
-          <template v-if="query">Results for "<span class="text-primary-600">{{ query }}</span>"</template>
+        <h1 class="text-xl font-black text-gray-900">
+          <template v-if="query">Results for "<span class="text-accent-500">{{ query }}</span>"</template>
           <template v-else>Browse All Products</template>
         </h1>
         <p v-if="display?.total" class="text-sm text-gray-400 mt-0.5">{{ display.total.toLocaleString() }} products found</p>
@@ -58,7 +58,7 @@ useSeoMeta({
 
       <!-- Mobile filter toggle -->
       <button
-        class="lg:hidden flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-xl text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+        class="lg:hidden flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-xl text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50 transition-colors"
         @click="showFilters = !showFilters"
       >
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -149,7 +149,7 @@ useSeoMeta({
 
           <!-- Apply button (mobile) -->
           <button
-            class="lg:hidden w-full py-2.5 bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold rounded-xl transition-colors"
+            class="lg:hidden w-full py-2.5 bg-gray-900 hover:bg-gray-800 text-white text-sm font-semibold rounded-xl transition-colors"
             @click="showFilters = false"
           >
             Apply Filters
@@ -166,7 +166,7 @@ useSeoMeta({
           <button
             v-for="s in SORTS"
             :key="s.value"
-            :class="sort === s.value ? 'bg-primary-600 text-white' : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'"
+            :class="sort === s.value ? 'bg-gray-900 text-white' : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'"
             class="px-3 py-1.5 text-xs font-semibold rounded-lg transition-all"
             @click="sort = s.value"
           >
