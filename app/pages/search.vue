@@ -37,7 +37,7 @@ const SORTS = [
 const showFilters = ref(false)
 
 useSeoMeta({
-  title: computed(() => query.value ? `"${query.value}" — Search Results` : 'Search Products — SmartBuy Hub'),
+  title: computed(() => query.value ? `"${query.value}" — Search Results` : 'Search Products — WinRose'),
   description: 'Search thousands of products. Filter by price and store.',
   robots: 'noindex, follow',
 })

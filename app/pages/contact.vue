@@ -38,7 +38,6 @@
           <option value="general">General Inquiry</option>
           <option value="data">Incorrect Product Data</option>
           <option value="privacy">Privacy / Data Request</option>
-          <option value="partnership">Business Partnership</option>
           <option value="other">Other</option>
         </select>
       </div>
@@ -107,9 +106,9 @@ async function submit() {
 }
 
 useHead({
-  title: 'Contact SmartBuy Hub — Get in Touch',
+  title: 'Contact WinRose — Get in Touch',
   meta: [
-    { name: 'description', content: 'Contact SmartBuy Hub for product data corrections, partnership inquiries, privacy requests, or general questions about our price comparison platform.' },
+    { name: 'description', content: 'Contact WinRose for product data corrections, privacy requests, or general questions about our price comparison platform.' },
   ],
 })
 </script>

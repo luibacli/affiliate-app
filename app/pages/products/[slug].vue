@@ -44,9 +44,11 @@ const isLowestPrice30d = computed(() => {
 })
 
 const SOURCE_COLORS: Record<string, string> = {
-  Walmart: 'bg-blue-100 text-blue-700',
-  eBay: 'bg-red-100 text-red-700',
+  eBay: 'bg-blue-100 text-blue-800',
+  Walmart: 'bg-blue-600 text-white',
   Amazon: 'bg-yellow-100 text-yellow-800',
+  'Best Buy': 'bg-yellow-400 text-blue-900',
+  Target: 'bg-red-100 text-red-700',
 }
 
 const { siteUrl } = useRuntimeConfig().public
@@ -232,7 +234,7 @@ useHead({
 
           <!-- FTC-required affiliate disclosure near CTA -->
           <p class="text-xs text-gray-400 text-center">
-            Affiliate link — SmartBuy Hub may earn a commission if you purchase.
+            Affiliate link — WinRose may earn a commission if you purchase.
             <NuxtLink to="/disclosure" class="underline hover:text-gray-600">Disclosure</NuxtLink>
           </p>
 

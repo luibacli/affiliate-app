@@ -14,9 +14,10 @@ const [{ data: productsData }, { data: trendingData }, { data: recsData }] = awa
 const { siteUrl } = useRuntimeConfig().public
 
 useSeoMeta({
-  title: 'SmartBuy Hub — All the Best Deals in One Place',
-  description: 'Discover products from Amazon, Walmart, eBay, and more — all in one platform. Compare deals, save money, and earn as an affiliate contributor.',
-  ogTitle: 'SmartBuy Hub — Best Deals from Every Platform',
+  title: 'WinRose — All the Best Deals in One Place',
+  description: 'Discover products from Amazon, Walmart, Shopee, and more — all in one platform. Compare deals, save money, and earn as an affiliate contributor.',
+  ogTitle: 'WinRose — Best Deals from Every Platform',
+
   ogDescription: 'All the best deals from top online shopping platforms in one place. Free to use, updated daily.',
   ogType: 'website',
   ogImage: `${siteUrl}/og-default.png`,
@@ -29,7 +30,7 @@ useHead({
     innerHTML: JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'Organization',
-      name: 'SmartBuy Hub',
+      name: 'WinRose',
       url: siteUrl,
       description: 'Affiliate marketplace aggregating deals from top e-commerce platforms globally.',
     }),
@@ -57,10 +58,7 @@ useHead({
     <!-- 4. How it works — dark, 3 steps -->
     <LandingHowItWorks />
 
-    <!-- 5. Affiliate invite — dark, split layout -->
-    <LandingAffiliateInvite />
-
-    <!-- 6. Social proof + trust signals -->
+    <!-- 5. Social proof + trust signals -->
     <LandingSocialProof />
 
     <!-- 7. Final CTA — dark, conversion -->

@@ -7,7 +7,7 @@
 
       <div>
         <h2 class="text-lg font-bold text-gray-900 mb-2">1. Information We Collect</h2>
-        <p>SmartBuy Hub collects minimal data necessary to operate the service:</p>
+        <p>WinRose collects minimal data necessary to operate the service:</p>
         <ul class="list-disc list-inside mt-2 space-y-1 text-gray-600">
           <li><strong>Usage data:</strong> Pages visited, search terms entered, and product links clicked — used to improve recommendations and identify trending products.</li>
           <li><strong>Device/browser data:</strong> IP address, browser type, and operating system — used for rate limiting, security, and analytics.</li>
@@ -19,7 +19,7 @@
       <div>
         <h2 class="text-lg font-bold text-gray-900 mb-2">2. How We Use Your Information</h2>
         <ul class="list-disc list-inside space-y-1 text-gray-600">
-          <li>To operate and improve SmartBuy Hub's product comparison and search features</li>
+          <li>To operate and improve WinRose's product comparison and search features</li>
           <li>To calculate trending and best-value product rankings</li>
           <li>To detect and prevent abuse (rate limiting, spam prevention)</li>
           <li>To respond to support requests</li>
@@ -31,8 +31,9 @@
       <div>
         <h2 class="text-lg font-bold text-gray-900 mb-2">3. Affiliate Links & Third Parties</h2>
         <p>
-          SmartBuy Hub participates in affiliate programs including the Amazon Associates Program, Walmart Affiliate
-          Program, and eBay Partner Network. When you click a product link and make a purchase, we may earn a commission.
+          WinRose participates in affiliate programs including the Amazon Associates Program, Shopee Affiliate,
+          and Lazada Affiliate. When you click a product link and make a purchase, we may earn a commission.
+
           These third-party platforms have their own privacy policies and data collection practices.
           We encourage you to review their policies:
         </p>
@@ -46,7 +47,7 @@
       <div>
         <h2 class="text-lg font-bold text-gray-900 mb-2">4. Cookies</h2>
         <p>
-          SmartBuy Hub uses session-level and analytics cookies to maintain site functionality. We do not use
+          WinRose uses session-level and analytics cookies to maintain site functionality. We do not use
           cross-site tracking cookies. You may disable cookies in your browser settings; however, some
           features may not function correctly.
         </p>
@@ -72,7 +73,7 @@
       <div>
         <h2 class="text-lg font-bold text-gray-900 mb-2">7. Children's Privacy</h2>
         <p>
-          SmartBuy Hub is not directed at children under 13. We do not knowingly collect personal information
+          WinRose is not directed at children under 13. We do not knowingly collect personal information
           from children. If you believe a child has provided us with personal data, please contact us.
         </p>
       </div>
@@ -81,7 +82,7 @@
         <h2 class="text-lg font-bold text-gray-900 mb-2">8. Changes to This Policy</h2>
         <p>
           We may update this Privacy Policy from time to time. Changes are effective when posted to this page.
-          Continued use of SmartBuy Hub after changes constitutes acceptance of the updated policy.
+          Continued use of WinRose after changes constitutes acceptance of the updated policy.
         </p>
       </div>
 
@@ -98,9 +99,9 @@
 
 <script setup lang="ts">
 useHead({
-  title: 'Privacy Policy — SmartBuy Hub',
+  title: 'Privacy Policy — WinRose',
   meta: [
-    { name: 'description', content: 'SmartBuy Hub Privacy Policy. Learn how we collect, use, and protect your data on our price comparison platform.' },
+    { name: 'description', content: 'WinRose Privacy Policy. Learn how we collect, use, and protect your data on our price comparison platform.' },
     { name: 'robots', content: 'noindex' },
   ],
 })
