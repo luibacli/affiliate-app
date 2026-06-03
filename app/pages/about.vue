@@ -1,25 +1,25 @@
 <template>
   <div class="max-w-3xl mx-auto px-4 py-12">
-    <h1 class="text-3xl font-black text-gray-900 mb-2">About SmartBuy Hub</h1>
+    <h1 class="text-3xl font-black text-gray-900 mb-2">About WinRose</h1>
     <p class="text-gray-500 mb-10">Your independent price comparison engine across top online shopping platforms worldwide.</p>
 
     <section class="prose prose-gray max-w-none space-y-6 text-gray-700 leading-relaxed">
       <p>
-        SmartBuy Hub is an independent affiliate price-comparison platform that helps consumers worldwide
+        WinRose is an independent affiliate price-comparison platform that helps consumers worldwide
         find the best product prices across major global e-commerce platforms.
         We aggregate product listings, track price history, and surface the best deals — all in one place.
       </p>
 
       <h2 class="text-xl font-bold text-gray-900 mt-8 mb-2">Our Mission</h2>
       <p>
-        We believe every shopper deserves to make an informed purchase decision. SmartBuy Hub provides free,
+        We believe every shopper deserves to make an informed purchase decision. WinRose provides free,
         unbiased price data so you can shop smarter — not harder. We never charge users for access to
         our comparison tools.
       </p>
 
       <h2 class="text-xl font-bold text-gray-900 mt-8 mb-2">How We Make Money</h2>
       <p>
-        SmartBuy Hub earns a small commission from affiliate programs on leading e-commerce platforms
+        WinRose earns a small commission from affiliate programs on leading e-commerce platforms
         when you click through to a product and make a purchase.
         <strong>This never affects the price you pay</strong> — prices are always sourced directly from the
         merchant and updated regularly.
@@ -57,10 +57,10 @@
 
 <script setup lang="ts">
 useHead({
-  title: 'About SmartBuy Hub — Price Comparison & Deals in Southeast Asia',
+  title: 'About WinRose — Price Comparison & Deals in Southeast Asia',
   meta: [
-    { name: 'description', content: 'SmartBuy Hub is a free price comparison platform across top online shopping stores globally. Learn how we help you find the best deals and how our affiliate model works.' },
-    { property: 'og:title', content: 'About SmartBuy Hub' },
+    { name: 'description', content: 'WinRose is a free price comparison platform across top online shopping stores globally. Learn how we help you find the best deals and how our affiliate model works.' },
+    { property: 'og:title', content: 'About WinRose' },
     { property: 'og:description', content: 'Free price comparison across leading e-commerce platforms worldwide. No bias. No markup.' },
   ],
 })

@@ -77,7 +77,7 @@ const trustSignals = [
         <div class="flex-1 min-w-0">
           <p class="text-xs text-gray-500 leading-relaxed">
             <strong class="text-gray-700">Affiliate Disclosure:</strong>
-            SmartBuy Hub participates in affiliate programs. We earn commissions on qualifying purchases
+            WinRose participates in affiliate programs. We earn commissions on qualifying purchases
             at no extra cost to you. This helps us keep the platform free and updated.
             <NuxtLink to="/disclosure" class="text-primary-600 hover:text-primary-700 underline ml-1">
               Full disclosure →

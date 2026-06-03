@@ -4,7 +4,7 @@
 
       <div class="text-center mb-12">
         <span class="inline-block text-xs font-bold uppercase tracking-widest text-primary-600 bg-primary-50 px-3 py-1 rounded-full mb-4">
-          Why SmartBuy Hub
+          Why WinRose
         </span>
         <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900">
           Built for Smarter Shopping
@@ -55,7 +55,7 @@ const benefits = [
     icon: '🆓',
     iconBg: 'bg-purple-50',
     title: '100% Free',
-    desc: 'No subscriptions, no paywalls. SmartBuy Hub is always free for shoppers.',
+    desc: 'No subscriptions, no paywalls. WinRose is always free for shoppers.',
   },
 ]
 </script>

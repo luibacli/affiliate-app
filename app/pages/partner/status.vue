@@ -58,7 +58,7 @@ const status = computed(() => app.value ? (STATUS_CONFIG[app.value.status] ?? ST
       <div class="mb-8">
         <NuxtLink to="/" class="inline-block mb-4">
           <p class="font-black text-xl">
-            <span class="text-orange-400">SmartBuy</span><span class="text-white"> Hub</span>
+            <span class="text-orange-400">WinRose</span><span class="text-white"> Hub</span>
           </p>
         </NuxtLink>
         <h1 class="text-2xl font-black text-white">Application Status</h1>

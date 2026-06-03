@@ -232,7 +232,7 @@ useHead({
 
           <!-- FTC-required affiliate disclosure near CTA -->
           <p class="text-xs text-gray-400 text-center">
-            Affiliate link — SmartBuy Hub may earn a commission if you purchase.
+            Affiliate link — WinRose may earn a commission if you purchase.
             <NuxtLink to="/disclosure" class="underline hover:text-gray-600">Disclosure</NuxtLink>
           </p>
 

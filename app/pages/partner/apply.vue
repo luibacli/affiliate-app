@@ -51,7 +51,7 @@ async function submit() {
       <div class="mb-10">
         <NuxtLink to="/" class="inline-block mb-6">
           <p class="font-black text-xl">
-            <span class="text-orange-400">SmartBuy</span><span class="text-white"> Hub</span>
+            <span class="text-orange-400">WinRose</span><span class="text-white"> Hub</span>
           </p>
         </NuxtLink>
         <h1 class="text-3xl font-black text-white">Become a Partner</h1>

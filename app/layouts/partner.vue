@@ -22,7 +22,7 @@ watch(() => route.path, () => { sidebarOpen.value = false })
     <!-- Mobile top bar -->
     <div class="lg:hidden flex items-center justify-between bg-gray-900 px-4 py-3 sticky top-0 z-30">
       <p class="font-black text-base">
-        <span class="text-orange-400">SmartBuy</span><span class="text-white"> Partner</span>
+        <span class="text-orange-400">WinRose</span><span class="text-white"> Partner</span>
       </p>
       <button class="text-gray-300 hover:text-white p-1" @click="sidebarOpen = !sidebarOpen" aria-label="Toggle menu">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -45,7 +45,7 @@ watch(() => route.path, () => { sidebarOpen.value = false })
         <div class="hidden lg:block px-5 py-5 border-b border-gray-700">
           <p class="text-xs text-gray-400 uppercase tracking-widest mb-0.5">Partner Hub</p>
           <p class="font-black text-lg">
-            <span class="text-orange-400">SmartBuy</span><span class="text-white"> Hub</span>
+            <span class="text-orange-400">WinRose</span><span class="text-white"> Hub</span>
           </p>
         </div>
 

@@ -21,8 +21,7 @@ const isActive = (path: string) => {
 
       <!-- Logo -->
       <NuxtLink to="/" class="flex items-center flex-shrink-0 group">
-        <span class="text-lg sm:text-xl font-black text-white tracking-tight leading-none">SmartBuy</span>
-        <span class="text-lg sm:text-xl font-black text-accent-400 tracking-tight leading-none">Hub</span>
+        <span class="text-lg sm:text-xl font-black text-white tracking-tight leading-none">Win</span><span class="text-lg sm:text-xl font-black text-accent-400 tracking-tight leading-none">Rose</span>
       </NuxtLink>
 
       <!-- Search bar (hidden on homepage — hero has it) -->

@@ -40,7 +40,7 @@ onMounted(fetchUnread)
     <!-- Mobile top bar -->
     <div class="lg:hidden flex items-center justify-between bg-gray-900 px-4 py-3 sticky top-0 z-30">
       <p class="font-black text-base">
-        <span class="text-primary-400">SmartBuy</span><span class="text-accent-400"> Admin</span>
+        <span class="text-primary-400">WinRose</span><span class="text-accent-400"> Admin</span>
       </p>
       <button class="text-gray-300 hover:text-white p-1" @click="sidebarOpen = !sidebarOpen" aria-label="Toggle menu">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -67,7 +67,7 @@ onMounted(fetchUnread)
         <div class="hidden lg:block px-5 py-5 border-b border-gray-700">
           <p class="text-xs text-gray-400 uppercase tracking-widest mb-0.5">Admin Panel</p>
           <p class="font-black text-lg">
-            <span class="text-primary-400">SmartBuy</span><span class="text-accent-400"> Marketplace</span>
+            <span class="text-primary-400">WinRose</span><span class="text-accent-400"> Marketplace</span>
           </p>
         </div>
 

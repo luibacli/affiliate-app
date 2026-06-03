@@ -3,7 +3,7 @@
     <div class="max-w-4xl mx-auto px-4 text-center">
 
       <span class="inline-block text-xs font-bold uppercase tracking-widest text-primary-600 bg-primary-50 px-3 py-1 rounded-full mb-4">
-        What is SmartBuy Hub?
+        What is WinRose?
       </span>
 
       <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-5 leading-tight">
@@ -12,7 +12,7 @@
       </h2>
 
       <p class="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed mb-10">
-        SmartBuy Hub aggregates products from multiple top e-commerce platforms so you can compare prices and find the best deals in seconds — no more tab-switching.
+        WinRose aggregates products from multiple top e-commerce platforms so you can compare prices and find the best deals in seconds — no more tab-switching.
       </p>
 
       <!-- Three value props inline -->

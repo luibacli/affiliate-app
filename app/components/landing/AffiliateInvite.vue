@@ -54,7 +54,7 @@ const perks = [
           </h2>
 
           <p class="text-base sm:text-lg text-gray-400 leading-relaxed mb-8 max-w-lg">
-            Join SmartBuy Hub as a contributor. Post affiliate product listings, drive clicks,
+            Join WinRose as a contributor. Post affiliate product listings, drive clicks,
             and earn commissions on every qualifying purchase — no technical skills required.
           </p>
 

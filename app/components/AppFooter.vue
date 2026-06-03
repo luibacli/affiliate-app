@@ -8,7 +8,7 @@
         <!-- Brand -->
         <div class="max-w-xs">
           <p class="font-black text-xl tracking-tight leading-none mb-2">
-            <span class="text-white">SmartBuy</span><span class="text-accent-400">Hub</span>
+            <span class="text-white">Win</span><span class="text-accent-400">Rose</span>
           </p>
           <p class="text-xs text-gray-600 leading-relaxed">
             Compare prices across Amazon, Shopee, Lazada & more — all in one place, free forever.
@@ -49,10 +49,10 @@
       <div class="border-t border-white/[0.05] pt-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <p class="text-xs text-gray-700 leading-relaxed max-w-lg">
           <strong class="text-gray-600">Affiliate Disclosure:</strong>
-          SmartBuyHub participates in affiliate programs and earns commissions on qualifying purchases at no extra cost to you.
+          WinRose participates in affiliate programs and earns commissions on qualifying purchases at no extra cost to you.
           <NuxtLink to="/disclosure" class="text-gray-500 hover:text-white underline ml-1 transition-colors">Learn more</NuxtLink>
         </p>
-        <p class="text-xs text-gray-700 flex-shrink-0">© 2026 SmartBuyHub. All rights reserved.</p>
+        <p class="text-xs text-gray-700 flex-shrink-0">© 2026 WinRose. All rights reserved.</p>
       </div>
 
     </div>
