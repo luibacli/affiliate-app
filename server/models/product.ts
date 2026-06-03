@@ -22,7 +22,6 @@ const productSchema = new mongoose.Schema(
     isActive: { type: Boolean, default: true, index: true },
     currency: { type: String, default: 'USD' },
     lowestPrice30d: { type: Number, default: null },
-    submittedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', index: true, default: null },
   },
   { timestamps: true }
 )

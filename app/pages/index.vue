@@ -57,10 +57,7 @@ useHead({
     <!-- 4. How it works — dark, 3 steps -->
     <LandingHowItWorks />
 
-    <!-- 5. Affiliate invite — dark, split layout -->
-    <LandingAffiliateInvite />
-
-    <!-- 6. Social proof + trust signals -->
+    <!-- 5. Social proof + trust signals -->
     <LandingSocialProof />
 
     <!-- 7. Final CTA — dark, conversion -->

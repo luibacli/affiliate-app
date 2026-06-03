@@ -8,7 +8,6 @@ const router = useRouter()
 const page = ref(1)
 const search = ref('')
 const category = ref('')
-const viewMode = ref<'all' | 'partner'>('all')
 const data = ref<any>(null)
 const loading = ref(false)
 
@@ -45,8 +44,6 @@ async function load() {
       page: page.value,
       search: search.value || undefined,
       category: category.value || undefined,
-      partner: viewMode.value === 'partner' ? 'true' : undefined,
-      inactive: viewMode.value === 'partner' ? 'true' : undefined,
     },
   }).catch(() => null)
   loading.value = false
@@ -88,7 +85,7 @@ async function confirmDelete(id: string) {
 }
 
 let debounceTimer: ReturnType<typeof setTimeout> | null = null
-watch([key, page, category, viewMode], load)
+watch([key, page, category], load)
 watch(search, () => {
   if (debounceTimer) clearTimeout(debounceTimer)
   debounceTimer = setTimeout(load, 400)
@@ -109,27 +106,6 @@ onMounted(load)
         <button @click="showImport = true" class="px-3 py-2 text-sm bg-gray-800 hover:bg-gray-900 text-white rounded-lg font-medium">Bulk Import</button>
         <NuxtLink to="/admin/products/create" class="px-4 py-2 text-sm bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-semibold">+ Add Product</NuxtLink>
       </div>
-    </div>
-
-    <!-- View mode tabs -->
-    <div class="flex gap-1.5 mb-4">
-      <button
-        @click="viewMode = 'all'; page = 1"
-        :class="viewMode === 'all' ? 'bg-gray-900 text-white' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'"
-        class="px-4 py-1.5 rounded-xl text-xs font-semibold transition-colors"
-      >
-        All Products
-      </button>
-      <button
-        @click="viewMode = 'partner'; page = 1"
-        :class="viewMode === 'partner' ? 'bg-orange-500 text-white' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'"
-        class="px-4 py-1.5 rounded-xl text-xs font-semibold transition-colors flex items-center gap-2"
-      >
-        Partner Submissions
-        <span v-if="data?.pendingPartnerCount" class="bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center leading-none font-bold">
-          {{ data.pendingPartnerCount > 9 ? '9+' : data.pendingPartnerCount }}
-        </span>
-      </button>
     </div>
 
     <!-- Auth error -->
@@ -179,12 +155,7 @@ onMounted(load)
                 <div v-else class="w-10 h-10 rounded-lg bg-gray-100 flex-shrink-0" />
                 <div>
                   <p class="font-medium text-gray-800 line-clamp-1">{{ p.title }}</p>
-                  <div class="flex items-center gap-2 mt-0.5">
-                    <p class="text-xs text-gray-400">{{ p.slug }}</p>
-                    <span v-if="p.submittedBy" class="text-xs px-1.5 py-0.5 bg-orange-100 text-orange-700 rounded-full font-medium">
-                      🤝 {{ p.submittedBy.name }}
-                    </span>
-                  </div>
+                  <p class="text-xs text-gray-400 mt-0.5">{{ p.slug }}</p>
                 </div>
               </div>
             </td>

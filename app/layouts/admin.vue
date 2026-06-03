@@ -13,8 +13,7 @@ const NAV = [
   { label: '+ Add Product', to: '/admin/products/create', icon: '➕' },
   { label: 'Categories', to: '/admin/categories', icon: '🏷️' },
   { label: 'Amazon Import', to: '/admin/amazon', icon: '🛒' },
-  { label: 'Applications', to: '/admin/applications', icon: '📋' },
-  { label: 'Messages', to: '/admin/messages', icon: '✉️' },
+{ label: 'Messages', to: '/admin/messages', icon: '✉️' },
   { label: '← Storefront', to: '/', icon: '🏠' },
 ]
 
