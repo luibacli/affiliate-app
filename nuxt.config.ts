@@ -34,6 +34,9 @@ export default defineNuxtConfig({
     amazonPartnerTag: process.env.AMAZON_PARTNER_TAG || '',
     amazonRegion: process.env.AMAZON_REGION || 'us-east-1',
     amazonMarketplace: process.env.AMAZON_MARKETPLACE || 'www.amazon.com',
+    ebayClientId: process.env.EBAY_CLIENT_ID || '',
+    ebayClientSecret: process.env.EBAY_CLIENT_SECRET || '',
+    ebayCampaignId: process.env.EBAY_CAMPAIGN_ID || '',
     public: {
       siteUrl: process.env.SITE_URL || 'http://localhost:3000',
     },
