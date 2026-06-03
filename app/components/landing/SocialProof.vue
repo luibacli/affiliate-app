@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const platforms = ['Amazon', 'Shopee', 'Lazada', 'Walmart', 'eBay', 'AliExpress']
+const platforms = ['Amazon', 'Walmart', 'eBay', 'Target', 'Best Buy', 'Etsy']
 
 const trustSignals = [
   {

@@ -33,13 +33,14 @@
         <p>
           WinRose participates in affiliate programs including the Amazon Associates Program, Shopee Affiliate,
           and Lazada Affiliate. When you click a product link and make a purchase, we may earn a commission.
+
           These third-party platforms have their own privacy policies and data collection practices.
           We encourage you to review their policies:
         </p>
         <ul class="list-disc list-inside mt-2 space-y-1 text-gray-600">
           <li>Amazon Privacy Notice: <span class="text-primary-600">amazon.com/gp/help/customer/display.html?nodeId=GX7NJQ4ZB8MHFRNJ</span></li>
-          <li>Shopee Privacy Policy: <span class="text-primary-600">shopee.com/legaldoc/privacypolicy</span></li>
-          <li>Lazada Privacy Policy: <span class="text-primary-600">lazada.com/helpcenter/privacy-policy.html</span></li>
+          <li>Walmart Privacy Policy: <span class="text-primary-600">walmart.com/help/article/walmart-privacy-policy/3bb97b8f3f0443279b6a5cb77d5e6244</span></li>
+          <li>eBay Privacy Notice: <span class="text-primary-600">ebay.com/help/policies/member-behaviour-policies/ebay-privacy-policy</span></li>
         </ul>
       </div>
 

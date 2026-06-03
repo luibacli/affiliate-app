@@ -28,6 +28,7 @@
           WinRose participates in affiliate advertising programs. When you click a product link and make a
           qualifying purchase, WinRose may earn a commission at <strong>no additional cost to you</strong>.
           This includes the Amazon Associates Program, Shopee Affiliate Program, and Lazada Affiliate Program.
+
         </p>
         <p class="mt-2">
           Our product rankings and recommendations are based on objective data (price, ratings, value score)

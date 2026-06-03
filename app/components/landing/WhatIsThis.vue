@@ -33,7 +33,7 @@
 
 <script setup lang="ts">
 const items = [
-  { icon: '🔗', label: 'Aggregates Platforms', desc: 'Products from Amazon, Walmart, Shopee, and more in one feed.' },
+  { icon: '🔗', label: 'Aggregates Platforms', desc: 'Products from Amazon, Walmart, eBay, and more in one feed.' },
   { icon: '💰', label: 'Best Price Always', desc: 'We surface the lowest prices and biggest discounts daily.' },
   { icon: '🤝', label: 'Powered by Affiliates', desc: 'Revenue comes from affiliate links — never from ads or subscriptions.' },
 ]

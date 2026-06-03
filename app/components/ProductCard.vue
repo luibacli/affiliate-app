@@ -67,8 +67,8 @@ const LABEL_ICON: Record<string, string> = {
 }
 
 const SOURCE_COLORS: Record<string, string> = {
-  Shopee: 'bg-orange-100 text-orange-700',
-  Lazada: 'bg-blue-100 text-blue-700',
+  Walmart: 'bg-blue-100 text-blue-700',
+  eBay: 'bg-red-100 text-red-700',
   Amazon: 'bg-yellow-100 text-yellow-800',
 }
 </script>
