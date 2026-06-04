@@ -14,6 +14,8 @@ const NAV = [
   { label: 'Categories', to: '/admin/categories', icon: '🏷️' },
   { label: 'Amazon Import', to: '/admin/amazon', icon: '🛒' },
   { label: 'eBay Import', to: '/admin/ebay', icon: '🏷️' },
+  { label: 'Best Buy Import', to: '/admin/bestbuy', icon: '🛍️' },
+  { label: 'Walmart Import', to: '/admin/walmart', icon: '🏪' },
 { label: 'Messages', to: '/admin/messages', icon: '✉️' },
   { label: '← Storefront', to: '/', icon: '🏠' },
 ]
