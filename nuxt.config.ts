@@ -37,6 +37,11 @@ export default defineNuxtConfig({
     ebayClientId: process.env.EBAY_CLIENT_ID || '',
     ebayClientSecret: process.env.EBAY_CLIENT_SECRET || '',
     ebayCampaignId: process.env.EBAY_CAMPAIGN_ID || '',
+    bestBuyApiKey: process.env.BESTBUY_API_KEY || '',
+    bestBuyCjPublisherId: process.env.BESTBUY_CJ_PUBLISHER_ID || '',
+    walmartImpactSid: process.env.WALMART_IMPACT_SID || '',
+    walmartImpactAuth: process.env.WALMART_IMPACT_AUTH || '',
+    walmartImpactCatalogId: process.env.WALMART_IMPACT_CATALOG_ID || '',
     public: {
       siteUrl: process.env.SITE_URL || 'http://localhost:3000',
     },
@@ -45,6 +50,10 @@ export default defineNuxtConfig({
     preset: 'vercel',
     compressPublicAssets: true,
     experimental: { tasks: true },
+    scheduledTasks: {
+      '0 2 * * *': ['products:discover'],
+      '0 */6 * * *': ['prices:update'],
+    },
   },
   routeRules: {
     '/': { headers: { 'cache-control': 's-maxage=300, stale-while-revalidate=600' } },
