@@ -1,5 +1,6 @@
 import { connectDB } from '../utils/db'
 import { Product } from '../models/product'
+import { SEO_PAGES } from '../../app/data/seoPages'
 
 export default defineEventHandler(async (event) => {
   setHeader(event, 'content-type', 'application/xml; charset=utf-8')
@@ -16,8 +17,14 @@ export default defineEventHandler(async (event) => {
 
   const staticUrls = [
     { loc: `${siteUrl}/`, priority: '1.0', changefreq: 'daily' },
+    { loc: `${siteUrl}/collections`, priority: '0.9', changefreq: 'weekly' },
     { loc: `${siteUrl}/about`, priority: '0.5', changefreq: 'monthly' },
     { loc: `${siteUrl}/contact`, priority: '0.4', changefreq: 'monthly' },
+    ...SEO_PAGES.map((p) => ({
+      loc: `${siteUrl}/collections/${p.slug}`,
+      priority: '0.9',
+      changefreq: 'daily',
+    })),
     ...categories.map((cat) => ({
       loc: `${siteUrl}/category/${cat}`,
       priority: '0.7',

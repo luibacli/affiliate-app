@@ -47,6 +47,13 @@ const isActive = (path: string) => {
           Search
         </NuxtLink>
         <NuxtLink
+          to="/collections"
+          :class="route.path.startsWith('/collections') ? 'text-white bg-white/[0.09]' : 'text-gray-400 hover:text-white hover:bg-white/[0.06]'"
+          class="hidden md:flex items-center px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-150"
+        >
+          Collections
+        </NuxtLink>
+        <NuxtLink
           to="/best/phones"
           :class="isActive('/best/phones') ? 'text-white bg-white/[0.09]' : 'text-gray-400 hover:text-white hover:bg-white/[0.06]'"
           class="hidden md:flex items-center px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-150"

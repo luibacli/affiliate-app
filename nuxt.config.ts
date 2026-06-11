@@ -57,6 +57,7 @@ export default defineNuxtConfig({
   },
   routeRules: {
     '/': { headers: { 'cache-control': 's-maxage=300, stale-while-revalidate=600' } },
+    '/shop': { headers: { 'cache-control': 's-maxage=300, stale-while-revalidate=600' } },
     '/products/**': { headers: { 'cache-control': 's-maxage=3600, stale-while-revalidate=86400' } },
     '/category/**': { headers: { 'cache-control': 's-maxage=1800, stale-while-revalidate=3600' } },
     '/api/products': { headers: { 'cache-control': 's-maxage=60, stale-while-revalidate=300' } },
@@ -64,6 +65,9 @@ export default defineNuxtConfig({
     '/api/categories/**': { headers: { 'cache-control': 's-maxage=300, stale-while-revalidate=3600' } },
     '/api/affiliate/**': { headers: { 'cache-control': 'no-store' } },
     '/best/**': { headers: { 'cache-control': 's-maxage=3600, stale-while-revalidate=86400' } },
+    '/collections': { headers: { 'cache-control': 's-maxage=86400, stale-while-revalidate=604800' } },
+    '/collections/**': { headers: { 'cache-control': 's-maxage=3600, stale-while-revalidate=86400' } },
+    '/api/collections/**': { headers: { 'cache-control': 's-maxage=300, stale-while-revalidate=3600' } },
     '/api/search': { headers: { 'cache-control': 's-maxage=30, stale-while-revalidate=120' } },
     '/api/best/**': { headers: { 'cache-control': 's-maxage=300, stale-while-revalidate=3600' } },
     '/api/click': { headers: { 'cache-control': 'no-store' } },
