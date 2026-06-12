@@ -159,6 +159,8 @@ const onBlur = () => setTimeout(() => { showSuggestions.value = false; activeInd
             :alt="item.title"
             width="40"
             height="40"
+            loading="lazy"
+            decoding="async"
             class="w-full h-full object-contain p-0.5"
           />
           <svg v-else class="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -4,8 +4,9 @@ const category = route.params.category as string
 const page = computed(() => Number(route.query.page) || 1)
 
 const { data } = await useAsyncData(
-  `best-${category}-p${page.value}`,
-  () => $fetch<any>(`/api/best/${category}`, { query: { page: page.value, limit: 20 } })
+  () => `best-${category}-p${page.value}`,
+  () => $fetch<any>(`/api/best/${category}`, { query: { page: page.value, limit: 20 } }),
+  { watch: [page] }
 )
 
 const { siteUrl } = useRuntimeConfig().public

@@ -15,13 +15,11 @@ const { data: ssrData } = await useAsyncData(
   })
 )
 
-const { query, minPrice, maxPrice, source, sort, page, results, pending, goToPage } = useSearch()
-
-onMounted(() => {
-  query.value = (route.query.q as string) || ''
-  minPrice.value = route.query.minPrice ? Number(route.query.minPrice) : ''
-  maxPrice.value = route.query.maxPrice ? Number(route.query.maxPrice) : ''
-  source.value = (route.query.source as string) || ''
+const { query, minPrice, maxPrice, source, sort, page, results, pending, goToPage } = useSearch({
+  query: (route.query.q as string) || '',
+  minPrice: route.query.minPrice ? Number(route.query.minPrice) : '',
+  maxPrice: route.query.maxPrice ? Number(route.query.maxPrice) : '',
+  source: (route.query.source as string) || '',
 })
 
 const display = computed(() => results.value ?? ssrData.value)

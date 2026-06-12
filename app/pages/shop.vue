@@ -4,16 +4,14 @@ const page = computed(() => Number(route.query.page) || 1)
 const category = computed(() => (route.query.category as string) || undefined)
 const sort = computed(() => (route.query.sort as string) || 'newest')
 
-const [{ data }, { data: recs }, { data: trending }] = await Promise.all([
-  useAsyncData(
-    () => `shop-p${page.value}-c${category.value ?? ''}-s${sort.value}`,
-    () => $fetch<any>('/api/products', {
-      query: { page: page.value, limit: 20, category: category.value, sort: sort.value },
-    })
-  ),
-  useAsyncData('recommendations', () => $fetch<any>('/api/recommendations')),
-  useAsyncData('trending', () => $fetch<any[]>('/api/trending').catch(() => [])),
-])
+const { data } = await useAsyncData(
+  () => `shop-p${page.value}-c${category.value ?? ''}-s${sort.value}`,
+  () => $fetch<any>('/api/products', {
+    query: { page: page.value, limit: 20, category: category.value, sort: sort.value },
+  })
+)
+const { data: recs } = useAsyncData('recommendations', () => $fetch<any>('/api/recommendations'), { lazy: true })
+const { data: trending } = useAsyncData('trending', () => $fetch<any[]>('/api/trending').catch(() => []), { lazy: true })
 
 const SORT_OPTIONS = [
   { label: 'Newest', value: 'newest' },

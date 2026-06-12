@@ -18,11 +18,11 @@ export default defineEventHandler(async (event) => {
 
   await connectDB()
 
-  const results = await Product.find({ title: { $regex: safe, $options: 'i' } })
+  const results = await Product.find({ title: { $regex: `^${safe}`, $options: 'i' } })
     .select('title slug price imageUrl source')
     .limit(8)
     .lean()
 
-  await cacheSet(key, results, 15)
+  await cacheSet(key, results, 60)
   return results
 })
