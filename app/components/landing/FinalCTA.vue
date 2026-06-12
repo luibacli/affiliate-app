@@ -3,8 +3,8 @@
 
     <!-- Background orbs -->
     <div class="absolute inset-0 pointer-events-none select-none overflow-hidden">
-      <div class="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-primary-600/15 blur-[100px]" />
-      <div class="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-accent-500/12 blur-[90px]" />
+      <div class="absolute top-0 left-1/4 w-[350px] h-[350px] rounded-full bg-primary-600/15 blur-[50px] will-change-transform" />
+      <div class="absolute bottom-0 right-1/4 w-[300px] h-[300px] rounded-full bg-accent-500/12 blur-[40px] will-change-transform" />
     </div>
     <div
       class="absolute inset-0 opacity-[0.2]"

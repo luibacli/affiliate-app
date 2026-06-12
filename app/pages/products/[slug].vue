@@ -4,12 +4,10 @@ import { formatPrice } from '~/composables/usePrice'
 const route = useRoute()
 const slug = route.params.slug as string
 
-const [{ data: product, error }, { data: compare }, { data: related }, { data: priceHistory }] = await Promise.all([
-  useAsyncData(`product-${slug}`, () => $fetch<any>(`/api/products/${slug}`)),
-  useAsyncData(`compare-${slug}`, () => $fetch<any>(`/api/products/${slug}/compare`)),
-  useAsyncData(`related-${slug}`, () => $fetch<any[]>(`/api/products/${slug}/related`)),
-  useAsyncData(`price-history-${slug}`, () => $fetch<any[]>(`/api/products/${slug}/price-history`).catch(() => [])),
-])
+const { data: product, error } = await useAsyncData(`product-${slug}`, () => $fetch<any>(`/api/products/${slug}`))
+const { data: compare } = useAsyncData(`compare-${slug}`, () => $fetch<any>(`/api/products/${slug}/compare`), { lazy: true })
+const { data: related } = useAsyncData(`related-${slug}`, () => $fetch<any[]>(`/api/products/${slug}/related`), { lazy: true })
+const { data: priceHistory } = useAsyncData(`price-history-${slug}`, () => $fetch<any[]>(`/api/products/${slug}/price-history`).catch(() => []), { lazy: true })
 
 if (error.value) throw createError({ statusCode: 404, message: 'Product not found' })
 
@@ -151,6 +149,11 @@ useHead({
                 v-if="product.imageUrl"
                 :src="product.imageUrl"
                 :alt="product.title"
+                width="600"
+                height="600"
+                fetchpriority="high"
+                loading="eager"
+                decoding="async"
                 class="w-full h-full object-contain"
               />
               <div v-else class="text-gray-200">

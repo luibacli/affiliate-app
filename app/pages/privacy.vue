@@ -98,6 +98,8 @@
 </template>
 
 <script setup lang="ts">
+defineRouteRules({ prerender: true })
+
 useHead({
   title: 'Privacy Policy — WinRose',
   meta: [

@@ -79,6 +79,8 @@
 </template>
 
 <script setup lang="ts">
+defineRouteRules({ prerender: true })
+
 const form = reactive({ name: '', email: '', subject: 'general', message: '' })
 const sending = ref(false)
 const success = ref(false)

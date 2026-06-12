@@ -95,6 +95,8 @@
 </template>
 
 <script setup lang="ts">
+defineRouteRules({ prerender: true })
+
 useHead({
   title: 'Terms of Use — WinRose',
   meta: [

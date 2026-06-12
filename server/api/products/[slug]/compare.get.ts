@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
   if (!product.compareGroupId) return { comparisons: [], slug }
 
   const comparisons = await Product.find({ compareGroupId: product.compareGroupId })
-    .select('title price source affiliateUrl slug imageUrl')
+    .select('title price source slug imageUrl')
     .sort({ price: 1 })
     .lean()
 

@@ -1,15 +1,15 @@
 <script setup lang="ts">
-const [{ data: productsData }, { data: trendingData }, { data: recsData }] = await Promise.all([
-  useAsyncData('landing-v2-featured', () =>
-    $fetch<any>('/api/products', { query: { limit: 12, sort: 'newest' } }).catch(() => null)
-  ),
-  useAsyncData('landing-v2-trending', () =>
-    $fetch<any[]>('/api/trending').catch(() => [])
-  ),
-  useAsyncData('landing-v2-recs', () =>
-    $fetch<any>('/api/recommendations').catch(() => null)
-  ),
-])
+const { data: productsData } = await useAsyncData('landing-v2-featured', () =>
+  $fetch<any>('/api/products', { query: { limit: 12, sort: 'newest' } }).catch(() => null)
+)
+const { data: trendingData } = useAsyncData('landing-v2-trending', () =>
+  $fetch<any[]>('/api/trending').catch(() => []),
+  { lazy: true }
+)
+const { data: recsData } = useAsyncData('landing-v2-recs', () =>
+  $fetch<any>('/api/recommendations').catch(() => null),
+  { lazy: true }
+)
 
 const { siteUrl } = useRuntimeConfig().public
 
@@ -56,12 +56,12 @@ useHead({
     <LandingCategoryGrid />
 
     <!-- 4. How it works — dark, 3 steps -->
-    <LandingHowItWorks />
+    <LazyLandingHowItWorks />
 
     <!-- 5. Social proof + trust signals -->
-    <LandingSocialProof />
+    <LazyLandingSocialProof />
 
     <!-- 7. Final CTA — dark, conversion -->
-    <LandingFinalCTA />
+    <LazyLandingFinalCTA />
   </div>
 </template>
