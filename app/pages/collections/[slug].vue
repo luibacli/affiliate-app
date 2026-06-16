@@ -1,6 +1,4 @@
 <script setup lang="ts">
-defineRouteRules({ isr: 3600 })
-
 import { SEO_PAGES } from '~/data/seoPages'
 
 const route = useRoute()

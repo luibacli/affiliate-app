@@ -51,6 +51,9 @@ export default defineNuxtConfig({
       '0 2 * * *': ['products:discover'],
       '0 */6 * * *': ['prices:update'],
     },
+    devStorage: {
+      cache: { driver: 'memory' },
+    },
   },
   routeRules: {
     '/': { headers: { 'cache-control': 's-maxage=300, stale-while-revalidate=600' } },
@@ -63,7 +66,7 @@ export default defineNuxtConfig({
     '/api/affiliate/**': { headers: { 'cache-control': 'no-store' } },
     '/best/**': { headers: { 'cache-control': 's-maxage=3600, stale-while-revalidate=86400' } },
     '/collections': { headers: { 'cache-control': 's-maxage=86400, stale-while-revalidate=604800' } },
-    '/collections/**': { headers: { 'cache-control': 's-maxage=3600, stale-while-revalidate=86400' } },
+    '/collections/**': { isr: 3600, headers: { 'cache-control': 's-maxage=3600, stale-while-revalidate=86400' } },
     '/api/collections/**': { headers: { 'cache-control': 's-maxage=300, stale-while-revalidate=3600' } },
     '/api/search': { headers: { 'cache-control': 's-maxage=30, stale-while-revalidate=120' } },
     '/api/best/**': { headers: { 'cache-control': 's-maxage=300, stale-while-revalidate=3600' } },

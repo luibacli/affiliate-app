@@ -27,7 +27,7 @@ export async function createSession(event: H3Event, user: SessionUser): Promise<
   })
 }
 
-export async function getSession(event: H3Event): Promise<SessionUser | null> {
+export async function getAuthSession(event: H3Event): Promise<SessionUser | null> {
   const id = getCookie(event, COOKIE)
   if (!id) return null
   try {
