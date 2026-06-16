@@ -1,6 +1,4 @@
 <script setup lang="ts">
-defineRouteRules({ prerender: true })
-
 import { SEO_PAGES } from '~/data/seoPages'
 
 const { siteUrl } = useRuntimeConfig().public
