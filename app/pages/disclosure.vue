@@ -82,7 +82,6 @@
 </template>
 
 <script setup lang="ts">
-defineRouteRules({ prerender: true })
 
 useHead({
   title: 'Affiliate Disclosure — WinRose',

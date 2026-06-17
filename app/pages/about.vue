@@ -56,7 +56,6 @@
 </template>
 
 <script setup lang="ts">
-defineRouteRules({ prerender: true })
 
 useHead({
   title: 'About WinRose — Price Comparison & Deals in Southeast Asia',
