@@ -6,7 +6,7 @@ const TTL = 60 * 60 * 24 * 7 // 7 days
 
 export type SessionUser = {
   userId: string
-  role: 'super_admin'
+  role: 'super_admin' | 'admin'
   username: string
   name: string
   email: string

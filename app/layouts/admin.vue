@@ -2,21 +2,26 @@
 import { Toaster } from 'vue-sonner'
 
 const route = useRoute()
-const { user, authError, apiFetch, fetchMe, logout } = useAdminAuth()
+const { user, isSuperAdmin, authError, apiFetch, fetchMe, logout } = useAdminAuth()
 const sidebarOpen = ref(false)
 const unreadCount = ref(0)
 
 const NAV = [
-  { label: 'Dashboard', to: '/admin/dashboard', icon: '📊' },
-  { label: 'Products', to: '/admin/products', icon: '📦' },
-  { label: '+ Add Product', to: '/admin/products/create', icon: '➕' },
-  { label: 'Categories', to: '/admin/categories', icon: '🏷️' },
-  { label: 'Amazon Import', to: '/admin/amazon', icon: '🛒' },
-  { label: 'eBay Import', to: '/admin/ebay', icon: '🏷️' },
-  { label: 'Best Buy Import', to: '/admin/bestbuy', icon: '🛍️' },
-  { label: 'Walmart Import', to: '/admin/walmart', icon: '🏪' },
-  { label: 'Messages', to: '/admin/messages', icon: '✉️' },
+  { label: 'Dashboard',      to: '/admin/dashboard',        icon: '📊', superOnly: false },
+  { label: 'Products',       to: '/admin/products',         icon: '📦', superOnly: false },
+  { label: '+ Add Product',  to: '/admin/products/create',  icon: '➕', superOnly: false },
+  { label: 'Categories',     to: '/admin/categories',       icon: '🏷️', superOnly: false },
+  { label: 'Amazon Import',  to: '/admin/amazon',           icon: '🛒', superOnly: false },
+  { label: 'eBay Import',    to: '/admin/ebay',             icon: '🏷️', superOnly: false },
+  { label: 'Best Buy Import',to: '/admin/bestbuy',          icon: '🛍️', superOnly: false },
+  { label: 'Walmart Import', to: '/admin/walmart',          icon: '🏪', superOnly: false },
+  { label: 'Messages',       to: '/admin/messages',         icon: '✉️', superOnly: true  },
+  { label: 'User Management',to: '/admin/users',            icon: '👥', superOnly: true  },
 ]
+
+const visibleNAV = computed(() =>
+  NAV.filter(item => !item.superOnly || isSuperAdmin.value)
+)
 
 const storefrontUrl = computed(() => {
   if (import.meta.server) return '/'
@@ -91,7 +96,7 @@ onMounted(async () => {
         <!-- Nav -->
         <nav class="flex-1 py-4 space-y-0.5 px-2">
           <NuxtLink
-            v-for="item in NAV"
+            v-for="item in visibleNAV"
             :key="item.to"
             :to="item.to"
             :class="route.path === item.to || (item.to !== '/admin/products' && route.path.startsWith(item.to))

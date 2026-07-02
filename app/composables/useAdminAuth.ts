@@ -4,6 +4,8 @@ export const useAdminAuth = () => {
   const authError = useState<string>('admin_auth_error', () => '')
   const user = useState<SessionUser | null>('admin_user', () => null)
 
+  const isSuperAdmin = computed(() => user.value?.role === 'super_admin')
+
   async function fetchMe() {
     try {
       user.value = await $fetch<SessionUser>('/api/auth/me')
@@ -26,8 +28,11 @@ export const useAdminAuth = () => {
           authError.value = 'Session expired. Please log in again.'
           navigateTo('/admin/login')
         }
+        if (response.status === 403) {
+          navigateTo('/admin/dashboard')
+        }
       },
     })
 
-  return { user, authError, apiFetch, fetchMe, logout }
+  return { user, isSuperAdmin, authError, apiFetch, fetchMe, logout }
 }

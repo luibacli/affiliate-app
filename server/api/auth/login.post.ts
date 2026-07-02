@@ -24,7 +24,7 @@ export default defineEventHandler(async (event) => {
 
   await createSession(event, {
     userId: String(user._id),
-    role: user.role as 'super_admin',
+    role: user.role as 'super_admin' | 'admin',
     username: user.username,
     name: user.name,
     email: user.email,
