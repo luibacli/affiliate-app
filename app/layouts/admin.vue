@@ -26,7 +26,7 @@ const visibleNAV = computed(() =>
 const storefrontUrl = computed(() => {
   if (import.meta.server) return '/'
   const { protocol, hostname, port } = window.location
-  const publicHost = hostname.startsWith('admin.') ? hostname.slice(6) : hostname
+  const publicHost = hostname.startsWith('app.') ? hostname.slice(4) : hostname
   const portSuffix = port && port !== '80' && port !== '443' ? `:${port}` : ''
   return `${protocol}//${publicHost}${portSuffix}`
 })
