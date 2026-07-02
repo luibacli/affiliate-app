@@ -29,6 +29,7 @@ export default defineNuxtConfig({
     adminUsername: process.env.ADMIN_USERNAME || '',
     adminEmail: process.env.ADMIN_EMAIL || '',
     adminPassword: process.env.ADMIN_PASSWORD || '',
+    adminSubdomain: process.env.ADMIN_SUBDOMAIN || '',
     amazonAccessKey: process.env.AMAZON_ACCESS_KEY || '',
     amazonSecretKey: process.env.AMAZON_SECRET_KEY || '',
     amazonPartnerTag: process.env.AMAZON_PARTNER_TAG || '',
@@ -44,6 +45,7 @@ export default defineNuxtConfig({
     walmartImpactCatalogId: process.env.WALMART_IMPACT_CATALOG_ID || '',
     public: {
       siteUrl: process.env.SITE_URL || 'http://localhost:3000',
+      adminSubdomain: process.env.ADMIN_SUBDOMAIN || '',
     },
   },
   nitro: {
