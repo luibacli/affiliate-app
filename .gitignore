@@ -19,6 +19,7 @@ logs
 .idea
 .claude
 CLAUDE.md
+PROJECT_GUIDE.md
 
 # Local env files
 .env

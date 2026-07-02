@@ -16,9 +16,16 @@ const NAV = [
   { label: 'eBay Import', to: '/admin/ebay', icon: '🏷️' },
   { label: 'Best Buy Import', to: '/admin/bestbuy', icon: '🛍️' },
   { label: 'Walmart Import', to: '/admin/walmart', icon: '🏪' },
-{ label: 'Messages', to: '/admin/messages', icon: '✉️' },
-  { label: '← Storefront', to: '/', icon: '🏠' },
+  { label: 'Messages', to: '/admin/messages', icon: '✉️' },
 ]
+
+const storefrontUrl = computed(() => {
+  if (import.meta.server) return '/'
+  const { protocol, hostname, port } = window.location
+  const publicHost = hostname.startsWith('admin.') ? hostname.slice(6) : hostname
+  const portSuffix = port && port !== '80' && port !== '443' ? `:${port}` : ''
+  return `${protocol}//${publicHost}${portSuffix}`
+})
 
 const isAuthenticated = computed(() => !!key.value)
 const maskedKey = computed(() => key.value ? '••••••••' + key.value.slice(-6) : '')
@@ -96,6 +103,16 @@ onMounted(fetchUnread)
               class="ml-auto min-w-[20px] text-center px-1.5 py-0.5 rounded-full bg-red-500 text-white text-xs font-bold leading-none"
             >{{ unreadCount }}</span>
           </NuxtLink>
+
+          <div class="border-t border-gray-700 my-2" />
+
+          <a
+            :href="storefrontUrl"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors text-gray-300 hover:bg-gray-800 hover:text-white"
+          >
+            <span>🏠</span>
+            <span>← Storefront</span>
+          </a>
         </nav>
 
         <!-- Admin Key Section -->
