@@ -16,7 +16,7 @@ export default defineEventHandler((event) => {
     path.startsWith('/public/')
   ) return
 
-  const isAdminHost = host === adminSubdomain || host.startsWith('admin.')
+  const isAdminHost = host === adminSubdomain || host.startsWith('app.')
 
   if (!isAdminHost && path.startsWith('/admin')) {
     return sendRedirect(event, '/', 302)
