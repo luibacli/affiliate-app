@@ -1,8 +1,14 @@
 export default defineEventHandler((event) => {
+  const { adminSubdomain } = useRuntimeConfig()
+
+  // Subdomain enforcement is opt-in. Without it (e.g. on Vercel without a
+  // custom domain) /admin/** is reachable on the main domain — session auth
+  // is the only gate, which is sufficient.
+  if (!adminSubdomain) return
+
   const host = getRequestHeader(event, 'host') || ''
   const path = getRequestURL(event).pathname
 
-  // Skip internal Nuxt assets, API routes, and static files
   if (
     path.startsWith('/_') ||
     path.startsWith('/api/') ||
@@ -10,9 +16,8 @@ export default defineEventHandler((event) => {
     path.startsWith('/public/')
   ) return
 
-  const isAdminHost = host.startsWith('admin.')
+  const isAdminHost = host === adminSubdomain || host.startsWith('admin.')
 
-  // Block /admin/** on public domain
   if (!isAdminHost && path.startsWith('/admin')) {
     return sendRedirect(event, '/', 302)
   }
