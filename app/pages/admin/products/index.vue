@@ -2,7 +2,7 @@
 import { toast } from 'vue-sonner'
 definePageMeta({ layout: 'admin', ssr: false })
 
-const { key, apiFetch, authError } = useAdminAuth()
+const { apiFetch, authError } = useAdminAuth()
 const router = useRouter()
 
 const page = ref(1)
@@ -37,7 +37,6 @@ async function bulkImport() {
 const CATEGORIES = ['phones', 'laptops', 'accessories', 'gaming', 'fashion', 'home', 'beauty', 'sports']
 
 async function load() {
-  if (!key.value) return
   loading.value = true
   data.value = await apiFetch('/api/admin/products', {
     query: {
@@ -85,7 +84,7 @@ async function confirmDelete(id: string) {
 }
 
 let debounceTimer: ReturnType<typeof setTimeout> | null = null
-watch([key, page, category], load)
+watch([page, category], load)
 watch(search, () => {
   if (debounceTimer) clearTimeout(debounceTimer)
   debounceTimer = setTimeout(load, 400)
@@ -106,16 +105,6 @@ onMounted(load)
         <button @click="showImport = true" class="px-3 py-2 text-sm bg-gray-800 hover:bg-gray-900 text-white rounded-lg font-medium">Bulk Import</button>
         <NuxtLink to="/admin/products/create" class="px-4 py-2 text-sm bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-semibold">+ Add Product</NuxtLink>
       </div>
-    </div>
-
-    <!-- Auth error -->
-    <div v-if="authError" class="bg-red-50 border border-red-200 rounded-xl p-3 mb-4 flex items-center gap-2 text-sm text-red-700">
-      <span>🔒</span> {{ authError }}
-    </div>
-
-    <!-- Auth key prompt -->
-    <div v-if="!key && !authError" class="bg-yellow-50 border border-yellow-200 rounded-xl p-4 mb-4 flex gap-3 items-center">
-      <input v-model="key" type="password" placeholder="Enter admin key" class="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm" />
     </div>
 
     <!-- Filters -->

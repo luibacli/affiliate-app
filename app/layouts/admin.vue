@@ -2,29 +2,37 @@
 import { Toaster } from 'vue-sonner'
 
 const route = useRoute()
-const { key, authError, apiFetch } = useAdminAuth()
-const showKey = ref(false)
+const { user, isSuperAdmin, authError, apiFetch, fetchMe, logout } = useAdminAuth()
 const sidebarOpen = ref(false)
 const unreadCount = ref(0)
 
 const NAV = [
-  { label: 'Dashboard', to: '/admin/dashboard', icon: '📊' },
-  { label: 'Products', to: '/admin/products', icon: '📦' },
-  { label: '+ Add Product', to: '/admin/products/create', icon: '➕' },
-  { label: 'Categories', to: '/admin/categories', icon: '🏷️' },
-  { label: 'Amazon Import', to: '/admin/amazon', icon: '🛒' },
-  { label: 'eBay Import', to: '/admin/ebay', icon: '🏷️' },
-  { label: 'Best Buy Import', to: '/admin/bestbuy', icon: '🛍️' },
-  { label: 'Walmart Import', to: '/admin/walmart', icon: '🏪' },
-{ label: 'Messages', to: '/admin/messages', icon: '✉️' },
-  { label: '← Storefront', to: '/', icon: '🏠' },
+  { label: 'Dashboard',      to: '/admin/dashboard',        icon: '📊', superOnly: false },
+  { label: 'Products',       to: '/admin/products',         icon: '📦', superOnly: false },
+  { label: '+ Add Product',  to: '/admin/products/create',  icon: '➕', superOnly: false },
+  { label: 'Categories',     to: '/admin/categories',       icon: '🏷️', superOnly: false },
+  { label: 'Amazon Import',  to: '/admin/amazon',           icon: '🛒', superOnly: false },
+  { label: 'eBay Import',    to: '/admin/ebay',             icon: '🏷️', superOnly: false },
+  { label: 'Best Buy Import',to: '/admin/bestbuy',          icon: '🛍️', superOnly: false },
+  { label: 'Walmart Import', to: '/admin/walmart',          icon: '🏪', superOnly: false },
+  { label: 'Messages',       to: '/admin/messages',         icon: '✉️', superOnly: true  },
+  { label: 'User Management',to: '/admin/users',            icon: '👥', superOnly: true  },
 ]
 
-const isAuthenticated = computed(() => !!key.value)
-const maskedKey = computed(() => key.value ? '••••••••' + key.value.slice(-6) : '')
+const visibleNAV = computed(() =>
+  NAV.filter(item => !item.superOnly || isSuperAdmin.value)
+)
+
+const storefrontUrl = computed(() => {
+  if (import.meta.server) return '/'
+  const { protocol, hostname, port } = window.location
+  const publicHost = hostname.startsWith('admin.') ? hostname.slice(6) : hostname
+  const portSuffix = port && port !== '80' && port !== '443' ? `:${port}` : ''
+  return `${protocol}//${publicHost}${portSuffix}`
+})
 
 async function fetchUnread() {
-  if (!key.value) return
+  if (!user.value) return
   try {
     const res = await apiFetch<any>('/api/admin/messages', { query: { page: 1 } })
     unreadCount.value = res?.unreadCount ?? 0
@@ -32,8 +40,15 @@ async function fetchUnread() {
 }
 
 watch(() => route.path, () => { sidebarOpen.value = false })
-watch(key, (val) => { if (val) fetchUnread() })
-onMounted(fetchUnread)
+
+onMounted(async () => {
+  await fetchMe()
+  if (!user.value) {
+    await navigateTo('/admin/login')
+    return
+  }
+  await fetchUnread()
+})
 </script>
 
 <template>
@@ -81,7 +96,7 @@ onMounted(fetchUnread)
         <!-- Nav -->
         <nav class="flex-1 py-4 space-y-0.5 px-2">
           <NuxtLink
-            v-for="item in NAV"
+            v-for="item in visibleNAV"
             :key="item.to"
             :to="item.to"
             :class="route.path === item.to || (item.to !== '/admin/products' && route.path.startsWith(item.to))
@@ -96,39 +111,39 @@ onMounted(fetchUnread)
               class="ml-auto min-w-[20px] text-center px-1.5 py-0.5 rounded-full bg-red-500 text-white text-xs font-bold leading-none"
             >{{ unreadCount }}</span>
           </NuxtLink>
+
+          <div class="border-t border-gray-700 my-2" />
+
+          <a
+            :href="storefrontUrl"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors text-gray-300 hover:bg-gray-800 hover:text-white"
+          >
+            <span>🏠</span>
+            <span>← Storefront</span>
+          </a>
         </nav>
 
-        <!-- Admin Key Section -->
-        <div class="border-t border-gray-700 p-4 space-y-2">
-          <p class="text-xs text-gray-400 uppercase tracking-widest">Admin Key</p>
-
-          <!-- Authenticated state -->
-          <div v-if="isAuthenticated && !showKey" class="flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-green-400 flex-shrink-0" />
-              <span class="text-xs text-gray-300 font-mono">{{ maskedKey }}</span>
+        <!-- User info + logout -->
+        <div class="border-t border-gray-700 p-4">
+          <div v-if="user" class="space-y-3">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-full bg-orange-500/20 border border-orange-500/30 flex items-center justify-center flex-shrink-0">
+                <span class="text-orange-400 text-xs font-bold uppercase">{{ user.name?.charAt(0) }}</span>
+              </div>
+              <div class="min-w-0">
+                <p class="text-xs font-semibold text-white truncate">{{ user.name }}</p>
+                <p class="text-xs text-gray-500 truncate">@{{ user.username }}</p>
+              </div>
             </div>
             <button
-              class="text-xs text-gray-500 hover:text-gray-300 transition-colors"
-              @click="showKey = true"
+              class="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs font-medium text-gray-400 hover:text-white hover:bg-gray-800 transition-colors"
+              @click="logout"
             >
-              Change
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+              </svg>
+              Sign Out
             </button>
-          </div>
-
-          <!-- Key input -->
-          <div v-if="!isAuthenticated || showKey" class="space-y-2">
-            <p v-if="!isAuthenticated" class="text-xs text-yellow-400">
-              ⚠ Enter key to unlock admin features
-            </p>
-            <input
-              v-model="key"
-              type="password"
-              placeholder="Paste admin key here"
-              class="w-full bg-gray-800 border border-gray-600 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 rounded-lg px-3 py-2 text-xs text-white placeholder-gray-500 outline-none transition-colors"
-              @blur="showKey = false"
-            />
-            <p class="text-xs text-gray-500">Found in your <code class="bg-gray-800 px-1 rounded">.env</code> file as <code class="bg-gray-800 px-1 rounded">ADMIN_KEY</code></p>
           </div>
         </div>
       </aside>

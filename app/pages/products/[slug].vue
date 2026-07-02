@@ -57,7 +57,6 @@ useSeoMeta({
   ogTitle: computed(() => product.value?.title ?? ''),
   ogDescription: computed(() => product.value?.description ?? ''),
   ogImage: computed(() => product.value?.imageUrl ?? `${siteUrl}/og-default.png`),
-  ogType: 'product',
 })
 
 useHead({
@@ -219,14 +218,15 @@ useHead({
           </div>
 
           <!-- Main CTA -->
-          <a
-            :href="affiliateLink"
+          <NuxtLink
+            :to="affiliateLink"
             target="_blank"
             rel="noopener noreferrer sponsored"
+            external
             class="w-full py-4 text-center text-lg font-black text-white bg-accent-500 hover:bg-accent-600 active:scale-95 transition-all duration-150 rounded-2xl shadow-lg shadow-accent-200 flex items-center justify-center gap-2"
           >
             Check Price Now 🔥
-          </a>
+          </NuxtLink>
 
           <!-- Trust signals -->
           <div class="flex items-center gap-4 text-xs text-gray-400 justify-center">
