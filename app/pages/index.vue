@@ -1,22 +1,22 @@
 <script setup lang="ts">
-const [{ data: productsData }, { data: trendingData }, { data: recsData }] = await Promise.all([
-  useAsyncData('landing-v2-featured', () =>
-    $fetch<any>('/api/products', { query: { limit: 12, sort: 'newest' } }).catch(() => null)
-  ),
-  useAsyncData('landing-v2-trending', () =>
-    $fetch<any[]>('/api/trending').catch(() => [])
-  ),
-  useAsyncData('landing-v2-recs', () =>
-    $fetch<any>('/api/recommendations').catch(() => null)
-  ),
-])
+const { data: productsData } = await useAsyncData('landing-v2-featured', () =>
+  $fetch<any>('/api/products', { query: { limit: 12, sort: 'newest' } }).catch(() => null)
+)
+const { data: trendingData } = useAsyncData('landing-v2-trending', () =>
+  $fetch<any[]>('/api/trending').catch(() => []),
+  { lazy: true }
+)
+const { data: recsData } = useAsyncData('landing-v2-recs', () =>
+  $fetch<any>('/api/recommendations').catch(() => null),
+  { lazy: true }
+)
 
 const { siteUrl } = useRuntimeConfig().public
 
 useSeoMeta({
-  title: 'SmartBuy Hub — All the Best Deals in One Place',
+  title: 'WinRose — All the Best Deals in One Place',
   description: 'Discover products from Amazon, Walmart, eBay, and more — all in one platform. Compare deals, save money, and earn as an affiliate contributor.',
-  ogTitle: 'SmartBuy Hub — Best Deals from Every Platform',
+  ogTitle: 'WinRose — Best Deals from Every Platform',
   ogDescription: 'All the best deals from top online shopping platforms in one place. Free to use, updated daily.',
   ogType: 'website',
   ogImage: `${siteUrl}/og-default.png`,
@@ -29,7 +29,7 @@ useHead({
     innerHTML: JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'Organization',
-      name: 'SmartBuy Hub',
+      name: 'WinRose',
       url: siteUrl,
       description: 'Affiliate marketplace aggregating deals from top e-commerce platforms globally.',
     }),
@@ -55,15 +55,12 @@ useHead({
     <LandingCategoryGrid />
 
     <!-- 4. How it works — dark, 3 steps -->
-    <LandingHowItWorks />
+    <LazyLandingHowItWorks />
 
-    <!-- 5. Affiliate invite — dark, split layout -->
-    <LandingAffiliateInvite />
-
-    <!-- 6. Social proof + trust signals -->
-    <LandingSocialProof />
+    <!-- 5. Social proof + trust signals -->
+    <LazyLandingSocialProof />
 
     <!-- 7. Final CTA — dark, conversion -->
-    <LandingFinalCTA />
+    <LazyLandingFinalCTA />
   </div>
 </template>

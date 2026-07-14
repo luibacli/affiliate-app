@@ -1,21 +1,10 @@
 <script setup lang="ts">
-const { data: statsData } = await useAsyncData('hero-stats-lp', () =>
-  $fetch<any>('/api/products', { query: { limit: 1 } }).catch(() => null)
-)
-
-const totalDisplay = computed(() => {
-  const t = statsData.value?.total ?? 0
-  if (t >= 10000) return `${Math.floor(t / 1000)}K+`
-  if (t >= 1000) return `${(t / 1000).toFixed(1)}K+`
-  return t > 0 ? `${t}+` : '1K+'
-})
-
-const stats = computed(() => [
-  { value: totalDisplay.value, label: 'Products tracked' },
+const stats = [
+  { value: '10,000+', label: 'Products tracked' },
   { value: '4+', label: 'Platforms' },
   { value: 'Daily', label: 'Price updates' },
   { value: 'Free', label: 'Always & forever' },
-])
+]
 
 const trending = ['iPhone 16', 'MacBook Air', 'Gaming Chair', 'AirPods Pro', 'Smart Watch']
 </script>
@@ -25,9 +14,9 @@ const trending = ['iPhone 16', 'MacBook Air', 'Gaming Chair', 'AirPods Pro', 'Sm
 
     <!-- Gradient orbs -->
     <div class="absolute inset-0 pointer-events-none select-none overflow-hidden">
-      <div class="absolute -top-64 -left-64 w-[900px] h-[900px] rounded-full bg-primary-600/[0.18] blur-[130px]" />
-      <div class="absolute -bottom-56 -right-56 w-[750px] h-[750px] rounded-full bg-accent-500/[0.14] blur-[110px]" />
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-blue-700/[0.07] blur-[80px]" />
+      <div class="absolute -top-64 -left-64 w-[600px] h-[600px] rounded-full bg-primary-600/[0.18] blur-[60px] will-change-transform" />
+      <div class="absolute -bottom-56 -right-56 w-[500px] h-[500px] rounded-full bg-accent-500/[0.14] blur-[50px] will-change-transform" />
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-blue-700/[0.07] blur-[40px] will-change-transform" />
     </div>
 
     <!-- Dot grid -->

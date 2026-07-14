@@ -4,8 +4,9 @@ const category = route.params.category as string
 const page = computed(() => Number(route.query.page) || 1)
 
 const { data } = await useAsyncData(
-  `best-${category}-p${page.value}`,
-  () => $fetch<any>(`/api/best/${category}`, { query: { page: page.value, limit: 20 } })
+  () => `best-${category}-p${page.value}`,
+  () => $fetch<any>(`/api/best/${category}`, { query: { page: page.value, limit: 20 } }),
+  { watch: [page] }
 )
 
 const { siteUrl } = useRuntimeConfig().public
@@ -37,7 +38,7 @@ useHead({
           name: `What are the best ${catLabel} deals right now?`,
           acceptedAnswer: {
             '@type': 'Answer',
-            text: `SmartBuy Hub tracks ${catLabel} products across top e-commerce platforms globally and sorts them by biggest discount so you always see the best deal first.`,
+            text: `WinRose tracks ${catLabel} products across top e-commerce platforms globally and sorts them by biggest discount so you always see the best deal first.`,
           },
         },
         {
@@ -91,7 +92,7 @@ useHead({
       <div class="bg-white rounded-2xl border border-gray-100 p-5 mb-6">
         <p class="text-sm text-gray-600 leading-relaxed">
           Looking for the best <strong class="text-gray-800 capitalize">{{ category }}</strong> deals?
-          SmartBuy Hub compares prices across <strong class="text-gray-800">the world's top e-commerce platforms</strong> in real time
+          WinRose compares prices across <strong class="text-gray-800">the world's top e-commerce platforms</strong> in real time
           so you never overpay. Every product below is ranked by its current discount percentage — the biggest savings first.
           Prices are refreshed every 6 hours so you always see accurate, up-to-date deals.
         </p>

@@ -8,7 +8,7 @@
       <div class="bg-amber-50 border border-amber-200 rounded-xl p-5">
         <p class="font-semibold text-amber-900 text-base mb-1">Important Notice</p>
         <p class="text-amber-800">
-          SmartBuy Hub is a participant in affiliate advertising programs. When you click a product link
+          WinRose is a participant in affiliate advertising programs. When you click a product link
           and make a qualifying purchase, we earn a commission — at <strong>no additional cost to you</strong>.
         </p>
       </div>
@@ -17,7 +17,7 @@
         <h2 class="text-lg font-bold text-gray-900 mb-2">Programs We Participate In</h2>
         <ul class="list-disc list-inside space-y-2 text-gray-600">
           <li>
-            <strong>Amazon Associates Program</strong> — SmartBuy Hub is a participant in the Amazon Services LLC
+            <strong>Amazon Associates Program</strong> — WinRose is a participant in the Amazon Services LLC
             Associates Program, an affiliate advertising program designed to provide a means for sites to earn
             advertising fees by advertising and linking to Amazon.com and affiliated Amazon sites.
           </li>
@@ -35,10 +35,10 @@
       <div>
         <h2 class="text-lg font-bold text-gray-900 mb-2">How We Identify Affiliate Links</h2>
         <p>
-          All outbound product links on SmartBuy Hub lead to third-party merchant websites through our
+          All outbound product links on WinRose lead to third-party merchant websites through our
           <code class="bg-gray-100 px-1 rounded">/api/click</code> redirect system. These are affiliate links.
           You can identify them because they always open on the merchant's website,
-          not on SmartBuy Hub.
+          not on WinRose.
         </p>
         <p class="mt-2">
           CTAs labeled "Check Price", "View Deal", or "Buy on [Platform]" are affiliate links.
@@ -82,10 +82,11 @@
 </template>
 
 <script setup lang="ts">
+
 useHead({
-  title: 'Affiliate Disclosure — SmartBuy Hub',
+  title: 'Affiliate Disclosure — WinRose',
   meta: [
-    { name: 'description', content: 'SmartBuy Hub affiliate disclosure. Learn about our participation in affiliate programs across leading global e-commerce platforms.' },
+    { name: 'description', content: 'WinRose affiliate disclosure. Learn about our participation in affiliate programs across leading global e-commerce platforms.' },
     { name: 'robots', content: 'noindex' },
   ],
 })

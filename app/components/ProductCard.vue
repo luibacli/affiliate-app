@@ -113,7 +113,7 @@ const SOURCE_COLORS: Record<string, string> = {
           height="225"
           loading="lazy"
           decoding="async"
-          class="absolute inset-0 w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300"
+          class="absolute inset-0 w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-200"
           @error="imgFailed = true"
         />
         <div v-else class="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-gray-50 text-gray-300">

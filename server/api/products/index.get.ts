@@ -36,7 +36,9 @@ export default defineEventHandler(async (event) => {
   const skip = (page - 1) * limit
 
   const [products, total] = await Promise.all([
-    Product.find(filter).sort(sort).skip(skip).limit(limit).select('-affiliateUrl -asin').lean(),
+    Product.find(filter).sort(sort).skip(skip).limit(limit)
+      .select('title price originalPrice currency slug imageUrl source rating discountPct category lastPriceDrop lowestPrice30d')
+      .lean(),
     Product.countDocuments(filter),
   ])
 

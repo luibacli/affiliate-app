@@ -4,12 +4,10 @@ import { formatPrice } from '~/composables/usePrice'
 const route = useRoute()
 const slug = route.params.slug as string
 
-const [{ data: product, error }, { data: compare }, { data: related }, { data: priceHistory }] = await Promise.all([
-  useAsyncData(`product-${slug}`, () => $fetch<any>(`/api/products/${slug}`)),
-  useAsyncData(`compare-${slug}`, () => $fetch<any>(`/api/products/${slug}/compare`)),
-  useAsyncData(`related-${slug}`, () => $fetch<any[]>(`/api/products/${slug}/related`)),
-  useAsyncData(`price-history-${slug}`, () => $fetch<any[]>(`/api/products/${slug}/price-history`).catch(() => [])),
-])
+const { data: product, error } = await useAsyncData(`product-${slug}`, () => $fetch<any>(`/api/products/${slug}`))
+const { data: compare } = useAsyncData(`compare-${slug}`, () => $fetch<any>(`/api/products/${slug}/compare`), { lazy: true })
+const { data: related } = useAsyncData(`related-${slug}`, () => $fetch<any[]>(`/api/products/${slug}/related`), { lazy: true })
+const { data: priceHistory } = useAsyncData(`price-history-${slug}`, () => $fetch<any[]>(`/api/products/${slug}/price-history`).catch(() => []), { lazy: true })
 
 if (error.value) throw createError({ statusCode: 404, message: 'Product not found' })
 
@@ -44,9 +42,11 @@ const isLowestPrice30d = computed(() => {
 })
 
 const SOURCE_COLORS: Record<string, string> = {
-  Walmart: 'bg-blue-100 text-blue-700',
-  eBay: 'bg-red-100 text-red-700',
+  Walmart: 'bg-blue-600 text-white',
+  eBay: 'bg-blue-100 text-blue-800',
   Amazon: 'bg-yellow-100 text-yellow-800',
+  'Best Buy': 'bg-yellow-400 text-blue-900',
+  Target: 'bg-red-100 text-red-700',
 }
 
 const { siteUrl } = useRuntimeConfig().public
@@ -57,7 +57,6 @@ useSeoMeta({
   ogTitle: computed(() => product.value?.title ?? ''),
   ogDescription: computed(() => product.value?.description ?? ''),
   ogImage: computed(() => product.value?.imageUrl ?? `${siteUrl}/og-default.png`),
-  ogType: 'product',
 })
 
 useHead({
@@ -149,6 +148,11 @@ useHead({
                 v-if="product.imageUrl"
                 :src="product.imageUrl"
                 :alt="product.title"
+                width="600"
+                height="600"
+                fetchpriority="high"
+                loading="eager"
+                decoding="async"
                 class="w-full h-full object-contain"
               />
               <div v-else class="text-gray-200">
@@ -214,14 +218,15 @@ useHead({
           </div>
 
           <!-- Main CTA -->
-          <a
-            :href="affiliateLink"
+          <NuxtLink
+            :to="affiliateLink"
             target="_blank"
             rel="noopener noreferrer sponsored"
+            external
             class="w-full py-4 text-center text-lg font-black text-white bg-accent-500 hover:bg-accent-600 active:scale-95 transition-all duration-150 rounded-2xl shadow-lg shadow-accent-200 flex items-center justify-center gap-2"
           >
             Check Price Now 🔥
-          </a>
+          </NuxtLink>
 
           <!-- Trust signals -->
           <div class="flex items-center gap-4 text-xs text-gray-400 justify-center">
@@ -232,7 +237,7 @@ useHead({
 
           <!-- FTC-required affiliate disclosure near CTA -->
           <p class="text-xs text-gray-400 text-center">
-            Affiliate link — SmartBuy Hub may earn a commission if you purchase.
+            Affiliate link — WinRose may earn a commission if you purchase.
             <NuxtLink to="/disclosure" class="underline hover:text-gray-600">Disclosure</NuxtLink>
           </p>
 

@@ -15,7 +15,7 @@ const form = reactive({
   title: '', description: '', price: '', originalPrice: '',
   affiliateUrl: '', imageUrl: '', category: '', source: '',
   currency: 'USD', rating: '', tags: '', compareGroupId: '',
-  isFeatured: false, isTrending: false, isBestDeal: false,
+  isFeatured: false, isTrending: false, isBestDeal: false, isActive: true,
 })
 const loading = ref(true)
 const saving = ref(false)
@@ -45,6 +45,7 @@ onMounted(async () => {
     isFeatured: !!product.isFeatured,
     isTrending: !!product.isTrending,
     isBestDeal: !!product.isBestDeal,
+    isActive: product.isActive !== false,
   })
   loading.value = false
 })
@@ -94,7 +95,8 @@ async function remove() {
 
     <div v-if="loading" class="text-center py-20 text-gray-400">Loading...</div>
 
-    <form v-else class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 space-y-4" @submit.prevent="submit">
+
+    <form v-if="!loading" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 space-y-4" @submit.prevent="submit">
       <p v-if="error" class="text-sm text-red-600 bg-red-50 rounded-lg px-3 py-2">{{ error }}</p>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -160,6 +162,21 @@ async function remove() {
         <div class="sm:col-span-2">
           <label class="block text-xs font-semibold text-gray-600 mb-1">Tags (comma-separated)</label>
           <input v-model="form.tags" class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-400" />
+        </div>
+
+        <!-- Status -->
+        <div class="sm:col-span-2">
+          <label class="block text-xs font-semibold text-gray-600 mb-2">Listing Status</label>
+          <label class="inline-flex items-center gap-3 cursor-pointer select-none">
+            <div class="relative">
+              <input v-model="form.isActive" type="checkbox" class="sr-only peer" />
+              <div class="w-10 h-6 bg-gray-200 peer-checked:bg-green-500 rounded-full transition-colors" />
+              <div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow transition-transform peer-checked:translate-x-4" />
+            </div>
+            <span class="text-sm font-medium" :class="form.isActive ? 'text-green-700' : 'text-gray-500'">
+              {{ form.isActive ? 'Live on storefront' : 'Hidden (pending review)' }}
+            </span>
+          </label>
         </div>
 
         <!-- Flags -->

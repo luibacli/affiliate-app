@@ -1,27 +1,21 @@
 <script setup lang="ts">
-definePageMeta({ layout: 'admin' })
+definePageMeta({ layout: 'admin', ssr: false })
 
-const { key, apiFetch } = useAdminAuth()
+const { apiFetch } = useAdminAuth()
 
 const data = ref<any>(null)
 const pending = ref(false)
-const authError = ref(false)
 
 async function load() {
-  if (!key.value) return
   pending.value = true
-  authError.value = false
   try {
     data.value = await apiFetch<any>('/api/admin/analytics')
-  } catch {
-    authError.value = true
   } finally {
     pending.value = false
   }
 }
 
 onMounted(load)
-watch(key, load)
 
 // SVG bar chart helpers
 const CHART_W = 600
@@ -77,14 +71,6 @@ const CATEGORY_ICONS: Record<string, string> = {
         </svg>
         Refresh
       </button>
-    </div>
-
-    <!-- Auth prompt -->
-    <div v-if="!key" class="bg-yellow-50 border border-yellow-200 rounded-2xl p-5 text-sm text-yellow-700">
-      Enter your admin key in the sidebar to load analytics.
-    </div>
-    <div v-if="authError" class="bg-red-50 border border-red-200 rounded-2xl p-5 text-sm text-red-700">
-      Invalid admin key. Check your key and try again.
     </div>
 
     <!-- Loading -->

@@ -2,7 +2,7 @@
 import { toast } from 'vue-sonner'
 definePageMeta({ layout: 'admin', ssr: false })
 
-const { key, apiFetch, authError } = useAdminAuth()
+const { apiFetch, authError } = useAdminAuth()
 const router = useRouter()
 
 const page = ref(1)
@@ -37,12 +37,28 @@ async function bulkImport() {
 const CATEGORIES = ['phones', 'laptops', 'accessories', 'gaming', 'fashion', 'home', 'beauty', 'sports']
 
 async function load() {
-  if (!key.value) return
   loading.value = true
   data.value = await apiFetch('/api/admin/products', {
-    query: { page: page.value, search: search.value || undefined, category: category.value || undefined },
+    query: {
+      page: page.value,
+      search: search.value || undefined,
+      category: category.value || undefined,
+    },
   }).catch(() => null)
   loading.value = false
+}
+
+async function toggleActive(product: any) {
+  try {
+    await apiFetch(`/api/admin/products/${product._id}`, {
+      method: 'PUT',
+      body: { isActive: !product.isActive },
+    })
+    product.isActive = !product.isActive
+    toast.success(product.isActive ? 'Product is now live' : 'Product hidden from storefront')
+  } catch {
+    toast.error('Failed to update status')
+  }
 }
 
 async function seed(drop = false) {
@@ -68,7 +84,7 @@ async function confirmDelete(id: string) {
 }
 
 let debounceTimer: ReturnType<typeof setTimeout> | null = null
-watch([key, page, category], load)
+watch([page, category], load)
 watch(search, () => {
   if (debounceTimer) clearTimeout(debounceTimer)
   debounceTimer = setTimeout(load, 400)
@@ -78,7 +94,7 @@ onMounted(load)
 
 <template>
   <div class="p-6">
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
       <div>
         <h1 class="text-2xl font-bold text-gray-900">Products</h1>
         <p v-if="data?.total" class="text-sm text-gray-500">{{ data.total }} total</p>
@@ -89,16 +105,6 @@ onMounted(load)
         <button @click="showImport = true" class="px-3 py-2 text-sm bg-gray-800 hover:bg-gray-900 text-white rounded-lg font-medium">Bulk Import</button>
         <NuxtLink to="/admin/products/create" class="px-4 py-2 text-sm bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-semibold">+ Add Product</NuxtLink>
       </div>
-    </div>
-
-    <!-- Auth error -->
-    <div v-if="authError" class="bg-red-50 border border-red-200 rounded-xl p-3 mb-4 flex items-center gap-2 text-sm text-red-700">
-      <span>🔒</span> {{ authError }}
-    </div>
-
-    <!-- Auth key prompt -->
-    <div v-if="!key && !authError" class="bg-yellow-50 border border-yellow-200 rounded-xl p-4 mb-4 flex gap-3 items-center">
-      <input v-model="key" type="password" placeholder="Enter admin key" class="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm" />
     </div>
 
     <!-- Filters -->
@@ -124,9 +130,9 @@ onMounted(load)
           <tr>
             <th class="text-left px-4 py-3 font-semibold text-gray-600">Product</th>
             <th class="text-left px-4 py-3 font-semibold text-gray-600 hidden md:table-cell">Category</th>
-            <th class="text-left px-4 py-3 font-semibold text-gray-600 hidden md:table-cell">Source</th>
+            <th class="text-left px-4 py-3 font-semibold text-gray-600 hidden lg:table-cell">Source</th>
             <th class="text-right px-4 py-3 font-semibold text-gray-600">Price</th>
-            <th class="text-center px-4 py-3 font-semibold text-gray-600 hidden sm:table-cell">Rating</th>
+            <th class="text-center px-4 py-3 font-semibold text-gray-600 hidden sm:table-cell">Status</th>
             <th class="px-4 py-3" />
           </tr>
         </thead>
@@ -135,23 +141,30 @@ onMounted(load)
             <td class="px-4 py-3">
               <div class="flex items-center gap-3">
                 <img v-if="p.imageUrl" :src="p.imageUrl" :alt="p.title" class="w-10 h-10 object-contain rounded-lg bg-gray-100 flex-shrink-0" />
+                <div v-else class="w-10 h-10 rounded-lg bg-gray-100 flex-shrink-0" />
                 <div>
                   <p class="font-medium text-gray-800 line-clamp-1">{{ p.title }}</p>
-                  <p class="text-xs text-gray-400">{{ p.slug }}</p>
+                  <p class="text-xs text-gray-400 mt-0.5">{{ p.slug }}</p>
                 </div>
               </div>
             </td>
             <td class="px-4 py-3 hidden md:table-cell">
               <span class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full text-xs capitalize">{{ p.category }}</span>
             </td>
-            <td class="px-4 py-3 hidden md:table-cell text-gray-600">{{ p.source }}</td>
+            <td class="px-4 py-3 hidden lg:table-cell text-gray-600 text-xs">{{ p.source ?? '—' }}</td>
             <td class="px-4 py-3 text-right">
               <p class="font-bold text-primary-600">${{ p.price }}</p>
               <p v-if="p.originalPrice" class="text-xs text-gray-400 line-through">${{ p.originalPrice }}</p>
             </td>
             <td class="px-4 py-3 text-center hidden sm:table-cell">
-              <span v-if="p.rating" class="text-yellow-500 text-xs font-semibold">⭐ {{ p.rating }}</span>
-              <span v-else class="text-gray-300 text-xs">—</span>
+              <button
+                @click="toggleActive(p)"
+                class="text-xs px-2.5 py-1 rounded-full font-semibold transition-colors"
+                :class="p.isActive !== false ? 'bg-green-100 text-green-700 hover:bg-green-200' : 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200'"
+                :title="p.isActive !== false ? 'Click to hide' : 'Click to activate'"
+              >
+                {{ p.isActive !== false ? 'Live' : 'Pending' }}
+              </button>
             </td>
             <td class="px-4 py-3">
               <div class="flex items-center gap-2 justify-end">

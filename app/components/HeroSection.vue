@@ -1,14 +1,5 @@
 <script setup lang="ts">
-const { data: statsData } = await useAsyncData('hero-stats', () =>
-  $fetch<any>('/api/products', { query: { limit: 1 } }).catch(() => null)
-)
-
-const totalDisplay = computed(() => {
-  const t = statsData.value?.total ?? 0
-  if (t >= 10000) return `${Math.floor(t / 1000)}K+`
-  if (t >= 1000) return `${(t / 1000).toFixed(1)}K+`
-  return t > 0 ? `${t}+` : '1K+'
-})
+const totalDisplay = '10,000+'
 </script>
 
 <template>
@@ -16,8 +7,8 @@ const totalDisplay = computed(() => {
 
     <!-- Gradient orbs -->
     <div class="absolute inset-0 pointer-events-none select-none overflow-hidden">
-      <div class="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-primary-600/[0.15] blur-[90px]" />
-      <div class="absolute -bottom-32 -right-32 w-[500px] h-[500px] rounded-full bg-accent-500/[0.12] blur-[80px]" />
+      <div class="absolute -top-40 -left-40 w-[400px] h-[400px] rounded-full bg-primary-600/[0.15] blur-[50px] will-change-transform" />
+      <div class="absolute -bottom-32 -right-32 w-[350px] h-[350px] rounded-full bg-accent-500/[0.12] blur-[40px] will-change-transform" />
     </div>
 
     <!-- Dot grid -->

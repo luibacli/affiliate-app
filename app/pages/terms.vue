@@ -8,7 +8,7 @@
       <div>
         <h2 class="text-lg font-bold text-gray-900 mb-2">1. Acceptance of Terms</h2>
         <p>
-          By accessing or using SmartBuy Hub ("the Site"), you agree to be bound by these Terms of Use.
+          By accessing or using WinRose ("the Site"), you agree to be bound by these Terms of Use.
           If you do not agree, please discontinue use of the Site.
         </p>
       </div>
@@ -16,7 +16,7 @@
       <div>
         <h2 class="text-lg font-bold text-gray-900 mb-2">2. Nature of the Service</h2>
         <p>
-          SmartBuy Hub is a price comparison and affiliate marketplace aggregator. We do <strong>not</strong> sell
+          WinRose is a price comparison and affiliate marketplace aggregator. We do <strong>not</strong> sell
           products directly. All purchases are made on third-party e-commerce platforms.
           We are not a party to any transaction between you and these merchants.
         </p>
@@ -25,8 +25,8 @@
       <div>
         <h2 class="text-lg font-bold text-gray-900 mb-2">3. Affiliate Disclosure</h2>
         <p>
-          SmartBuy Hub participates in affiliate advertising programs. When you click a product link and make a
-          qualifying purchase, SmartBuy Hub may earn a commission at <strong>no additional cost to you</strong>.
+          WinRose participates in affiliate advertising programs. When you click a product link and make a
+          qualifying purchase, WinRose may earn a commission at <strong>no additional cost to you</strong>.
           This includes the Amazon Associates Program, Walmart Affiliate Program, and eBay Partner Network.
         </p>
         <p class="mt-2">
@@ -39,8 +39,8 @@
         <h2 class="text-lg font-bold text-gray-900 mb-2">4. Price Accuracy</h2>
         <p>
           Product prices, availability, and details are sourced from third-party retailers and updated
-          regularly. SmartBuy Hub does not guarantee the accuracy, completeness, or timeliness of this data.
-          Always verify the final price on the merchant's website before purchase. SmartBuy Hub is not liable
+          regularly. WinRose does not guarantee the accuracy, completeness, or timeliness of this data.
+          Always verify the final price on the merchant's website before purchase. WinRose is not liable
           for any price discrepancies.
         </p>
       </div>
@@ -59,7 +59,7 @@
       <div>
         <h2 class="text-lg font-bold text-gray-900 mb-2">6. Intellectual Property</h2>
         <p>
-          All site content, design, and code are the property of SmartBuy Hub. Product images and descriptions
+          All site content, design, and code are the property of WinRose. Product images and descriptions
           are the property of their respective merchants and are used under applicable affiliate program
           guidelines.
         </p>
@@ -68,7 +68,7 @@
       <div>
         <h2 class="text-lg font-bold text-gray-900 mb-2">7. Limitation of Liability</h2>
         <p>
-          SmartBuy Hub is provided "as is" without warranties of any kind. We are not liable for any indirect,
+          WinRose is provided "as is" without warranties of any kind. We are not liable for any indirect,
           incidental, or consequential damages arising from your use of the Site or from purchases made
           through affiliate links.
         </p>
@@ -94,10 +94,12 @@
 </template>
 
 <script setup lang="ts">
+
+
 useHead({
-  title: 'Terms of Use — SmartBuy Hub',
+  title: 'Terms of Use — WinRose',
   meta: [
-    { name: 'description', content: 'SmartBuy Hub Terms of Use. Understand your rights and obligations when using our price comparison platform.' },
+    { name: 'description', content: 'WinRose Terms of Use. Understand your rights and obligations when using our price comparison platform.' },
     { name: 'robots', content: 'noindex' },
   ],
 })

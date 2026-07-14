@@ -1,8 +1,8 @@
-export const useSearch = () => {
-  const query = ref('')
-  const minPrice = ref<number | ''>('')
-  const maxPrice = ref<number | ''>('')
-  const source = ref('')
+export const useSearch = (initial?: { query?: string; minPrice?: number | ''; maxPrice?: number | ''; source?: string }) => {
+  const query = ref(initial?.query ?? '')
+  const minPrice = ref<number | ''>(initial?.minPrice ?? '')
+  const maxPrice = ref<number | ''>(initial?.maxPrice ?? '')
+  const source = ref(initial?.source ?? '')
   const sort = ref('newest')
   const page = ref(1)
   const results = ref<any>(null)

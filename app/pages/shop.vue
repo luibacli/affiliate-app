@@ -4,16 +4,14 @@ const page = computed(() => Number(route.query.page) || 1)
 const category = computed(() => (route.query.category as string) || undefined)
 const sort = computed(() => (route.query.sort as string) || 'newest')
 
-const [{ data }, { data: recs }, { data: trending }] = await Promise.all([
-  useAsyncData(
-    () => `shop-p${page.value}-c${category.value ?? ''}-s${sort.value}`,
-    () => $fetch<any>('/api/products', {
-      query: { page: page.value, limit: 20, category: category.value, sort: sort.value },
-    })
-  ),
-  useAsyncData('recommendations', () => $fetch<any>('/api/recommendations')),
-  useAsyncData('trending', () => $fetch<any[]>('/api/trending').catch(() => [])),
-])
+const { data } = await useAsyncData(
+  () => `shop-p${page.value}-c${category.value ?? ''}-s${sort.value}`,
+  () => $fetch<any>('/api/products', {
+    query: { page: page.value, limit: 20, category: category.value, sort: sort.value },
+  })
+)
+const { data: recs } = useAsyncData('recommendations', () => $fetch<any>('/api/recommendations'), { lazy: true })
+const { data: trending } = useAsyncData('trending', () => $fetch<any[]>('/api/trending').catch(() => []), { lazy: true })
 
 const SORT_OPTIONS = [
   { label: 'Newest', value: 'newest' },
@@ -24,9 +22,9 @@ const SORT_OPTIONS = [
 const { siteUrl } = useRuntimeConfig().public
 
 useSeoMeta({
-  title: 'Shop All Deals — SmartBuy Hub',
+  title: 'Shop All Deals — WinRose',
   description: 'Browse thousands of products from top e-commerce platforms. Compare prices, find best deals, and save more on every purchase.',
-  ogTitle: 'Shop Best Deals — SmartBuy Hub',
+  ogTitle: 'Shop Best Deals — WinRose',
   ogDescription: 'Browse and compare prices across Amazon, Walmart, eBay, and more.',
   ogType: 'website',
   ogImage: `${siteUrl}/og-default.png`,

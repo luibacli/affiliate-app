@@ -11,10 +11,14 @@ export default defineEventHandler(async (event) => {
   const limit = Math.min(50, Number(q.limit) || 20)
   const category = (q.category as string) || undefined
   const search = (q.search as string)?.trim() || undefined
+  const source = (q.source as string) || undefined
+  const onlyInactive = q.inactive === 'true'
 
   const filter: Record<string, unknown> = {}
   if (category) filter.category = category
   if (search) filter.$text = { $search: search }
+  if (source) filter.source = source
+  if (onlyInactive) filter.isActive = false
 
   const [products, total] = await Promise.all([
     Product.find(filter)

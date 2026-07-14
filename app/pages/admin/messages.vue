@@ -51,7 +51,6 @@ const SUBJECT_LABELS: Record<string, string> = {
   general: 'General',
   data: 'Data Correction',
   privacy: 'Privacy / Data',
-  partnership: 'Partnership',
   other: 'Other',
 }
 

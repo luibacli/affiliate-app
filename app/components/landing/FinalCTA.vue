@@ -3,8 +3,8 @@
 
     <!-- Background orbs -->
     <div class="absolute inset-0 pointer-events-none select-none overflow-hidden">
-      <div class="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-primary-600/15 blur-[100px]" />
-      <div class="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-accent-500/12 blur-[90px]" />
+      <div class="absolute top-0 left-1/4 w-[350px] h-[350px] rounded-full bg-primary-600/15 blur-[50px] will-change-transform" />
+      <div class="absolute bottom-0 right-1/4 w-[300px] h-[300px] rounded-full bg-accent-500/12 blur-[40px] will-change-transform" />
     </div>
     <div
       class="absolute inset-0 opacity-[0.2]"
@@ -43,12 +43,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
           </svg>
         </NuxtLink>
-        <NuxtLink
-          to="/contact"
-          class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/[0.07] hover:bg-white/[0.12] active:scale-95 text-white font-bold text-lg rounded-2xl border border-white/[0.15] transition-all duration-150"
-        >
-          Join as Affiliate
-        </NuxtLink>
+     
       </div>
 
       <!-- Micro trust signals -->
