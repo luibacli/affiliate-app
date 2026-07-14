@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, 'id')!
   const body = await readBody(event)
 
-  const VALID_SOURCES = ['Amazon', 'Walmart', 'eBay']
+  const VALID_SOURCES = ['Amazon', 'Walmart', 'eBay', 'AliExpress']
   const VALID_CURRENCIES = ['USD', 'PHP', 'SGD', 'MYR', 'IDR', 'THB']
   if (body.source && !VALID_SOURCES.includes(body.source))
     throw createError({ statusCode: 400, message: `source must be one of: ${VALID_SOURCES.join(', ')}` })

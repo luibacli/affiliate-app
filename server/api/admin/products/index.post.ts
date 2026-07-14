@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
   if (!body.title || !body.price || !body.affiliateUrl) {
     throw createError({ statusCode: 400, message: 'title, price, and affiliateUrl are required' })
   }
-  const VALID_SOURCES = ['Amazon', 'Walmart', 'eBay']
+  const VALID_SOURCES = ['Amazon', 'Walmart', 'eBay', 'AliExpress']
   const VALID_CURRENCIES = ['USD', 'PHP', 'SGD', 'MYR', 'IDR', 'THB']
   if (body.source && !VALID_SOURCES.includes(body.source))
     throw createError({ statusCode: 400, message: `source must be one of: ${VALID_SOURCES.join(', ')}` })

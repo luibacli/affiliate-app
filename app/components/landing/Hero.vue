@@ -34,7 +34,7 @@ const trending = ['iPhone 16', 'MacBook Air', 'Gaming Chair', 'AirPods Pro', 'Sm
       <div class="flex justify-center items-center gap-2 flex-wrap pt-14 sm:pt-20 mb-10 sm:mb-12">
         <span class="text-xs text-gray-600 font-medium mr-1 hidden sm:inline">Deals from:</span>
         <span
-          v-for="p in ['Amazon', 'Walmart', 'eBay', 'Target', '+ More']"
+          v-for="p in ['Amazon', 'Walmart', 'eBay', 'AliExpress', 'Target', '+ More']"
           :key="p"
           class="text-xs font-semibold px-3 py-1.5 rounded-full bg-white/[0.06] border border-white/[0.11] text-gray-400 cursor-default"
         >{{ p }}</span>

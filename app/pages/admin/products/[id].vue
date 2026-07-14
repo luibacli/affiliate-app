@@ -8,7 +8,7 @@ const router = useRouter()
 const id = route.params.id as string
 
 const CATEGORIES = ['phones', 'laptops', 'accessories', 'gaming', 'fashion', 'home', 'beauty', 'sports']
-const SOURCES = ['Amazon', 'Walmart', 'eBay']
+const SOURCES = ['Amazon', 'Walmart', 'eBay', 'AliExpress']
 const CURRENCIES = ['USD', 'PHP', 'SGD', 'MYR', 'IDR', 'THB']
 
 const form = reactive({

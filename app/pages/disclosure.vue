@@ -29,6 +29,10 @@
             <strong>eBay Partner Network</strong> — We link to products on eBay and may earn a commission
             on qualifying purchases made through our links.
           </li>
+          <li>
+            <strong>AliExpress Affiliate Program</strong> — We link to products on AliExpress and may earn a
+            commission on qualifying purchases made through our links.
+          </li>
         </ul>
       </div>
 

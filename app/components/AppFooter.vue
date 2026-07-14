@@ -14,7 +14,7 @@
             ><span class="text-accent-400">Rose</span>
           </p>
           <p class="text-xs text-gray-600 leading-relaxed">
-            Compare prices across Amazon, Walmart, eBay & more — all in one
+            Compare prices across Amazon, Walmart, eBay, AliExpress & more — all in one
             place, free forever.
           </p>
         </div>
