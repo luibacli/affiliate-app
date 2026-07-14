@@ -42,8 +42,8 @@ const isLowestPrice30d = computed(() => {
 })
 
 const SOURCE_COLORS: Record<string, string> = {
-  eBay: 'bg-blue-100 text-blue-800',
   Walmart: 'bg-blue-600 text-white',
+  eBay: 'bg-blue-100 text-blue-800',
   Amazon: 'bg-yellow-100 text-yellow-800',
   'Best Buy': 'bg-yellow-400 text-blue-900',
   Target: 'bg-red-100 text-red-700',

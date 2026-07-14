@@ -31,9 +31,8 @@
       <div>
         <h2 class="text-lg font-bold text-gray-900 mb-2">3. Affiliate Links & Third Parties</h2>
         <p>
-          WinRose participates in affiliate programs including the Amazon Associates Program, Shopee Affiliate,
-          and Lazada Affiliate. When you click a product link and make a purchase, we may earn a commission.
-
+          WinRose participates in affiliate programs including the Amazon Associates Program, Walmart Affiliate
+          Program, and eBay Partner Network. When you click a product link and make a purchase, we may earn a commission.
           These third-party platforms have their own privacy policies and data collection practices.
           We encourage you to review their policies:
         </p>

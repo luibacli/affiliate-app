@@ -25,8 +25,7 @@ useSeoMeta({
   title: 'Shop All Deals — WinRose',
   description: 'Browse thousands of products from top e-commerce platforms. Compare prices, find best deals, and save more on every purchase.',
   ogTitle: 'Shop Best Deals — WinRose',
-  ogDescription: 'Browse and compare prices across Amazon, Walmart, Shopee, and more.',
-
+  ogDescription: 'Browse and compare prices across Amazon, Walmart, eBay, and more.',
   ogType: 'website',
   ogImage: `${siteUrl}/og-default.png`,
 })
