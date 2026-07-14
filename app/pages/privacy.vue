@@ -32,7 +32,7 @@
         <h2 class="text-lg font-bold text-gray-900 mb-2">3. Affiliate Links & Third Parties</h2>
         <p>
           WinRose participates in affiliate programs including the Amazon Associates Program, Walmart Affiliate
-          Program, and eBay Partner Network. When you click a product link and make a purchase, we may earn a commission.
+          Program, eBay Partner Network, and the AliExpress Affiliate Program. When you click a product link and make a purchase, we may earn a commission.
           These third-party platforms have their own privacy policies and data collection practices.
           We encourage you to review their policies:
         </p>
@@ -40,6 +40,7 @@
           <li>Amazon Privacy Notice: <span class="text-primary-600">amazon.com/gp/help/customer/display.html?nodeId=GX7NJQ4ZB8MHFRNJ</span></li>
           <li>Walmart Privacy Policy: <span class="text-primary-600">walmart.com/help/article/walmart-privacy-policy/3bb97b8f3f0443279b6a5cb77d5e6244</span></li>
           <li>eBay Privacy Notice: <span class="text-primary-600">ebay.com/help/policies/member-behaviour-policies/ebay-privacy-policy</span></li>
+          <li>AliExpress Privacy Policy: <span class="text-primary-600">aliexpress.com privacy policy (see AliExpress site footer)</span></li>
         </ul>
       </div>
 

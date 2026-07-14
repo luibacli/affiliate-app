@@ -105,6 +105,7 @@ useHead({
             <span class="text-xs font-semibold px-2.5 py-1 bg-blue-100 text-blue-800 rounded-full">eBay</span>
             <span class="text-xs font-semibold px-2.5 py-1 bg-yellow-100 text-yellow-800 rounded-full">Best Buy</span>
             <span class="text-xs font-semibold px-2.5 py-1 bg-blue-600 text-white rounded-full">Walmart</span>
+            <span class="text-xs font-semibold px-2.5 py-1 bg-orange-100 text-orange-700 rounded-full">AliExpress</span>
           </div>
         </div>
       </div>
@@ -132,7 +133,7 @@ useHead({
       <!-- CTA Banner -->
       <div class="bg-gradient-to-r from-primary-600 to-primary-700 rounded-2xl p-6 sm:p-8 text-white text-center mb-12">
         <h2 class="text-xl font-black mb-2">Don't miss a price drop</h2>
-        <p class="text-primary-100 text-sm mb-4">We compare prices across eBay, Best Buy, and Walmart daily. Bookmark this page to always find the lowest deal.</p>
+        <p class="text-primary-100 text-sm mb-4">We compare prices across eBay, Best Buy, Walmart, and AliExpress daily. Bookmark this page to always find the lowest deal.</p>
         <NuxtLink
           to="/shop"
           class="inline-block px-6 py-2.5 bg-white text-primary-700 font-bold text-sm rounded-xl hover:bg-primary-50 transition-colors"

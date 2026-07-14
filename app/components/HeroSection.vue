@@ -28,7 +28,7 @@ const totalDisplay = '10,000+'
       </h1>
 
       <p class="text-sm sm:text-base text-gray-400 mb-7 max-w-xl mx-auto leading-relaxed">
-        Prices from Amazon, Walmart, eBay & more — all in one place, updated daily.
+        Prices from Amazon, Walmart, eBay, AliExpress & more — all in one place, updated daily.
       </p>
 
       <!-- Search -->

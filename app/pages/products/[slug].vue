@@ -47,6 +47,7 @@ const SOURCE_COLORS: Record<string, string> = {
   Amazon: 'bg-yellow-100 text-yellow-800',
   'Best Buy': 'bg-yellow-400 text-blue-900',
   Target: 'bg-red-100 text-red-700',
+  AliExpress: 'bg-orange-100 text-orange-700',
 }
 
 const { siteUrl } = useRuntimeConfig().public

@@ -5,7 +5,7 @@ const steps = [
     icon: '🔍',
     iconBg: 'bg-primary-600/20 border border-primary-500/30',
     title: 'Search or Browse',
-    desc: 'Search thousands of products or browse by category. We aggregate deals from Amazon, Walmart, eBay, and more.',
+    desc: 'Search thousands of products or browse by category. We aggregate deals from Amazon, Walmart, eBay, AliExpress, and more.',
   },
   {
     step: '02',

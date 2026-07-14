@@ -17,9 +17,9 @@ const pagesBySlug = Object.fromEntries(SEO_PAGES.map(p => [p.slug, p]))
 
 useSeoMeta({
   title: 'Best Product Collections — Price Comparison Guides | WinRose',
-  description: 'Browse curated buying guides and price comparisons across eBay, Best Buy, and Walmart. Find the best deal on gaming gear, laptops, phones, and more.',
+  description: 'Browse curated buying guides and price comparisons across eBay, Best Buy, Walmart, and AliExpress. Find the best deal on gaming gear, laptops, phones, and more.',
   ogTitle: 'Best Product Collections | WinRose',
-  ogDescription: 'Curated buying guides comparing prices across eBay, Best Buy, and Walmart. Updated daily.',
+  ogDescription: 'Curated buying guides comparing prices across eBay, Best Buy, Walmart, and AliExpress. Updated daily.',
   ogType: 'website',
 })
 
@@ -35,7 +35,7 @@ useHead({
     <div class="mb-10 text-center max-w-2xl mx-auto">
       <h1 class="text-3xl sm:text-4xl font-black text-gray-900 mb-3">Product Collections</h1>
       <p class="text-gray-500 text-sm leading-relaxed">
-        Curated buying guides with prices compared daily across eBay, Best Buy, and Walmart.
+        Curated buying guides with prices compared daily across eBay, Best Buy, Walmart, and AliExpress.
         Find the best deal on any product, updated automatically.
       </p>
     </div>

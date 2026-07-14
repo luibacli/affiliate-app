@@ -24,7 +24,7 @@ const { query, minPrice, maxPrice, source, sort, page, results, pending, goToPag
 
 const display = computed(() => results.value ?? ssrData.value)
 
-const SOURCES = ['Amazon', 'Walmart', 'eBay']
+const SOURCES = ['Amazon', 'Walmart', 'eBay', 'AliExpress']
 const SORTS = [
   { label: 'Relevance', value: 'relevance' },
   { label: 'Price ↑', value: 'price_asc' },

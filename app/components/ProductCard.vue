@@ -70,6 +70,7 @@ const SOURCE_COLORS: Record<string, string> = {
   Walmart: 'bg-blue-100 text-blue-700',
   eBay: 'bg-red-100 text-red-700',
   Amazon: 'bg-yellow-100 text-yellow-800',
+  AliExpress: 'bg-orange-100 text-orange-700',
 }
 </script>
 

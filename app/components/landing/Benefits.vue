@@ -49,7 +49,7 @@ const benefits = [
     icon: '🌐',
     iconBg: 'bg-green-50',
     title: 'All Platforms in One',
-    desc: 'Amazon, Walmart, eBay — all aggregated and searchable together.',
+    desc: 'Amazon, Walmart, eBay, AliExpress — all aggregated and searchable together.',
   },
   {
     icon: '🆓',
