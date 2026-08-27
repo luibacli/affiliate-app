@@ -49,7 +49,7 @@ export default defineEventHandler(async (event) => {
       .sort(sort as any)
       .skip(skip)
       .limit(limit)
-      .select('title price originalPrice rating slug imageUrl source category currency lastPriceDrop lowestPrice30d')
+      .select('title price originalPrice rating slug imageUrl source category currency lastPriceDrop lowestPrice30d priceMayVary')
       .lean(),
     Product.countDocuments(filter),
   ])

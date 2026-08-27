@@ -18,6 +18,15 @@ const productSchema = new mongoose.Schema(
     ebayItemId: { type: String, sparse: true, index: true },
     bestBuySkuId: { type: String, sparse: true, index: true },
     walmartItemId: { type: String, sparse: true, index: true },
+    aliexpressProductId: { type: String, unique: true, sparse: true, index: true },
+    sales180Day: { type: Number, default: 0 },
+    positiveFeedback: { type: Number, default: null },
+    discountPercent: { type: Number, default: 0 },
+    priceMayVary: { type: Boolean, default: false },
+    couponCode: { type: String, default: null },
+    couponValue: { type: Number, default: null },
+    couponMinSpend: { type: Number, default: null },
+    couponExpiresAt: { type: Date, default: null },
     lastPriceDrop: { type: Date, default: null },
     isFeatured: { type: Boolean, default: false, index: true },
     isTrending: { type: Boolean, default: false, index: true },
@@ -30,7 +39,24 @@ const productSchema = new mongoose.Schema(
 )
 
 productSchema.index({ title: 'text', description: 'text' })
-productSchema.index({ category: 1, price: 1 })
+productSchema.index({ sales180Day: -1 })
+
+/*
+ * Listing indexes.
+ *
+ * Every public listing filters on isActive and then sorts. Without a matching
+ * compound index Mongo does a COLLSCAN plus an in-memory SORT on each of
+ * these — the single biggest cost on a cold homepage or /shop request.
+ *
+ * isActive leads each key so the filter is an index prefix; the sort field
+ * follows so the sort is satisfied by the index walk rather than a SORT stage.
+ */
+productSchema.index({ isActive: 1, createdAt: -1 })            // default + ?sort=newest
+productSchema.index({ isActive: 1, price: 1 })                 // ?sort=price_asc, budget picks
+productSchema.index({ isActive: 1, price: -1 })                // ?sort=price_desc
+productSchema.index({ isActive: 1, rating: -1 })               // top rated
+productSchema.index({ isActive: 1, category: 1, createdAt: -1 }) // category listings
+productSchema.index({ isActive: 1, category: 1, price: 1 })      // category + price sort
 
 export type IProduct = InferSchemaType<typeof productSchema>
 

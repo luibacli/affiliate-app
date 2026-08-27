@@ -1,6 +1,6 @@
 import { requireAdmin } from '../../../utils/adminAuth'
 import { connectDB } from '../../../utils/db'
-import { cacheDel } from '../../../utils/redis'
+import { cacheDel, cacheDelPrefix } from '../../../utils/redis'
 import { Product } from '../../../models/product'
 import { PriceHistory } from '../../../models/priceHistory'
 import { slugify } from '../../../utils/slugify'
@@ -52,6 +52,9 @@ export default defineEventHandler(async (event) => {
   }
 
   await cacheDel('recommendations:all', 'categories:all')
+  // Product listings are keyed by page/filter/sort, so drop the whole
+  // namespace rather than guessing which permutations went stale.
+  await cacheDelPrefix('products:')
 
   return { created, skipped, errors }
 })
