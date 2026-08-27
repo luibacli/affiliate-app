@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 268 64" role="img" aria-label="WinRose">
+  <title>WinRose</title>
+  <defs>
+    <linearGradient id="wr-lockup-tile" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fb923c"/>
+      <stop offset="1" stop-color="#ea580c"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#wr-lockup-tile)"/>
+  <path d="M13 21 L22 45 L32 30 L42 45 L51 16" fill="none" stroke="#fff"
+        stroke-width="8.5" stroke-linejoin="miter" stroke-miterlimit="6"/>
+  <text x="82" y="46" font-family="Inter, system-ui, -apple-system, Segoe UI, sans-serif"
+        font-size="42" font-weight="900" letter-spacing="-1.6">
+    <tspan fill="#ffffff">Win</tspan><tspan fill="#fb923c">Rose</tspan>
+  </text>
+</svg>

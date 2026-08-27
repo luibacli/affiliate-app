@@ -27,10 +27,9 @@ async function submit() {
 
       <!-- Brand -->
       <div class="text-center mb-8">
-        <p class="text-2xl font-black tracking-tight">
-          <span class="text-white">Win</span><span class="text-orange-400">Rose</span>
+        <AppLogo :to="null" size="lg">
           <span class="text-gray-500 font-normal text-base ml-2">Admin</span>
-        </p>
+        </AppLogo>
         <p class="text-gray-500 text-sm mt-1">Create your admin account</p>
       </div>
 
