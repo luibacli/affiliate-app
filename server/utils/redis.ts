@@ -30,6 +30,19 @@ export async function cacheDel(...keys: string[]) {
   try { await getRedis().del(...keys) } catch {}
 }
 
+/** Invalidate every key matching a prefix (e.g. 'products:'). */
+export async function cacheDelPrefix(prefix: string) {
+  try {
+    const redis = getRedis()
+    let cursor = '0'
+    do {
+      const [next, found] = await redis.scan(cursor, 'MATCH', `${prefix}*`, 'COUNT', 200)
+      cursor = next
+      if (found.length) await redis.del(...found)
+    } while (cursor !== '0')
+  } catch {}
+}
+
 export async function cacheIncr(key: string, ttlSeconds: number): Promise<number> {
   try {
     const redis = getRedis()

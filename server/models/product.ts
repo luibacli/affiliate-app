@@ -18,6 +18,15 @@ const productSchema = new mongoose.Schema(
     ebayItemId: { type: String, sparse: true, index: true },
     bestBuySkuId: { type: String, sparse: true, index: true },
     walmartItemId: { type: String, sparse: true, index: true },
+    aliexpressProductId: { type: String, unique: true, sparse: true, index: true },
+    sales180Day: { type: Number, default: 0 },
+    positiveFeedback: { type: Number, default: null },
+    discountPercent: { type: Number, default: 0 },
+    priceMayVary: { type: Boolean, default: false },
+    couponCode: { type: String, default: null },
+    couponValue: { type: Number, default: null },
+    couponMinSpend: { type: Number, default: null },
+    couponExpiresAt: { type: Date, default: null },
     lastPriceDrop: { type: Date, default: null },
     isFeatured: { type: Boolean, default: false, index: true },
     isTrending: { type: Boolean, default: false, index: true },
@@ -31,6 +40,7 @@ const productSchema = new mongoose.Schema(
 
 productSchema.index({ title: 'text', description: 'text' })
 productSchema.index({ category: 1, price: 1 })
+productSchema.index({ sales180Day: -1 })
 
 export type IProduct = InferSchemaType<typeof productSchema>
 

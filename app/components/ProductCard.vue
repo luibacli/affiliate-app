@@ -18,6 +18,7 @@ const props = defineProps<{
     category?: string
     lastPriceDrop?: string | Date | null
     lowestPrice30d?: number | null
+    priceMayVary?: boolean
   }
   trafficSource?: string
   label?: string
@@ -182,6 +183,11 @@ const SOURCE_COLORS: Record<string, string> = {
         <!-- Lowest price badge -->
         <div v-if="isLowestPrice" class="text-xs font-bold text-emerald-600 flex items-center gap-1">
           🏷️ Lowest in 30 days
+        </div>
+        <!-- Deep discounts are often new-buyer-only prices; set expectations
+             before the click so the landing page doesn't feel like a bait. -->
+        <div v-if="product.priceMayVary" class="text-[11px] text-gray-400">
+          Price may vary at checkout
         </div>
       </div>
 

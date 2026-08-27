@@ -15,6 +15,7 @@ const NAV = [
   { label: 'eBay Import',    to: '/admin/ebay',             icon: '🏷️', superOnly: false },
   { label: 'Best Buy Import',to: '/admin/bestbuy',          icon: '🛍️', superOnly: false },
   { label: 'Walmart Import', to: '/admin/walmart',          icon: '🏪', superOnly: false },
+  { label: 'AliExpress Import', to: '/admin/aliexpress',    icon: '📥', superOnly: false },
   { label: 'Messages',       to: '/admin/messages',         icon: '✉️', superOnly: true  },
   { label: 'User Management',to: '/admin/users',            icon: '👥', superOnly: true  },
 ]
