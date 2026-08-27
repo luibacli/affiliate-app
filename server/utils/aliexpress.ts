@@ -1,5 +1,22 @@
-import * as XLSX from 'xlsx'
+// The full dist build, not the 'xlsx' entry point.
+//
+// SheetJS pulls in its `codepage` module through a guarded require() that
+// Rollup cannot resolve, so in the Nitro bundle `cptable` is undefined and
+// reading a .xls dies in __utf16le ("Cannot read properties of undefined").
+// It only shows up once bundled — a plain require() from node_modules
+// resolves codepage fine, so local dev and tests all pass.
+//
+// xlsx@0.18.5 is npm's last SheetJS release and predates set_cptable(), so
+// the documented fix isn't available. This build has codepage compiled in.
+// Only .xls (CFB/BIFF) needs it; .xlsx would have worked either way.
+// @ts-expect-error - the dist bundle ships no type declarations
+import XLSXDist from 'xlsx/dist/xlsx.full.min.js'
 import { slugify } from './slugify'
+
+// The dist build is UMD: depending on who does the CJS interop (Vite in dev,
+// Rollup in the Nitro build) the exports land either on the module namespace
+// or under .default. Normalize once so both paths behave the same.
+const XLSX: any = (XLSXDist as any)?.read ? XLSXDist : (XLSXDist as any)?.default
 
 /**
  * Parses AliExpress Portals bulk product exports (.xls / .xlsx) into
