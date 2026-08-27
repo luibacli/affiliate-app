@@ -1,5 +1,4 @@
-import mongoose from 'mongoose'
-import { connectDB } from '../utils/db'
+import { connectDB, isDBReady } from '../utils/db'
 import { getRedis } from '../utils/redis'
 
 export default defineEventHandler(async (event) => {
@@ -7,8 +6,10 @@ export default defineEventHandler(async (event) => {
   let redis = 'ok'
 
   try {
-    if (mongoose.connection.readyState < 1) await connectDB()
-    if (mongoose.connection.readyState < 1) db = 'error'
+    // isDBReady() means readyState === 1. The old check accepted readyState 2
+    // ("connecting") as healthy, so a cluster mid-handshake reported ok.
+    if (!isDBReady()) await connectDB()
+    if (!isDBReady()) db = 'error'
   } catch {
     db = 'error'
   }

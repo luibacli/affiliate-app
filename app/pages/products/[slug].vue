@@ -216,6 +216,12 @@ useHead({
             <div v-if="isLowestPrice30d" class="inline-flex items-center gap-1.5 mt-2 text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-full">
               🏷️ Lowest price in 30 days!
             </div>
+            <!-- Deep discounts are often new-buyer-only prices; say so before
+                 the click rather than letting the landing page surprise them. -->
+            <p v-if="product.priceMayVary" class="text-xs text-gray-500 mt-2">
+              This is a promotional price and may vary at checkout depending on your account,
+              region, and available coupons.
+            </p>
           </div>
 
           <!-- Main CTA -->

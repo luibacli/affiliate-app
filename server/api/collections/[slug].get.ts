@@ -55,7 +55,7 @@ export default defineEventHandler(async (event) => {
     products = await Product.find(filter)
       .sort(sort)
       .limit(10)
-      .select('title price originalPrice slug imageUrl source rating lowestPrice30d lastPriceDrop')
+      .select('title price originalPrice slug imageUrl source rating lowestPrice30d lastPriceDrop priceMayVary')
       .lean()
   }
 

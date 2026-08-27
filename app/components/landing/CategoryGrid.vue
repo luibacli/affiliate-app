@@ -1,7 +1,15 @@
 <script setup lang="ts">
-const { data: apiCategories } = await useAsyncData('landing-category-grid', () =>
-  $fetch<{ _id: string; count?: number; label?: string; icon?: string }[]>('/api/categories').catch(() => [])
-)
+type ApiCategory = { _id: string; count?: number; label?: string; icon?: string }
+
+/*
+ * Categories come from the parent page rather than a fetch here. A blocking
+ * fetch in this component runs during child render — i.e. only after the page's
+ * own fetch has resolved — which serialises two round trips into the server
+ * render of every homepage request.
+ */
+const props = defineProps<{ categories?: ApiCategory[] | null }>()
+
+const apiCategories = computed(() => props.categories ?? [])
 
 const GRADIENT_MAP: Record<string, string> = {
   phones: 'bg-gradient-to-br from-blue-50 to-indigo-100 border-blue-100 hover:border-blue-200',

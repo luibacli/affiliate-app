@@ -26,6 +26,12 @@ PROJECT_GUIDE.md
 .env.*
 !.env.example
 
+# Affiliate exports (client's tracked links — imported via /admin/aliexpress,
+# not source code). Keep the folder locally, out of the repo.
+# Leading slash anchors this to the repo root: a bare `products/` would also
+# swallow app/pages/products/ and server/api/products/.
+/products/
+
 
 .vercel
 .vercel/output

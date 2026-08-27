@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
     slug: { $exists: true, $ne: null },
     ...ACTIVE,
   })
-    .select('title price originalPrice slug imageUrl source')
+    .select('title price originalPrice slug imageUrl source priceMayVary')
     .sort({ createdAt: -1 })
     .limit(6)
     .lean()

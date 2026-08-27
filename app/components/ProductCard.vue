@@ -18,9 +18,16 @@ const props = defineProps<{
     category?: string
     lastPriceDrop?: string | Date | null
     lowestPrice30d?: number | null
+    priceMayVary?: boolean
   }
   trafficSource?: string
   label?: string
+  /**
+   * Set on the cards in the first visible row. Those images are the page's LCP
+   * candidate; lazy-loading them defers the largest paint until after layout,
+   * which is the single most visible "slow" moment on a first visit.
+   */
+  priority?: boolean
 }>()
 
 const currency = computed(() => props.product.currency ?? 'USD')
@@ -112,7 +119,8 @@ const SOURCE_COLORS: Record<string, string> = {
           :alt="product.title"
           width="300"
           height="225"
-          loading="lazy"
+          :loading="priority ? 'eager' : 'lazy'"
+          :fetchpriority="priority ? 'high' : 'auto'"
           decoding="async"
           class="absolute inset-0 w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-200"
           @error="imgFailed = true"
@@ -182,6 +190,11 @@ const SOURCE_COLORS: Record<string, string> = {
         <!-- Lowest price badge -->
         <div v-if="isLowestPrice" class="text-xs font-bold text-emerald-600 flex items-center gap-1">
           🏷️ Lowest in 30 days
+        </div>
+        <!-- Deep discounts are often new-buyer-only prices; set expectations
+             before the click so the landing page doesn't feel like a bait. -->
+        <div v-if="product.priceMayVary" class="text-[11px] text-gray-400">
+          Price may vary at checkout
         </div>
       </div>
 
