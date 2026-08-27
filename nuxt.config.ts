@@ -9,6 +9,11 @@ export default defineNuxtConfig({
         { name: 'viewport', content: 'width=device-width, initial-scale=1, viewport-fit=cover' },
       ],
       link: [
+        // SVG first — modern browsers prefer it and it stays crisp at any DPI.
+        // Nuxt injects the /favicon.ico link itself (16/32/48), so it is not
+        // repeated here; that file is the fallback for everything older.
+        { rel: 'icon', type: 'image/svg+xml', href: '/icon.svg' },
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' },
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
         {

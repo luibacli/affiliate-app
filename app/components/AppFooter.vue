@@ -9,10 +9,7 @@
       >
         <!-- Brand -->
         <div class="max-w-xs">
-          <p class="font-black text-xl tracking-tight leading-none mb-2">
-            <span class="text-white">Win</span
-            ><span class="text-accent-400">Rose</span>
-          </p>
+          <AppLogo to="/" class="mb-2" />
           <p class="text-xs text-gray-600 leading-relaxed">
             Compare prices across Amazon, Walmart, eBay, AliExpress & more — all in one
             place, free forever.

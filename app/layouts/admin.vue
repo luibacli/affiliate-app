@@ -57,9 +57,9 @@ onMounted(async () => {
 
     <!-- Mobile top bar -->
     <div class="lg:hidden flex items-center justify-between bg-gray-900 px-4 py-3 sticky top-0 z-30">
-      <p class="font-black text-base">
-        <span class="text-primary-400">WinRose</span><span class="text-accent-400"> Admin</span>
-      </p>
+      <AppLogo to="/admin/dashboard" size="sm">
+        <span class="text-gray-400"> Admin</span>
+      </AppLogo>
       <button class="text-gray-300 hover:text-white p-1" @click="sidebarOpen = !sidebarOpen" aria-label="Toggle menu">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path v-if="!sidebarOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
@@ -83,10 +83,8 @@ onMounted(async () => {
       >
         <!-- Brand (desktop only — mobile has its own bar) -->
         <div class="hidden lg:block px-5 py-5 border-b border-gray-700">
-          <p class="text-xs text-gray-400 uppercase tracking-widest mb-0.5">Admin Panel</p>
-          <p class="font-black text-lg">
-            <span class="text-primary-400">WinRose</span><span class="text-accent-400"> Marketplace</span>
-          </p>
+          <p class="text-xs text-gray-400 uppercase tracking-widest mb-1.5">Admin Panel</p>
+          <AppLogo to="/admin/dashboard" size="sm" />
         </div>
 
         <!-- Auth error banner -->

@@ -20,9 +20,7 @@ const isActive = (path: string) => {
     <div class="max-w-7xl mx-auto px-4 h-14 flex items-center gap-2 sm:gap-4">
 
       <!-- Logo -->
-      <NuxtLink to="/" class="flex items-center flex-shrink-0 group">
-        <span class="text-lg sm:text-xl font-black text-white tracking-tight leading-none">Win</span><span class="text-lg sm:text-xl font-black text-accent-400 tracking-tight leading-none">Rose</span>
-      </NuxtLink>
+      <AppLogo to="/" />
 
       <!-- Search bar (hidden on homepage — hero has it) -->
       <div v-if="!isHome" class="flex-1 min-w-0 max-w-xl">
