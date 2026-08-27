@@ -22,6 +22,12 @@ const props = defineProps<{
   }
   trafficSource?: string
   label?: string
+  /**
+   * Set on the cards in the first visible row. Those images are the page's LCP
+   * candidate; lazy-loading them defers the largest paint until after layout,
+   * which is the single most visible "slow" moment on a first visit.
+   */
+  priority?: boolean
 }>()
 
 const currency = computed(() => props.product.currency ?? 'USD')
@@ -113,7 +119,8 @@ const SOURCE_COLORS: Record<string, string> = {
           :alt="product.title"
           width="300"
           height="225"
-          loading="lazy"
+          :loading="priority ? 'eager' : 'lazy'"
+          :fetchpriority="priority ? 'high' : 'auto'"
           decoding="async"
           class="absolute inset-0 w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-200"
           @error="imgFailed = true"

@@ -7,8 +7,6 @@ const props = defineProps<{
   budgetPicks: any[]
 }>()
 
-const activeTab = ref('trending')
-
 const tabs = [
   { key: 'trending', label: '🔥 Trending', icon: '🔥' },
   { key: 'newest', label: '🆕 New Arrivals', icon: '🆕' },
@@ -17,16 +15,37 @@ const tabs = [
   { key: 'budget', label: '💸 Budget', icon: '💸' },
 ]
 
-const currentProducts = computed(() => {
-  switch (activeTab.value) {
-    case 'trending': return props.trending.slice(0, 8)
-    case 'newest': return props.newest.slice(0, 8)
-    case 'best': return props.bestValue.slice(0, 8)
-    case 'rated': return props.topRated.slice(0, 8)
-    case 'budget': return props.budgetPicks.slice(0, 8)
-    default: return props.trending.slice(0, 8)
+const setFor = (key: string) => {
+  switch (key) {
+    case 'trending': return props.trending
+    case 'newest': return props.newest
+    case 'best': return props.bestValue
+    case 'rated': return props.topRated
+    case 'budget': return props.budgetPicks
+    default: return []
   }
+}
+
+// Only offer a tab once it has something behind it, so clicking never lands the
+// visitor on an empty grid.
+const availableTabs = computed(() => {
+  const filled = tabs.filter(t => setFor(t.key).length > 0)
+  return filled.length ? filled : tabs.slice(0, 1)
 })
+
+const selected = ref<string | null>(null)
+
+/*
+ * Trending is the preferred default, but if it is empty the section would
+ * render as skeletons while a populated tab sat one click away. Fall through to
+ * the first tab that actually has products until the visitor picks one.
+ */
+const activeTab = computed({
+  get: () => selected.value ?? availableTabs.value[0]?.key ?? 'trending',
+  set: (v: string) => { selected.value = v },
+})
+
+const currentProducts = computed(() => setFor(activeTab.value).slice(0, 8))
 
 const currentLabel = computed(() => {
   const map: Record<string, string> = {
@@ -71,7 +90,7 @@ const trafficSource = computed(() => `landing-${activeTab.value}`)
       <!-- Tab switcher -->
       <div class="flex gap-2 overflow-x-auto scrollbar-hide pb-1 mb-8">
         <button
-          v-for="tab in tabs"
+          v-for="tab in availableTabs"
           :key="tab.key"
           :class="activeTab === tab.key
             ? 'bg-gray-900 text-white shadow-sm'
@@ -89,11 +108,12 @@ const trafficSource = computed(() => `landing-${activeTab.value}`)
         class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4"
       >
         <ProductCard
-          v-for="product in currentProducts"
+          v-for="(product, i) in currentProducts"
           :key="product._id"
           :product="product"
           :label="currentLabel"
           :traffic-source="trafficSource"
+          :priority="i < 4"
         />
       </div>
 
